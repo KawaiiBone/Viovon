@@ -9,16 +9,31 @@
 #include "ResourceManager.h"
 
 dae::TextureComponent::TextureComponent(const std::string& filename):
-		m_FileName{filename}
+		m_FileName{filename}, m_IsCostumForm{false}
 
 {
 	m_Texture = ResourceManager::GetInstance().LoadTexture(m_FileName);
 }
+
+dae::TextureComponent::TextureComponent(const std::string& filename, float width, float height):
+	m_FileName{ filename }, m_IsCostumForm{ true }, m_Width(width), m_Height(height)
+{
+	
+}
+
 void dae::TextureComponent::Render(float x, float y) const
 {
 	if (m_Texture != nullptr)
 	{
 		Renderer::GetInstance().RenderTexture(*m_Texture, x, y);
+	/*	if (m_IsCostumForm)
+		{
+			Renderer::GetInstance().RenderTexture(*m_Texture, x, y,m_Width,m_Height);
+		}
+		else
+			Renderer::GetInstance().RenderTexture(*m_Texture, x, y);
+		{
+		}*/
 	}
 }
 

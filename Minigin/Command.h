@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "Windows.h"
 #include <iostream>
+#include "GameObject.h"
+#include "QuitComponent.h"
 namespace dae
 {
 	typedef unsigned int        UINT;
@@ -9,7 +11,7 @@ namespace dae
 	public:
 	
 		virtual ~Command() = default;
-		virtual void Execute(bool& run/*will change parameter when put in to engine*/) = 0;
+		virtual void Execute(std::shared_ptr<dae::GameObject> object) = 0;
 		UINT GetButton() { return m_Button; };
 		void SetButton(UINT button) { m_Button = button; };
 	private:
@@ -22,9 +24,9 @@ namespace dae
 	{
 	public:
 		Jump(UINT button) { Command::SetButton(button); };
-		void Execute(bool& run/*will change parameter when put in to engine*/) override
+		void Execute(std::shared_ptr<dae::GameObject> object) override
 		{
-			std::cout << run << " jump!\n";
+			std::cout << object->IsDead() << " jump!\n";
 			
 		}
 	};
@@ -35,9 +37,9 @@ namespace dae
 	public:
 		Fire(UINT button) { Command::SetButton(button); };
 		~Fire() = default;
-		void Execute(bool& run/*will change parameter when put in to engine*/) override
+		void Execute(std::shared_ptr<dae::GameObject> object) override
 		{
-			std::cout << run << "fire!\n";
+			std::cout << object->IsDead() << "fire!\n";
 		
 		}
 	};
@@ -46,10 +48,9 @@ namespace dae
 	{
 	public:
 		Quit(UINT button) { Command::SetButton(button); };
-		void Execute(bool& run/*will change parameter when put in to engine*/) override
+		void Execute(std::shared_ptr<dae::GameObject> object) override
 		{
-			run = false;
-			std::cout << run << "i quit!\n";
+			object->GetComponent<QuitComponent>()->Quit();
 		}
 	};
 
@@ -57,9 +58,21 @@ namespace dae
 	{
 	public:
 		Crouch(UINT button) { Command::SetButton(button); };
-		void Execute(bool& run/*will change parameter when put in to engine*/) override
+		void Execute(std::shared_ptr<dae::GameObject> object) override
 		{
-			std::cout << run << "Crouch!\n";
+			std::cout << object->IsDead() << "Crouch!\n";
+		}
+	};
+
+	class Die : public Command
+	{
+	public:
+		Die(UINT button) { Command::SetButton(button); };
+		void Execute(std::shared_ptr<dae::GameObject> object) override
+		{
+			object->Die();
+			//std::cout << object->Die() << " jump!\n";
+
 		}
 	};
 }

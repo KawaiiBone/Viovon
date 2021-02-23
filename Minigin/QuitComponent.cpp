@@ -1,0 +1,28 @@
+﻿#include "MiniginPCH.h"
+#include "QuitComponent.h"
+
+dae::QuitComponent::QuitComponent():
+m_Text("0"),m_ContinueGame(true)
+{
+}
+
+void dae::QuitComponent::Update(float deltaTime)
+{
+	deltaTime;
+	return;
+}
+
+std::string dae::QuitComponent::GetTxt()
+{
+	return m_Text;
+}
+
+void dae::QuitComponent::Quit()
+{
+	m_ContinueGame = false;
+}
+
+bool dae::QuitComponent::ContinueGame() const
+{
+	return m_ContinueGame;
+}

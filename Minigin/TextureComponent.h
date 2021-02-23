@@ -9,6 +9,7 @@ namespace dae
 	{
 	public:
 		TextureComponent(const std::string& filename);
+		TextureComponent(const std::string& filename, float scaleWidth, float height);
 		void Render(float x, float y) const override;
 		void Update(const std::string& string) override;
 
@@ -21,6 +22,11 @@ namespace dae
 
 		std::shared_ptr<Texture2D> m_Texture;
 		std::string m_FileName;
+
+		float m_Width;
+		float m_Height;
+		bool m_IsCostumForm;
+	
 
 	};
 }

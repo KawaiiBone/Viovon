@@ -31,7 +31,7 @@ namespace dae
 		std::vector<std::pair<Command*, bool>> m_pCommandsVec;
 		std::vector<UINT> m_PressedDownButtons;
 		Command* m_pQuitCommand;
-
+		Command* m_pDieCommand;//temporary
 		//	XINPUT_STATE m_CurrentState{};
 	};
 

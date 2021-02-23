@@ -6,10 +6,14 @@
 
 
 dae::InputManager::InputManager(std::vector< std::pair<Command*, bool>> pcommandsVec)
-	: m_ControllerID(1), m_pCommandsVec(pcommandsVec), m_pQuitCommand{new Quit(0)}
+	: m_ControllerID(0),
+	m_pCommandsVec(pcommandsVec),
+	m_pQuitCommand{ new Quit(0) },
+	m_pDieCommand(new Die(0))
+	
 {
 	ZeroMemory(&m_State, sizeof(XINPUT_STATE));
-	
+
 	if (!IsConnected())
 	{
 		std::cout << "controller is not connected!\n";
@@ -17,7 +21,11 @@ dae::InputManager::InputManager(std::vector< std::pair<Command*, bool>> pcommand
 }
 
 dae::InputManager::InputManager()
-	:m_ControllerID(1), m_pQuitCommand{ new Quit(0) }, m_pCommandsVec{}
+	:m_ControllerID(0),
+	m_pQuitCommand{ new Quit(0) },
+	m_pCommandsVec{},
+	m_pDieCommand(new Die(0))
+	
 {
 	ZeroMemory(&m_State, sizeof(XINPUT_STATE));
 
@@ -31,8 +39,10 @@ dae::InputManager::InputManager()
 dae::InputManager::~InputManager()
 {
 	delete m_pQuitCommand;
+	delete m_pDieCommand;
 	m_pQuitCommand = nullptr;
-	
+	m_pDieCommand = nullptr;
+
 	for (auto pBasecommand : m_pCommandsVec)
 	{
 		delete pBasecommand.first;
@@ -47,19 +57,20 @@ dae::Command* dae::InputManager::ProcessInput()
 
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
-		if (e.type == SDL_QUIT) {
+		if (e.type == SDL_QUIT) 
+		{
 			return m_pQuitCommand;
 		}
 		if (e.type == SDL_KEYDOWN) {
-			return m_pQuitCommand;
+			return m_pDieCommand;
 		}
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
 
 		}
 	}
 
-	
-	if(IsConnected())
+
+	if (IsConnected())
 	{
 		for (auto pCommand : m_pCommandsVec)
 		{
@@ -70,13 +81,13 @@ dae::Command* dae::InputManager::ProcessInput()
 		}
 	}
 	else
-	{	
+	{
 		std::cout << "controller is not connected\n!";
 	}
 
 
 
-	
+
 	return nullptr;
 }
 
@@ -89,6 +100,8 @@ void dae::InputManager::AddController()
 {
 	std::cout << "controller added!\n";
 }
+
+
 
 bool dae::InputManager::IsPressed(UINT button) const
 {
@@ -123,7 +136,7 @@ bool dae::InputManager::IsKeyUsed(UINT button, bool keyDown)
 			}
 			return false;
 		}
-	
+
 
 	}
 	else
@@ -150,9 +163,9 @@ bool dae::InputManager::IsKeyUsed(UINT button, bool keyDown)
 			}
 		}
 
-		
+
 	}
-	
+
 }
 
 bool dae::InputManager::IsConnected()
@@ -171,7 +184,7 @@ bool dae::InputManager::IsConnected()
 std::vector<UINT>::iterator dae::InputManager::GetButtonStored(UINT button)
 {
 	std::vector<UINT>::iterator it{ m_PressedDownButtons.begin() };
-	for ( ;it != m_PressedDownButtons.end();++it )
+	for (; it != m_PressedDownButtons.end(); ++it)
 	{
 		if (*it == button)
 		{
@@ -180,5 +193,5 @@ std::vector<UINT>::iterator dae::InputManager::GetButtonStored(UINT button)
 	}
 
 	return it;
-	
+
 }

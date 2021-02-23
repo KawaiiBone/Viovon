@@ -4,7 +4,7 @@
 #include "FPSComponent.h"
 
 dae::GameObject::GameObject(float x, float y, RenderComponent * pRender)
-	:m_pRender{ pRender }, m_VectorpBComponents{  }
+	:m_pRender{ pRender }, m_VectorpBComponents{  }, m_IsDead{false}
 	
 {
 	
@@ -12,13 +12,13 @@ dae::GameObject::GameObject(float x, float y, RenderComponent * pRender)
 }
 
 dae::GameObject::GameObject(float x, float y, std::vector<BaseComponent*> bvComp, RenderComponent* pRender)
-	: m_pRender{ pRender }, m_VectorpBComponents{ bvComp }
+	: m_pRender{ pRender }, m_VectorpBComponents{ bvComp }, m_IsDead{ false }
 {
 	m_Transform.SetPosition(x, y, 0.0f);
 }
 
 dae::GameObject::GameObject(float x, float y, BaseComponent* bvComp, RenderComponent* pRender)
-	: m_pRender{ pRender }, m_VectorpBComponents{ bvComp }
+	: m_pRender{ pRender }, m_VectorpBComponents{ bvComp }, m_IsDead{ false }
 {
 	m_Transform.SetPosition(x, y, 0.0f);
 }
@@ -53,6 +53,28 @@ void dae::GameObject::Render() const
 	m_pRender->Render(m_Transform.GetPosition().x, m_Transform.GetPosition().y);
 }
 
+void dae::GameObject::AddComponent(BaseComponent* myComponent)
+{
+	if (myComponent)
+	{
+		m_VectorpBComponents.push_back({ myComponent });
+	}
+	else
+	{
+		std::cout << "Something went wrong when adding the componenent (probably is a nullptr)\n";
+	}
+}
+
+bool dae::GameObject::IsDead()
+{
+	return m_IsDead;
+}
+
+void dae::GameObject::Die()
+{
+	m_IsDead = true;
+	
+}
 
 
 dae::GameObject::~GameObject()

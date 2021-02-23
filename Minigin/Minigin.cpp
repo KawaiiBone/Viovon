@@ -15,6 +15,7 @@
 #include "TextureComponent.h"
 #include "TextComponent.h"
 #include "FPSComponent.h"
+#include "QuitComponent.h"
 
 
 
@@ -52,22 +53,30 @@ void dae::Minigin::LoadGame() const
 {
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
+
 	auto backgroundObject = std::make_shared<GameObject>(0.f, 0.f, new TextureComponent( "background.jpg" ));
-	scene.Add(backgroundObject);
+	scene.Add(backgroundObject/*, false*/);
 
 	auto logoObject = std::make_shared<GameObject>(216.f, 180.f, new TextureComponent("logo.png"));
-	scene.Add(logoObject);
+	scene.Add(logoObject/*, false*/);
 
 	SDL_Color colorTitle{ 255,255,255 };
 	auto fontTitle = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 	auto daeTitleObject = std::make_shared<GameObject>(80.f,20.f, new TextComponent("Programming 4 Assignment", fontTitle, colorTitle, true));
-	scene.Add(daeTitleObject);
+	scene.Add(daeTitleObject/*, false*/);
 
 
 	SDL_Color colorFps{ 255,0,0 };
 	auto fontFps = ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
 	auto FpsObject = std::make_shared<GameObject>(0.f, 10.f, new FPSComponent(),new TextComponent("FPS", fontFps, colorFps, false));
-	scene.Add(FpsObject);
+	scene.Add(FpsObject/*, false*/);
+
+
+	auto QBertObject = std::make_shared<GameObject>(50.f, 50.f, new TextureComponent("QBert/QbertCharachter.png"));
+	QBertObject->AddComponent(new QuitComponent());
+	scene.Add(QBertObject/*, true*/);
+
+	SceneManager::GetInstance().SetPlayer(QBertObject);
 
 }
 
@@ -98,7 +107,7 @@ void dae::Minigin::Run()
 
 		bool doContinue = true;
 		auto lastTime = high_resolution_clock::now();
-		float lag{ 0.0f };
+		//float lag{ 0.0f };
 		const float msPerUpdate{40.f/1000.f};//change this code under
 		while (doContinue)
 		{
@@ -106,15 +115,20 @@ void dae::Minigin::Run()
 			float deltaTime = duration<float>(currentTime - lastTime).count();
 			
 			lastTime = currentTime;
-			lag += deltaTime;
+			//lag += deltaTime;
+
+			
 			Command* command{ input.ProcessInput() };
 			if (command)
 			{
-				command->Execute(doContinue);
+				command->Execute(sceneManager.GetPlayer());
 			}
 			//doContinue = input.ProcessInput();
-
+			doContinue = sceneManager.GetPlayer()->GetComponent<QuitComponent>()->ContinueGame();
 			
+		
+			
+
 			sceneManager.Update(deltaTime);
 			renderer.Render();
 
