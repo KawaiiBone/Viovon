@@ -1,13 +1,14 @@
 ﻿#include "MiniginPCH.h"
 #include "FPSComponent.h"
 #include <numeric>
+#include "GameObject.h"
 
 dae::FPSComponent::FPSComponent() :
 	m_Text{ "FPS " }, counter{ 0.f }
 {
 }
 
-void dae::FPSComponent::Update(float deltaTime)
+void dae::FPSComponent::Update(float deltaTime, GameObject& object)
 {
 	if (counter >= 1.f)
 	{
@@ -24,6 +25,7 @@ void dae::FPSComponent::Update(float deltaTime)
 		numbersVec.push_back(1 / deltaTime);
 		counter += deltaTime;
 	}
+	object;
 }
 
 std::string dae::FPSComponent::GetTxt()

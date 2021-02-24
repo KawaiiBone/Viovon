@@ -16,6 +16,7 @@
 #include "TextComponent.h"
 #include "FPSComponent.h"
 #include "QuitComponent.h"
+#include "PlayerMovement.h"
 
 
 
@@ -72,8 +73,9 @@ void dae::Minigin::LoadGame() const
 	scene.Add(FpsObject/*, false*/);
 
 
-	auto QBertObject = std::make_shared<GameObject>(50.f, 50.f, new TextureComponent("QBert/QbertCharachter.png"));
+	auto QBertObject = std::make_shared<GameObject>(50.f, 50.f, new TextureComponent("QBert/QbertCharachter.png",0.25f));
 	QBertObject->AddComponent(new QuitComponent());
+	QBertObject->AddComponent(new PlayerMovement());
 	scene.Add(QBertObject/*, true*/);
 
 	SceneManager::GetInstance().SetPlayer(QBertObject);
@@ -117,7 +119,6 @@ void dae::Minigin::Run()
 			lastTime = currentTime;
 			//lag += deltaTime;
 
-			
 			Command* command{ input.ProcessInput() };
 			if (command)
 			{
@@ -125,11 +126,13 @@ void dae::Minigin::Run()
 			}
 			//doContinue = input.ProcessInput();
 			doContinue = sceneManager.GetPlayer()->GetComponent<QuitComponent>()->ContinueGame();
-			
+
+			sceneManager.GetPlayer()->GetComponent<PlayerMovement>()->MoveLeft();
+			sceneManager.Update(deltaTime);
 		
 			
 
-			sceneManager.Update(deltaTime);
+		
 			renderer.Render();
 
 			auto sleepTime = duration_cast<duration<float>>(currentTime + milliseconds(MsPerFrame) - high_resolution_clock::now());
@@ -147,5 +150,7 @@ void dae::Minigin::CreateCommandKeys(InputManager& inputman)
 	inputman.AddCommand({ new Fire(XINPUT_GAMEPAD_A),true });
 	inputman.AddCommand({ new Jump(XINPUT_GAMEPAD_B),false });
 	inputman.AddCommand({ new Quit(XINPUT_GAMEPAD_Y),true });
+	inputman.AddCommand({ new MoveRight(XINPUT_GAMEPAD_DPAD_RIGHT),false });
+	inputman.AddCommand({ new MoveLeft(XINPUT_GAMEPAD_DPAD_LEFT),false });
 	
 }

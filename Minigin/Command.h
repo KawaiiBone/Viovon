@@ -3,6 +3,7 @@
 #include <iostream>
 #include "GameObject.h"
 #include "QuitComponent.h"
+#include "PlayerMovement.h"
 namespace dae
 {
 	typedef unsigned int        UINT;
@@ -73,6 +74,28 @@ namespace dae
 			object->Die();
 			//std::cout << object->Die() << " jump!\n";
 
+		}
+	};
+
+	class MoveLeft : public Command
+	{
+	public:
+		MoveLeft(UINT button) { Command::SetButton(button); };
+		void Execute(std::shared_ptr<dae::GameObject> object) override
+		{
+		
+			
+			object->SetVelocity(-10.f);
+
+		}
+	};
+	class MoveRight : public Command
+	{
+	public:
+		MoveRight(UINT button) { Command::SetButton(button); };
+		void Execute(std::shared_ptr<dae::GameObject> object) override
+		{
+			object->SetVelocity(10.f);
 		}
 	};
 }

@@ -21,10 +21,16 @@ namespace dae
 		void Render() const ;
 		void AddComponent(BaseComponent* myComponent);
 
-	
+		void SetMovementXAxis(float x);
+		
 		bool IsDead();
 		void Die();
-	
+		
+
+
+		void SetVelocity(float vel);
+		float GetVelocity();
+
 		
 		~GameObject();
 		GameObject(const GameObject& other) = delete;
@@ -50,6 +56,7 @@ namespace dae
 
 	private:
 		Transform m_Transform;
+		float m_Velocity;
 		RenderComponent* m_pRender;
 		std::vector<BaseComponent*> m_VectorpBComponents;
 		bool m_IsDead;

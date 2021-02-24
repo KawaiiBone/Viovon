@@ -9,7 +9,7 @@ namespace dae
 	{
 	public:
 		TextureComponent(const std::string& filename);
-		TextureComponent(const std::string& filename, float scaleWidth, float height);
+		TextureComponent(const std::string& filename,float scale);
 		void Render(float x, float y) const override;
 		void Update(const std::string& string) override;
 
@@ -25,7 +25,6 @@ namespace dae
 
 		float m_Width;
 		float m_Height;
-		bool m_IsCostumForm;
 	
 
 	};

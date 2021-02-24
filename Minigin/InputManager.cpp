@@ -43,6 +43,7 @@ dae::InputManager::~InputManager()
 	m_pQuitCommand = nullptr;
 	m_pDieCommand = nullptr;
 
+
 	for (auto pBasecommand : m_pCommandsVec)
 	{
 		delete pBasecommand.first;
@@ -61,12 +62,10 @@ dae::Command* dae::InputManager::ProcessInput()
 		{
 			return m_pQuitCommand;
 		}
-		if (e.type == SDL_KEYDOWN) {
+	/*	if (e.type == SDL_KEYDOWN) {
 			return m_pDieCommand;
-		}
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
-
-		}
+		}*/
+	
 	}
 
 
