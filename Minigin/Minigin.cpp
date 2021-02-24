@@ -16,6 +16,7 @@
 #include "TextComponent.h"
 #include "FPSComponent.h"
 #include "QuitComponent.h"
+#include "PlayerMovement.h"
 
 
 
@@ -72,11 +73,20 @@ void dae::Minigin::LoadGame() const
 	scene.Add(FpsObject/*, false*/);
 
 
-	auto QBertObject = std::make_shared<GameObject>(50.f, 50.f, new TextureComponent("QBert/QbertCharachter.png"));
+	auto QBertObject = std::make_shared<GameObject>(50.f, 50.f, new TextureComponent("QBert/QbertCharachter.png",0.25f));
 	QBertObject->AddComponent(new QuitComponent());
+	QBertObject->AddComponent(new PlayerMovement());
 	scene.Add(QBertObject/*, true*/);
 
-	SceneManager::GetInstance().SetPlayer(QBertObject);
+
+	auto QBertObject2 = std::make_shared<GameObject>(100.f, 200.f, new TextureComponent("QBert/QbertCharachter.png", 0.25f));
+	QBertObject2->AddComponent(new QuitComponent());
+	QBertObject2->AddComponent(new PlayerMovement());
+	scene.Add(QBertObject2/*, true*/);
+
+	//SceneManager::GetInstance().AddPlayer(QBertObject2);
+	SceneManager::GetInstance().AddPlayer(QBertObject);
+	
 
 }
 
@@ -117,19 +127,12 @@ void dae::Minigin::Run()
 			lastTime = currentTime;
 			//lag += deltaTime;
 
-			
-			Command* command{ input.ProcessInput() };
-			if (command)
-			{
-				command->Execute(sceneManager.GetPlayer());
-			}
-			//doContinue = input.ProcessInput();
-			doContinue = sceneManager.GetPlayer()->GetComponent<QuitComponent>()->ContinueGame();
-			
-		
-			
 
+			
+			ProcessInput(doContinue, sceneManager, input);
+		
 			sceneManager.Update(deltaTime);
+		
 			renderer.Render();
 
 			auto sleepTime = duration_cast<duration<float>>(currentTime + milliseconds(MsPerFrame) - high_resolution_clock::now());
@@ -141,11 +144,55 @@ void dae::Minigin::Run()
 	Cleanup();
 }
 
+
+
+
+
+void dae::Minigin::ProcessInput(bool& doContinue, SceneManager& sceneMan, InputManager& inputman)
+{
+	for (auto player: sceneMan.GetPlayers())//bad
+	{
+		Command* command{ inputman.ProcessInput() };// maybe change this
+		if (command)
+		{
+			command->Execute(player);
+		}
+	}
+	
+	for (auto player : sceneMan.GetPlayers())
+	{
+		if (!player->GetComponent<QuitComponent>()->ContinueGame())
+		{
+			doContinue = player->GetComponent<QuitComponent>()->ContinueGame();
+			return;
+		}	
+	}
+	//doContinue = sceneMan.GetPlayer()->GetComponent<QuitComponent>()->ContinueGame();
+}
+
+
+
+
 void dae::Minigin::CreateCommandKeys(InputManager& inputman)
 {
-	inputman.AddCommand({ new Crouch(XINPUT_GAMEPAD_X),false });
-	inputman.AddCommand({ new Fire(XINPUT_GAMEPAD_A),true });
-	inputman.AddCommand({ new Jump(XINPUT_GAMEPAD_B),false });
-	inputman.AddCommand({ new Quit(XINPUT_GAMEPAD_Y),true });
+	//inputman.AddControllerCommand({ new Crouch(XINPUT_GAMEPAD_X),OperateKey::keyStrokeDown });
+	//inputman.AddControllerCommand({ new Fire(XINPUT_GAMEPAD_A),OperateKey::keyStrokeUp });
+	//inputman.AddControllerCommand({ new Jump(XINPUT_GAMEPAD_B),OperateKey::keyStrokeDown });
+	//inputman.AddControllerCommand({ new Quit(XINPUT_GAMEPAD_Y),OperateKey::keyStrokeUp });
+	//inputman.AddControllerCommand({ new MoveRight(XINPUT_GAMEPAD_DPAD_RIGHT),OperateKey::pressedDown });
+	//inputman.AddControllerCommand({ new MoveLeft(XINPUT_GAMEPAD_DPAD_LEFT),OperateKey::pressedDown });
+	//
+	//Command* pCommand;
+	//OperateKey operateKey;
+	//SDL_scancode keyBoardKey;
+	//UINT ControllerKey;
+	inputman.AddCommandAndKey({ new Crouch(),OperateKey::keyStrokeDown,XINPUT_GAMEPAD_X });
+	inputman.AddCommandAndKey({ new Fire(),OperateKey::keyStrokeUp,XINPUT_GAMEPAD_A });
+	inputman.AddCommandAndKey({ new Die(),OperateKey::keyStrokeDown,XINPUT_GAMEPAD_B });
+	inputman.AddCommandAndKey({ new Quit(),OperateKey::keyStrokeUp,XINPUT_GAMEPAD_Y });
+	inputman.AddCommandAndKey({ new MoveRight(),OperateKey::pressedDown,XINPUT_GAMEPAD_DPAD_RIGHT });
+	inputman.AddCommandAndKey({ new MoveLeft(),OperateKey::pressedDown,XINPUT_GAMEPAD_DPAD_LEFT });
+	inputman.AddCommandAndKey({ new MoveUp(),OperateKey::pressedDown,XINPUT_GAMEPAD_DPAD_UP });
+	inputman.AddCommandAndKey({ new MoveDown(),OperateKey::pressedDown,XINPUT_GAMEPAD_DPAD_DOWN });
 	
 }

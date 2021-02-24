@@ -7,7 +7,7 @@ namespace dae
 	{
 	public:
 		FPSComponent();
-		void Update(float deltaTime) override;
+		void Update(float deltaTime, GameObject& object) override;
 		 std::string GetTxt() override;
 	private:
 		std::string m_Text;

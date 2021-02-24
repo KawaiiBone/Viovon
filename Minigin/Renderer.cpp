@@ -104,7 +104,9 @@ void dae::Renderer::DifficultyInterface()
 	ImGui::Begin("Difficulty");
 	if (ImGui::Button("Easy"))
 	{
+		
 		std::cout << "a\n";
+	
 	}
 	else if(ImGui::Button("Medium"))
 	{

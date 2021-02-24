@@ -19,14 +19,18 @@ void dae::SceneManager::Render()
 	}
 }
 
-std::shared_ptr<dae::GameObject> dae::SceneManager::GetPlayer()
+
+
+std::vector<std::shared_ptr<dae::GameObject>> dae::SceneManager::GetPlayers()
 {
-	return m_pPlayer;
+	return m_pPlayers;
 }
 
-void dae::SceneManager::SetPlayer(std::shared_ptr<GameObject> object)
+
+
+void dae::SceneManager::AddPlayer(std::shared_ptr<GameObject> object)
 {
-	m_pPlayer = object;
+	m_pPlayers.push_back(object);
 }
 
 dae::Scene& dae::SceneManager::CreateScene(const std::string& name)

@@ -8,30 +8,49 @@
 
 namespace dae
 {
+	enum class OperateKey;
 	class Command;
+	struct OperateCommand;
+	
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
-		InputManager(std::vector<std::pair<Command*, bool>> pcommandsVec);
+		InputManager(std::vector<std::pair<Command*, OperateKey>> pcommandsVec);
 		InputManager();
 		~InputManager();
 		Command* ProcessInput();
-		void AddCommand(std::pair<Command*, bool> command );
+		void AddControllerCommand(std::pair<Command*, OperateKey> command );
+		
+		void AddCommandAndKey(OperateCommand command);
+		
+		void AddKeyboardCommand(std::pair<Command*, OperateKey> command);
 		void AddController();
 
 	private:
 
+
+
+
+
+		
 		bool IsConnected();
-		bool IsPressed(UINT button) const;
-		bool IsKeyUsed(UINT button, bool keyDown);
+		bool IsPressed(OperateCommand oCommand) const;
+		bool IsKeyUsed(OperateCommand oCommand);
+		bool KeyStrokeUp(OperateCommand oCommand);
+		bool KeyStrokeDown(OperateCommand oCommand);
+
+	
+		
+		
 		std::vector<UINT>::iterator GetButtonStored(UINT button);
 		
 		UINT m_ControllerID;
 		XINPUT_STATE m_State;
-		std::vector<std::pair<Command*, bool>> m_pCommandsVec;
+		std::vector<OperateCommand>m_pCommandsVector;
 		std::vector<UINT> m_PressedDownButtons;
 		Command* m_pQuitCommand;
 		Command* m_pDieCommand;//temporary
+
 		//	XINPUT_STATE m_CurrentState{};
 	};
 

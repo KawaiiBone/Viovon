@@ -117,8 +117,14 @@
     <ClInclude Include="GameObject.h">
       <Filter>Source Files\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerMovement.h">
+      <Filter>Source Files\Components\BaseComponents</Filter>
+    </ClInclude>
     <ClInclude Include="QuitComponent.h">
       <Filter>Source Files\Components\BaseComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="enumsAndStructs.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMovement.cpp">
+      <Filter>Source Files\Components\BaseComponents</Filter>
     </ClCompile>
     <ClCompile Include="QuitComponent.cpp">
       <Filter>Source Files\Components\BaseComponents</Filter>

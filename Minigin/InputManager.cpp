@@ -5,11 +5,11 @@
 #include <SDL.h>
 
 
-dae::InputManager::InputManager(std::vector< std::pair<Command*, bool>> pcommandsVec)
+dae::InputManager::InputManager(std::vector< std::pair<Command*, OperateKey>> pcommandsVec)
 	: m_ControllerID(0),
-	m_pCommandsVec(pcommandsVec),
-	m_pQuitCommand{ new Quit(0) },
-	m_pDieCommand(new Die(0))
+	/*m_pCommandsVec(pcommandsVec),*/
+	m_pQuitCommand{ new Quit() },
+	m_pDieCommand(new Die())
 	
 {
 	ZeroMemory(&m_State, sizeof(XINPUT_STATE));
@@ -22,9 +22,9 @@ dae::InputManager::InputManager(std::vector< std::pair<Command*, bool>> pcommand
 
 dae::InputManager::InputManager()
 	:m_ControllerID(0),
-	m_pQuitCommand{ new Quit(0) },
-	m_pCommandsVec{},
-	m_pDieCommand(new Die(0))
+	m_pQuitCommand{ new Quit() },
+	//m_pCommandsVec{},
+	m_pDieCommand(new Die())
 	
 {
 	ZeroMemory(&m_State, sizeof(XINPUT_STATE));
@@ -43,12 +43,15 @@ dae::InputManager::~InputManager()
 	m_pQuitCommand = nullptr;
 	m_pDieCommand = nullptr;
 
-	for (auto pBasecommand : m_pCommandsVec)
+
+
+
+	for (auto pBasecommand : m_pCommandsVector)
 	{
-		delete pBasecommand.first;
-		pBasecommand.first = nullptr;
+		delete pBasecommand.pCommand;
+		pBasecommand.pCommand = nullptr;
 	}
-	m_pCommandsVec.clear();
+	m_pCommandsVector.clear();
 }
 
 dae::Command* dae::InputManager::ProcessInput()
@@ -56,27 +59,30 @@ dae::Command* dae::InputManager::ProcessInput()
 	// todo: read the input
 
 	SDL_Event e;
+	const Uint8* pStates = SDL_GetKeyboardState(nullptr);
 	while (SDL_PollEvent(&e)) {
 		if (e.type == SDL_QUIT) 
 		{
 			return m_pQuitCommand;
 		}
-		if (e.type == SDL_KEYDOWN) {
+		/*if (e.type == SDL_SCANCODE_A) {
+			return m_pDieCommand;
+		}*/
+		if (pStates[SDL_SCANCODE_A])
+		{
 			return m_pDieCommand;
 		}
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
-
-		}
+	
 	}
 
 
 	if (IsConnected())
 	{
-		for (auto pCommand : m_pCommandsVec)
+		for (auto pCommand : m_pCommandsVector)
 		{
-			if (IsKeyUsed(pCommand.first->GetButton(), pCommand.second))
+			if (IsKeyUsed(pCommand))
 			{
-				return pCommand.first;
+				return pCommand.pCommand;
 			}
 		}
 	}
@@ -91,9 +97,10 @@ dae::Command* dae::InputManager::ProcessInput()
 	return nullptr;
 }
 
-void dae::InputManager::AddCommand(std::pair<Command*, bool> command)
+
+void dae::InputManager::AddCommandAndKey(OperateCommand command)
 {
-	m_pCommandsVec.push_back({ command });
+	m_pCommandsVector.push_back(command);
 }
 
 void dae::InputManager::AddController()
@@ -103,68 +110,84 @@ void dae::InputManager::AddController()
 
 
 
-bool dae::InputManager::IsPressed(UINT button) const
+
+
+
+bool dae::InputManager::IsKeyUsed(OperateCommand oCommand)
 {
-	// todo: return whether the given button is pressed or not.
-	return (m_State.Gamepad.wButtons & button) != 0;
+
+
+	
+	switch (oCommand.operateKey) {
+		case OperateKey::pressedDown:
+			return IsPressed(oCommand);
+		break;
+	case OperateKey::keyStrokeDown:
+		return KeyStrokeDown(oCommand);
+		break;
+	case OperateKey::keyStrokeUp:
+		return KeyStrokeUp(oCommand);
+		break;
+	}
+	return false;
 
 }
-
-
-bool dae::InputManager::IsKeyUsed(UINT button, bool keyDown)
+bool dae::InputManager::IsPressed(OperateCommand oCommand) const
 {
-	auto tmpIt = GetButtonStored(button);
-	if ((m_State.Gamepad.wButtons & button) != 0)
+	
+	return (m_State.Gamepad.wButtons & oCommand.ControllerKey) != 0;
+
+}
+bool dae::InputManager::KeyStrokeUp(OperateCommand oCommand)
+{
+	auto tmpIt = GetButtonStored(oCommand.ControllerKey);
+	if ((m_State.Gamepad.wButtons & oCommand.ControllerKey) != 0)
 	{
-		if (keyDown)
+		if (tmpIt == m_PressedDownButtons.end())
 		{
-			if (tmpIt == m_PressedDownButtons.end())
-			{
-				m_PressedDownButtons.push_back(button);
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			m_PressedDownButtons.push_back(oCommand.ControllerKey);
 		}
-		else
-		{
-			if (tmpIt == m_PressedDownButtons.end())
-			{
-				m_PressedDownButtons.push_back(button);
-			}
+		
 			return false;
-		}
-
-
 	}
 	else
 	{
-
-		if (keyDown)
+		if (tmpIt != m_PressedDownButtons.end())
 		{
-			if (tmpIt != m_PressedDownButtons.end())
-			{
-				m_PressedDownButtons.erase(tmpIt);
-			}
+			m_PressedDownButtons.erase(tmpIt);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+}
+
+bool dae::InputManager::KeyStrokeDown(OperateCommand oCommand)
+{
+	auto tmpIt = GetButtonStored(oCommand.ControllerKey);
+	if ((m_State.Gamepad.wButtons & oCommand.ControllerKey) != 0)
+	{
+		if (tmpIt != m_PressedDownButtons.end())
+		{
 			return false;
 		}
 		else
 		{
-			if (tmpIt != m_PressedDownButtons.end())
-			{
-				m_PressedDownButtons.erase(tmpIt);
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			m_PressedDownButtons.push_back(oCommand.ControllerKey);
+			return true;
 		}
-
-
 	}
+	else
+	{
+		if (tmpIt != m_PressedDownButtons.end())
+		{
+			m_PressedDownButtons.erase(tmpIt);
+		}
+		return false;
+	}
+	
 
 }
 

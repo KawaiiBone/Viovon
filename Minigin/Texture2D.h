@@ -1,4 +1,5 @@
 #pragma once
+#include <SDL_rect.h>
 struct SDL_Texture;
 namespace dae
 {
@@ -15,6 +16,7 @@ namespace dae
 		//float GetTextureHeight();
 		
 		~Texture2D();
+		SDL_Point getsize();
 
 		Texture2D(const Texture2D &) = delete;
 		Texture2D(Texture2D &&) = delete;
