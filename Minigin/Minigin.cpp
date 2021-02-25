@@ -84,7 +84,7 @@ void dae::Minigin::LoadGame() const
 	QBertObject2->AddComponent(new PlayerMovement());
 	scene.Add(QBertObject2/*, true*/);
 
-	//SceneManager::GetInstance().AddPlayer(QBertObject2);
+	SceneManager::GetInstance().AddPlayer(QBertObject2);
 	SceneManager::GetInstance().AddPlayer(QBertObject);
 	
 
@@ -127,12 +127,13 @@ void dae::Minigin::Run()
 			lastTime = currentTime;
 			//lag += deltaTime;
 
+			ProcessInput(doContinue, sceneManager, input);
 
 			
-			ProcessInput(doContinue, sceneManager, input);
 		
+			
+
 			sceneManager.Update(deltaTime);
-		
 			renderer.Render();
 
 			auto sleepTime = duration_cast<duration<float>>(currentTime + milliseconds(MsPerFrame) - high_resolution_clock::now());
@@ -175,24 +176,19 @@ void dae::Minigin::ProcessInput(bool& doContinue, SceneManager& sceneMan, InputM
 
 void dae::Minigin::CreateCommandKeys(InputManager& inputman)
 {
-	//inputman.AddControllerCommand({ new Crouch(XINPUT_GAMEPAD_X),OperateKey::keyStrokeDown });
-	//inputman.AddControllerCommand({ new Fire(XINPUT_GAMEPAD_A),OperateKey::keyStrokeUp });
-	//inputman.AddControllerCommand({ new Jump(XINPUT_GAMEPAD_B),OperateKey::keyStrokeDown });
-	//inputman.AddControllerCommand({ new Quit(XINPUT_GAMEPAD_Y),OperateKey::keyStrokeUp });
-	//inputman.AddControllerCommand({ new MoveRight(XINPUT_GAMEPAD_DPAD_RIGHT),OperateKey::pressedDown });
-	//inputman.AddControllerCommand({ new MoveLeft(XINPUT_GAMEPAD_DPAD_LEFT),OperateKey::pressedDown });
-	//
-	//Command* pCommand;
-	//OperateKey operateKey;
-	//SDL_scancode keyBoardKey;
-	//UINT ControllerKey;
-	inputman.AddCommandAndKey({ new Crouch(),OperateKey::keyStrokeDown,XINPUT_GAMEPAD_X });
-	inputman.AddCommandAndKey({ new Fire(),OperateKey::keyStrokeUp,XINPUT_GAMEPAD_A });
-	inputman.AddCommandAndKey({ new Die(),OperateKey::keyStrokeDown,XINPUT_GAMEPAD_B });
-	inputman.AddCommandAndKey({ new Quit(),OperateKey::keyStrokeUp,XINPUT_GAMEPAD_Y });
-	inputman.AddCommandAndKey({ new MoveRight(),OperateKey::pressedDown,XINPUT_GAMEPAD_DPAD_RIGHT });
-	inputman.AddCommandAndKey({ new MoveLeft(),OperateKey::pressedDown,XINPUT_GAMEPAD_DPAD_LEFT });
-	inputman.AddCommandAndKey({ new MoveUp(),OperateKey::pressedDown,XINPUT_GAMEPAD_DPAD_UP });
-	inputman.AddCommandAndKey({ new MoveDown(),OperateKey::pressedDown,XINPUT_GAMEPAD_DPAD_DOWN });
+	//inputman.AddCommand({ new Crouch(XINPUT_GAMEPAD_X),false });
+	//inputman.AddCommand({ new Fire(XINPUT_GAMEPAD_A),true });
+	//inputman.AddCommand({ new Jump(XINPUT_GAMEPAD_B),false });
+	//inputman.AddCommand({ new Quit(XINPUT_GAMEPAD_Y),true });
+
+
+	inputman.AddCommandAndKey({ new Crouch(), OperateKey::keyStrokeDown, XINPUT_GAMEPAD_X });
+	inputman.AddCommandAndKey({ new Fire(), OperateKey::keyStrokeDown, XINPUT_GAMEPAD_A });
+	inputman.AddCommandAndKey({ new Die(), OperateKey::keyStrokeUp, XINPUT_GAMEPAD_B });
+	inputman.AddCommandAndKey({ new Quit(), OperateKey::keyStrokeUp, XINPUT_GAMEPAD_Y });
+	inputman.AddCommandAndKey({ new MoveLeft(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_LEFT });
+	inputman.AddCommandAndKey({ new MoveRight(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_RIGHT });
+	inputman.AddCommandAndKey({ new MoveUp(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_UP });
+	inputman.AddCommandAndKey({ new MoveDown(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_DOWN });
 	
 }
