@@ -133,7 +133,7 @@ void dae::Minigin::Run()
 		
 			
 
-			sceneManager.Update(deltaTime);
+		
 			renderer.Render();
 
 			auto sleepTime = duration_cast<duration<float>>(currentTime + milliseconds(MsPerFrame) - high_resolution_clock::now());
