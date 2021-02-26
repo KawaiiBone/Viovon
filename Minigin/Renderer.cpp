@@ -5,6 +5,7 @@
 #include "backends/imgui_impl_sdl.h"
 #include "imgui.h"
 #include "SceneManager.h"
+#include "Subject.h"
 #include "Texture2D.h"
 
 
@@ -46,7 +47,6 @@ void dae::Renderer::Render()
 	SDL_RenderClear(m_Renderer);
 
 	SceneManager::GetInstance().Render();
-
 	ImGui_ImplOpenGL2_NewFrame();
 	ImGui_ImplSDL2_NewFrame(m_Window);
 	ImGui::NewFrame();
@@ -100,8 +100,8 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const
 
 void dae::Renderer::DifficultyInterface()
 {
-
 	ImGui::Begin("Difficulty");
+	//ImGui::Text("Easy");
 	if (ImGui::Button("Easy"))
 	{
 		

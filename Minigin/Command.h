@@ -2,8 +2,10 @@
 #include "Windows.h"
 #include <iostream>
 #include "GameObject.h"
-#include "QuitComponent.h"
-#include "PlayerMovement.h"
+
+#include "ComponentsHeaders.h"
+
+
 namespace dae
 {
 
@@ -87,7 +89,7 @@ namespace dae
 		{
 
 
-			object->SetXAxisVelocity(-800.f);// to test
+			object->SetVelocity(Transform{ -800.f,0,0 } );// to test
 
 		}
 	};
@@ -97,7 +99,7 @@ namespace dae
 		MoveRight() { };
 		void Execute(std::shared_ptr<dae::GameObject> object) override
 		{
-			object->SetXAxisVelocity(800.f);// to test
+			object->SetVelocity(Transform{ 800.f,0,0 });// to test
 		}
 	};
 
@@ -109,7 +111,7 @@ namespace dae
 		{
 
 
-			object->SetYAxisVelocity(-800.f);// to test
+			object->SetVelocity(Transform{ 0,-800.f,0 });// to test
 
 		}
 	};
@@ -119,7 +121,64 @@ namespace dae
 		MoveDown() { };
 		void Execute(std::shared_ptr<dae::GameObject> object) override
 		{
-			object->SetYAxisVelocity(800.f);// to test
+			object->SetVelocity(Transform{ 0,800.f,0 });
+			
+		}
+	};
+
+
+	class GainHp : public Command// for testing
+	{
+	public:
+		GainHp() { };
+		void Execute(std::shared_ptr<dae::GameObject> object) override
+		{
+			if (object->GetComponent<HealthComponent>())
+			{
+				object->GetComponent<HealthComponent>()->InfluenceHealth(5, object);
+
+			}
+		}
+	};
+
+	class LoseHp : public Command// for testing
+	{
+	public:
+		LoseHp() { };
+		void Execute(std::shared_ptr<dae::GameObject> object) override
+		{
+			if (object->GetComponent<HealthComponent>())
+			{
+				object->GetComponent<HealthComponent>()->InfluenceHealth(-5, object);
+			}
+		}
+	};
+
+
+
+	class IncreaseScore : public Command//for testing
+	{
+	public:
+		IncreaseScore() { };
+		void Execute(std::shared_ptr<dae::GameObject> object) override
+		{
+			if (object->GetComponent<HealthComponent>())
+			{
+				object->GetComponent<ScoreComponent>()->InfluenceScore(+5, object);
+			}
+		}
+	};
+
+	class DecreaseScore : public Command// for testing
+	{
+	public:
+		DecreaseScore() { };
+		void Execute(std::shared_ptr<dae::GameObject> object) override
+		{
+			if (object->GetComponent<HealthComponent>())
+			{
+				object->GetComponent<ScoreComponent>()->InfluenceScore(-5, object);
+			}
 		}
 	};
 }

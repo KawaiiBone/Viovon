@@ -9,9 +9,12 @@ dae::InputManager::InputManager(std::vector< std::pair<Command*, OperateKey>> pc
 	: m_ControllerID(0),
 	/*m_pCommandsVec(pcommandsVec),*/
 	m_pQuitCommand{ new Quit() },
-	m_pDieCommand(new Die())
-	
+	m_pDieCommand(new Die()),
+	m_PlayedIndex{ 0 }
+
 {
+
+
 	ZeroMemory(&m_State, sizeof(XINPUT_STATE));
 
 	if (!IsConnected())
@@ -24,9 +27,11 @@ dae::InputManager::InputManager()
 	:m_ControllerID(0),
 	m_pQuitCommand{ new Quit() },
 	//m_pCommandsVec{},
-	m_pDieCommand(new Die())
-	
+	m_pDieCommand(new Die()),
+	m_PlayedIndex{ 0 }
+
 {
+
 	ZeroMemory(&m_State, sizeof(XINPUT_STATE));
 
 	if (!IsConnected())
@@ -38,30 +43,18 @@ dae::InputManager::InputManager()
 
 dae::InputManager::~InputManager()
 {
-	delete m_pQuitCommand;
-	delete m_pDieCommand;
-	m_pQuitCommand = nullptr;
-	m_pDieCommand = nullptr;
 
-
-
-
-	for (auto pBasecommand : m_pCommandsVector)
-	{
-		delete pBasecommand.pCommand;
-		pBasecommand.pCommand = nullptr;
-	}
-	m_pCommandsVector.clear();
 }
 
-dae::Command* dae::InputManager::ProcessInput()
+std::shared_ptr<dae::Command> dae::InputManager::ProcessInput(int index)
 {
-	// todo: read the input
+	m_ControllerID = index;
+	m_PlayedIndex = index;
 
 	SDL_Event e;
 	const Uint8* pStates = SDL_GetKeyboardState(nullptr);
 	while (SDL_PollEvent(&e)) {
-		if (e.type == SDL_QUIT) 
+		if (e.type == SDL_QUIT)
 		{
 			return m_pQuitCommand;
 		}
@@ -72,13 +65,13 @@ dae::Command* dae::InputManager::ProcessInput()
 		{
 			return m_pDieCommand;
 		}
-	
+
 	}
 
 
 	if (IsConnected())
 	{
-		for (auto pCommand : m_pCommandsVector)
+		for (auto pCommand : m_pCommandsVector[m_PlayedIndex])
 		{
 			if (IsKeyUsed(pCommand))
 			{
@@ -98,15 +91,15 @@ dae::Command* dae::InputManager::ProcessInput()
 }
 
 
-void dae::InputManager::AddCommandAndKey(OperateCommand command)
+void dae::InputManager::AddCommandAndKey(const OperateCommand& command)
 {
-	m_pCommandsVector.push_back(command);
+	m_pCommandsVector[0].push_back(command);
+	m_pCommandsVector[1].push_back(command);
+	m_pCommandsVector[2].push_back(command);
+	m_pCommandsVector[3].push_back(command);
 }
 
-void dae::InputManager::AddController()
-{
-	std::cout << "controller added!\n";
-}
+
 
 
 
@@ -117,10 +110,10 @@ bool dae::InputManager::IsKeyUsed(OperateCommand oCommand)
 {
 
 
-	
+
 	switch (oCommand.operateKey) {
-		case OperateKey::pressedDown:
-			return IsPressed(oCommand);
+	case OperateKey::pressedDown:
+		return IsPressed(oCommand);
 		break;
 	case OperateKey::keyStrokeDown:
 		return KeyStrokeDown(oCommand);
@@ -134,7 +127,7 @@ bool dae::InputManager::IsKeyUsed(OperateCommand oCommand)
 }
 bool dae::InputManager::IsPressed(OperateCommand oCommand) const
 {
-	
+
 	return (m_State.Gamepad.wButtons & oCommand.ControllerKey) != 0;
 
 }
@@ -143,18 +136,18 @@ bool dae::InputManager::KeyStrokeUp(OperateCommand oCommand)
 	auto tmpIt = GetButtonStored(oCommand.ControllerKey);
 	if ((m_State.Gamepad.wButtons & oCommand.ControllerKey) != 0)
 	{
-		if (tmpIt == m_PressedDownButtons.end())
+		if (tmpIt == m_PressedDownButtonsVec[m_PlayedIndex].end())
 		{
-			m_PressedDownButtons.push_back(oCommand.ControllerKey);
+			m_PressedDownButtonsVec[m_PlayedIndex].push_back(oCommand.ControllerKey);
 		}
-		
-			return false;
+
+		return false;
 	}
 	else
 	{
-		if (tmpIt != m_PressedDownButtons.end())
+		if (tmpIt != m_PressedDownButtonsVec[m_PlayedIndex].end())
 		{
-			m_PressedDownButtons.erase(tmpIt);
+			m_PressedDownButtonsVec[m_PlayedIndex].erase(tmpIt);
 			return true;
 		}
 		else
@@ -169,25 +162,25 @@ bool dae::InputManager::KeyStrokeDown(OperateCommand oCommand)
 	auto tmpIt = GetButtonStored(oCommand.ControllerKey);
 	if ((m_State.Gamepad.wButtons & oCommand.ControllerKey) != 0)
 	{
-		if (tmpIt != m_PressedDownButtons.end())
+		if (tmpIt != m_PressedDownButtonsVec[m_PlayedIndex].end())
 		{
 			return false;
 		}
 		else
 		{
-			m_PressedDownButtons.push_back(oCommand.ControllerKey);
+			m_PressedDownButtonsVec[m_PlayedIndex].push_back(oCommand.ControllerKey);
 			return true;
 		}
 	}
 	else
 	{
-		if (tmpIt != m_PressedDownButtons.end())
+		if (tmpIt != m_PressedDownButtonsVec[m_PlayedIndex].end())
 		{
-			m_PressedDownButtons.erase(tmpIt);
+			m_PressedDownButtonsVec[m_PlayedIndex].erase(tmpIt);
 		}
 		return false;
 	}
-	
+
 
 }
 
@@ -206,8 +199,8 @@ bool dae::InputManager::IsConnected()
 
 std::vector<UINT>::iterator dae::InputManager::GetButtonStored(UINT button)
 {
-	std::vector<UINT>::iterator it{ m_PressedDownButtons.begin() };
-	for (; it != m_PressedDownButtons.end(); ++it)
+	std::vector<UINT>::iterator it{ m_PressedDownButtonsVec[m_PlayedIndex].begin() };
+	for (; it != m_PressedDownButtonsVec[m_PlayedIndex].end(); ++it)
 	{
 		if (*it == button)
 		{

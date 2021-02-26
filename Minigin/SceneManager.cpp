@@ -28,7 +28,7 @@ std::vector<std::shared_ptr<dae::GameObject>> dae::SceneManager::GetPlayers()
 
 
 
-void dae::SceneManager::AddPlayer(std::shared_ptr<GameObject> object)
+void dae::SceneManager::AddPlayer(std::shared_ptr<GameObject>& object)
 {
 	m_pPlayers.push_back(object);
 }

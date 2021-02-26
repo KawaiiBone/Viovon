@@ -1,26 +1,25 @@
 #include "MiniginPCH.h"
 #include "GameObject.h"
-#include "TextureComponent.h"
-#include "FPSComponent.h"
+#include "ComponentsHeaders.h"
+#include  "Observer.h"
 
 dae::GameObject::GameObject(float x, float y, RenderComponent * pRender)
-	:m_pRender{ pRender }, m_VectorpBComponents{  }, m_IsDead{false}, m_VelocityXAxis{0.0f}, m_VelocityYAxis{0.f}
-	
+	:m_pRender{ pRender }, m_VectorpBComponents{  }, m_IsDead{ false }, m_Velocity{0,0,0}
 {
 	
-	m_Transform.SetPosition(x, y, 0.0f);
+	m_Pos.SetPosition(x, y, 0.0f);
 }
 
 dae::GameObject::GameObject(float x, float y, std::vector<BaseComponent*> bvComp, RenderComponent* pRender)
-	: m_pRender{ pRender }, m_VectorpBComponents{ bvComp }, m_IsDead{ false }, m_VelocityXAxis{ 0.0f }, m_VelocityYAxis{ 0.f }
+	: m_pRender{ pRender }, m_VectorpBComponents{ bvComp }, m_IsDead{ false }, m_Velocity{ 0,0,0 }
 {
-	m_Transform.SetPosition(x, y, 0.0f);
+	m_Pos.SetPosition(x, y, 0.0f);
 }
 
 dae::GameObject::GameObject(float x, float y, BaseComponent* bvComp, RenderComponent* pRender)
-	: m_pRender{ pRender }, m_VectorpBComponents{ bvComp }, m_IsDead{ false }, m_VelocityXAxis{ 0.0f }, m_VelocityYAxis{ 0.f }
+	: m_pRender{ pRender }, m_VectorpBComponents{ bvComp }, m_IsDead{ false }
 {
-	m_Transform.SetPosition(x, y, 0.0f);
+	m_Pos.SetPosition(x, y, 0.0f);
 }
 
 
@@ -49,8 +48,8 @@ void dae::GameObject::Update(float deltaTime)
 
 void dae::GameObject::Render() const
 {
-	//update
-	m_pRender->Render(m_Transform.GetPosition().x, m_Transform.GetPosition().y);
+	m_pRender->Render(m_Pos.GetPosition().x, m_Pos.GetPosition().y);
+	m_subject.Render();
 }
 
 void dae::GameObject::AddComponent(BaseComponent* myComponent)
@@ -67,11 +66,11 @@ void dae::GameObject::AddComponent(BaseComponent* myComponent)
 
 void dae::GameObject::SetMovement(float x, float y)
 {
-	m_Transform.SetPosition(m_Transform.GetPosition().x + x, m_Transform.GetPosition().y + y, m_Transform.GetPosition().z);
+	m_Pos.SetPosition(m_Pos.GetPosition().x + x, m_Pos.GetPosition().y + y, m_Pos.GetPosition().z);
 }
 
 
-bool dae::GameObject::IsDead()
+bool dae::GameObject::IsDead() const
 {
 	return m_IsDead;
 }
@@ -82,24 +81,25 @@ void dae::GameObject::Die()
 	
 }
 
-void dae::GameObject::SetXAxisVelocity(float vel)
+void dae::GameObject::SetVelocity(Transform vel)
 {
-	m_VelocityXAxis = vel;
+	m_Velocity = vel;
 }
 
-float dae::GameObject::GetXAxisVelocity()
+
+dae::Transform dae::GameObject::GetVelocity() const
 {
-	return m_VelocityXAxis;
+	return m_Velocity;
 }
 
-void dae::GameObject::SetYAxisVelocity(float vel)
+dae::Subject& dae::GameObject::GetSubject()  
 {
-	m_VelocityYAxis = vel;
+	return m_subject;
 }
 
-float dae::GameObject::GetYAxisVelocity()
+void dae::GameObject::AddObeserver(Observer* pObs)
 {
-	return m_VelocityYAxis;
+	m_subject.AddObserver(pObs);
 }
 
 

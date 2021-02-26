@@ -7420,7 +7420,7 @@ struct ExampleAppDocuments
 // the tab bar to notice its absence. During this frame there will be a gap in the tab bar, and if the tab that has
 // disappeared was the selected one, the tab bar will report no selected tab during the frame. This will effectively
 // give the impression of a flicker for one frame.
-// We call SetTabItemClosed() to manually notify the Tab Bar or Docking system of removed tabs to avoid this glitch.
+// We call SetTabItemClosed() to manually Notify the Tab Bar or Docking system of removed tabs to avoid this glitch.
 // Note that this completely optional, and only affect tab bars with the ImGuiTabBarFlags_Reorderable flag.
 static void NotifyOfDocumentsClosedElsewhere(ExampleAppDocuments& app)
 {

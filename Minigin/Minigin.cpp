@@ -12,11 +12,10 @@
 #include "GameObject.h"
 #include "Scene.h"
 
-#include "TextureComponent.h"
-#include "TextComponent.h"
-#include "FPSComponent.h"
-#include "QuitComponent.h"
-#include "PlayerMovement.h"
+
+#include "ComponentsHeaders.h"
+
+#include "ObserversHeaders.h"
 
 
 
@@ -55,6 +54,8 @@ void dae::Minigin::LoadGame() const
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
 
+
+	
 	auto backgroundObject = std::make_shared<GameObject>(0.f, 0.f, new TextureComponent( "background.jpg" ));
 	scene.Add(backgroundObject/*, false*/);
 
@@ -73,19 +74,50 @@ void dae::Minigin::LoadGame() const
 	scene.Add(FpsObject/*, false*/);
 
 
+
+	
 	auto QBertObject = std::make_shared<GameObject>(50.f, 50.f, new TextureComponent("QBert/QbertCharachter.png",0.25f));
 	QBertObject->AddComponent(new QuitComponent());
 	QBertObject->AddComponent(new PlayerMovement());
+	QBertObject->AddComponent(new HealthComponent(20));
+	QBertObject->AddComponent(new ScoreComponent(2000));
+	
+
+	SDL_Color colorHP{ 255,255,255 };
+	auto fontHP = ResourceManager::GetInstance().LoadFont("Lingua.otf", 26);
+	auto hpObserver{ new HealthObserver({Transform(10,100,0),new TextComponent("HP: 20", fontHP, colorHP, false)},
+		{Transform(100,100,0),new TextComponent("You Died: ", fontHP, colorHP, false)}) };
+
+	auto scoreObserver{ new ScoreObserver({Transform(500,100,0),new TextComponent("Score: 0", fontHP, colorHP, false)}) };
+
+	
+	
+	
+	QBertObject->AddObeserver(hpObserver);
+	QBertObject->AddObeserver(scoreObserver);
 	scene.Add(QBertObject/*, true*/);
 
 
-	auto QBertObject2 = std::make_shared<GameObject>(100.f, 200.f, new TextureComponent("QBert/QbertCharachter.png", 0.25f));
+
+	SceneManager::GetInstance().AddPlayer(QBertObject);
+
+
+	auto QBertObject2 = std::make_shared<GameObject>(100.f, 50.f, new TextureComponent("QBert/QbertCharachter.png", 0.25f));
 	QBertObject2->AddComponent(new QuitComponent());
 	QBertObject2->AddComponent(new PlayerMovement());
-	scene.Add(QBertObject2/*, true*/);
+	QBertObject2->AddComponent(new HealthComponent(20));
+	QBertObject2->AddComponent(new ScoreComponent(2000));
 
+	auto hpObserver2{ new HealthObserver({Transform(10,150,0),new TextComponent("HP: 20", fontHP, colorHP, false)},
+		{Transform(100,150,0),new TextComponent("You Died: ", fontHP, colorHP, false)}) };
+
+	auto scoreObserver2{ new ScoreObserver({Transform(500,150,0),new TextComponent("Score: 0", fontHP, colorHP, false)}) };
+	QBertObject2->AddObeserver(hpObserver2);
+	QBertObject2->AddObeserver(scoreObserver2);
+
+
+	scene.Add(QBertObject2/*, true*/);
 	SceneManager::GetInstance().AddPlayer(QBertObject2);
-	SceneManager::GetInstance().AddPlayer(QBertObject);
 	
 
 }
@@ -111,8 +143,8 @@ void dae::Minigin::Run()
 		auto& renderer = Renderer::GetInstance();
 		auto& sceneManager = SceneManager::GetInstance();
 		auto& input = InputManager::GetInstance();
-		CreateCommandKeys(input);
-
+		CreateDefaultCommandKeys(input);
+		//auto& subject = Subject::GetInstance();
 		
 
 		bool doContinue = true;
@@ -132,10 +164,12 @@ void dae::Minigin::Run()
 			
 		
 			
-
+			//subject;
 			sceneManager.Update(deltaTime);
 			renderer.Render();
+		
 
+			
 			auto sleepTime = duration_cast<duration<float>>(currentTime + milliseconds(MsPerFrame) - high_resolution_clock::now());
 			this_thread::sleep_for(sleepTime);
 		}
@@ -151,13 +185,15 @@ void dae::Minigin::Run()
 
 void dae::Minigin::ProcessInput(bool& doContinue, SceneManager& sceneMan, InputManager& inputman)
 {
+	int index{ 0 };
 	for (auto player: sceneMan.GetPlayers())//bad
 	{
-		Command* command{ inputman.ProcessInput() };// maybe change this
+		std::shared_ptr<Command> command{ inputman.ProcessInput(index) };// maybe change this
 		if (command)
 		{
-			command->Execute(player);
+			(*command).Execute(player);
 		}
+		index++;
 	}
 	
 	for (auto player : sceneMan.GetPlayers())
@@ -174,21 +210,20 @@ void dae::Minigin::ProcessInput(bool& doContinue, SceneManager& sceneMan, InputM
 
 
 
-void dae::Minigin::CreateCommandKeys(InputManager& inputman)
+void dae::Minigin::CreateDefaultCommandKeys(InputManager& inputman)
 {
-	//inputman.AddCommand({ new Crouch(XINPUT_GAMEPAD_X),false });
-	//inputman.AddCommand({ new Fire(XINPUT_GAMEPAD_A),true });
-	//inputman.AddCommand({ new Jump(XINPUT_GAMEPAD_B),false });
-	//inputman.AddCommand({ new Quit(XINPUT_GAMEPAD_Y),true });
 
-
-	inputman.AddCommandAndKey({ new Crouch(), OperateKey::keyStrokeDown, XINPUT_GAMEPAD_X });
-	inputman.AddCommandAndKey({ new Fire(), OperateKey::keyStrokeDown, XINPUT_GAMEPAD_A });
-	inputman.AddCommandAndKey({ new Die(), OperateKey::keyStrokeUp, XINPUT_GAMEPAD_B });
-	inputman.AddCommandAndKey({ new Quit(), OperateKey::keyStrokeUp, XINPUT_GAMEPAD_Y });
-	inputman.AddCommandAndKey({ new MoveLeft(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_LEFT });
-	inputman.AddCommandAndKey({ new MoveRight(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_RIGHT });
-	inputman.AddCommandAndKey({ new MoveUp(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_UP });
-	inputman.AddCommandAndKey({ new MoveDown(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_DOWN });
+	//default controls
+	
+	inputman.AddCommandAndKey({ std::make_shared<Die>(), OperateKey::keyStrokeUp, XINPUT_GAMEPAD_B });
+	inputman.AddCommandAndKey({ std::make_shared<Quit>(), OperateKey::keyStrokeUp, XINPUT_GAMEPAD_Y });
+	inputman.AddCommandAndKey({ std::make_shared<MoveLeft>(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_LEFT });
+	inputman.AddCommandAndKey({ std::make_shared<MoveRight>(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_RIGHT });
+	inputman.AddCommandAndKey({ std::make_shared<MoveUp>(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_UP });
+	inputman.AddCommandAndKey({ std::make_shared<MoveDown>(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_DOWN });
+	inputman.AddCommandAndKey({ std::make_shared<GainHp>(), OperateKey::keyStrokeDown, XINPUT_GAMEPAD_X });
+	inputman.AddCommandAndKey({ std::make_shared<LoseHp>(), OperateKey::keyStrokeDown, XINPUT_GAMEPAD_A });
+	inputman.AddCommandAndKey({ std::make_shared<IncreaseScore>(), OperateKey::keyStrokeDown, XINPUT_GAMEPAD_LEFT_SHOULDER });
+	inputman.AddCommandAndKey({ std::make_shared<DecreaseScore>(), OperateKey::keyStrokeDown, XINPUT_GAMEPAD_RIGHT_SHOULDER });
 	
 }

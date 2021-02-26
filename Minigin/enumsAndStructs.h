@@ -14,8 +14,23 @@ namespace dae
 	
 	struct OperateCommand
 	{
-		Command* pCommand;
+		std::shared_ptr<Command> pCommand;
 		OperateKey operateKey;
 		UINT ControllerKey;
+	};
+
+
+
+
+	enum class eventObeserver
+	{
+		died,
+		healthChanged,
+		scoreChaned,
+		defeatingCoily,
+		flyingDisc,
+		remainingDisc,
+		catchingSlickAndSam,
+		none,
 	};
 }

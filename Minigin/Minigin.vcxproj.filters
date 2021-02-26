@@ -37,6 +37,9 @@
     <Filter Include="imguis">
       <UniqueIdentifier>{ffbe9740-5d6e-434b-939b-0c7bb0df8098}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Observers">
+      <UniqueIdentifier>{9af122d5-85cc-4cc2-922a-df2cae449829}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextureComponent.h">
@@ -126,6 +129,30 @@
     <ClInclude Include="enumsAndStructs.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Source Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Source Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthComponent.h">
+      <Filter>Source Files\Components\BaseComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ObserversHeaders.h">
+      <Filter>Source Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthObserver.h">
+      <Filter>Source Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentsHeaders.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreObserver.h">
+      <Filter>Source Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreComponent.h">
+      <Filter>Source Files\Components\BaseComponents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -201,6 +228,24 @@
       <Filter>Source Files\Components\BaseComponents</Filter>
     </ClCompile>
     <ClCompile Include="QuitComponent.cpp">
+      <Filter>Source Files\Components\BaseComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>Source Files\Observers</Filter>
+    </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>Source Files\Observers</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthComponent.cpp">
+      <Filter>Source Files\Components\BaseComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthObserver.cpp">
+      <Filter>Source Files\Observers</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreObserver.cpp">
+      <Filter>Source Files\Observers</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreComponent.cpp">
       <Filter>Source Files\Components\BaseComponents</Filter>
     </ClCompile>
   </ItemGroup>

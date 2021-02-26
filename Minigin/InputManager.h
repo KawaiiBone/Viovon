@@ -18,13 +18,10 @@ namespace dae
 		InputManager(std::vector<std::pair<Command*, OperateKey>> pcommandsVec);
 		InputManager();
 		~InputManager();
-		Command* ProcessInput();
-		void AddControllerCommand(std::pair<Command*, OperateKey> command );
+		std::shared_ptr<Command> ProcessInput(int index);
 		
-		void AddCommandAndKey(OperateCommand command);
+		void AddCommandAndKey(const OperateCommand& command);
 		
-		void AddKeyboardCommand(std::pair<Command*, OperateKey> command);
-		void AddController();
 
 	private:
 
@@ -46,10 +43,13 @@ namespace dae
 		
 		UINT m_ControllerID;
 		XINPUT_STATE m_State;
-		std::vector<OperateCommand>m_pCommandsVector;
-		std::vector<UINT> m_PressedDownButtons;
-		Command* m_pQuitCommand;
-		Command* m_pDieCommand;//temporary
+		//std::vector<OperateCommand>m_pCommandsVector;
+	//	std::vector<UINT> m_PressedDownButtonsVec;
+		std::vector<std::vector<UINT>> m_PressedDownButtonsVec{ {},{},{},{} };
+		std::vector<std::vector<OperateCommand>> m_pCommandsVector{ {},{},{},{} };
+		std::shared_ptr<Command> m_pQuitCommand;
+		std::shared_ptr<Command> m_pDieCommand;//temporary
+		int m_PlayedIndex;
 
 		//	XINPUT_STATE m_CurrentState{};
 	};

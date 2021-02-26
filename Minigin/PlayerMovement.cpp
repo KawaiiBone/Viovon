@@ -12,9 +12,8 @@ void dae::PlayerMovement::Update(float deltaTime, GameObject& object)
 {
 
 
-	object.SetMovement(object.GetXAxisVelocity()*deltaTime, object.GetYAxisVelocity() * deltaTime);
-	object.SetXAxisVelocity(0.f);
-	object.SetYAxisVelocity(0.f);
+	object.SetMovement(object.GetVelocity().GetPosition().x*deltaTime, object.GetVelocity().GetPosition().y * deltaTime);
+	object.SetVelocity(Transform{0 ,0,0.f });
 }
 
 std::string dae::PlayerMovement::GetTxt()

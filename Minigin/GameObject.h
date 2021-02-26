@@ -1,13 +1,14 @@
 #pragma once
 #include "Transform.h"
 #include  <vector>
-
+#include "Subject.h"
 
 namespace dae
 {
 	class Texture2D;
 	class RenderComponent;
 	class BaseComponent;
+	class Observer;
 	
 	class GameObject final
 	{
@@ -21,17 +22,18 @@ namespace dae
 		void Render() const ;
 		void AddComponent(BaseComponent* myComponent);
 
-		void SetMovement(float x, float y);
-		bool IsDead();
+		bool IsDead() const;
 		void Die();
 		
 
 
-		void SetXAxisVelocity(float vel);
-		void SetYAxisVelocity(float vel);
-		float GetYAxisVelocity();
-		float GetXAxisVelocity();
+		void SetMovement(float x, float y);
+		void SetVelocity(Transform vel);
+		Transform GetVelocity()const;
 
+
+		Subject& GetSubject() ;
+		void AddObeserver(Observer* pObs);
 		
 		~GameObject();
 		GameObject(const GameObject& other) = delete;
@@ -40,14 +42,16 @@ namespace dae
 		GameObject& operator=(GameObject&& other) = delete;
 
 
+		
+
 
 		template <typename T>
-		T* GetComponent()
+		T* GetComponent() const
 		{
 			{
 				for (BaseComponent* bc : m_VectorpBComponents)
 				{
-					if (reinterpret_cast<T*>(bc))
+					if (dynamic_cast<T*>(bc))
 						return (T*)bc;
 				}
 				return nullptr;
@@ -56,12 +60,12 @@ namespace dae
 		
 
 	private:
-		Transform m_Transform;
-		float m_VelocityXAxis;
-		float m_VelocityYAxis;
+		Transform m_Velocity;
+		Transform m_Pos;
 		RenderComponent* m_pRender;
 		std::vector<BaseComponent*> m_VectorpBComponents;
 		bool m_IsDead;
+		Subject m_subject;
 		
 	};
 
