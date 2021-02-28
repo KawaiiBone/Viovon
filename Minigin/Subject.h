@@ -3,7 +3,7 @@
 namespace dae
 {
 	class Observer;
-	enum class eventObeserver;
+	enum class EventObeserver;
 	class GameObject;
 	class Subject final
 	{
@@ -14,7 +14,7 @@ namespace dae
 	
 		void RemoveObserver(Observer* observer);
 	
-		void Notify( std::shared_ptr<dae::GameObject> entity, eventObeserver event);
+		void Notify( std::shared_ptr<dae::GameObject> entity, EventObeserver event);
 
 		void Render() const;
 	private:

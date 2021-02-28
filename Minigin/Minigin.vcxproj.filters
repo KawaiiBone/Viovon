@@ -153,6 +153,9 @@
     <ClInclude Include="ScoreComponent.h">
       <Filter>Source Files\Components\BaseComponents</Filter>
     </ClInclude>
+    <ClInclude Include="InterfaceWindow.h">
+      <Filter>Source Files\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -247,6 +250,9 @@
     </ClCompile>
     <ClCompile Include="ScoreComponent.cpp">
       <Filter>Source Files\Components\BaseComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="InterfaceWindow.cpp">
+      <Filter>Source Files\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

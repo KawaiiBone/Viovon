@@ -5,9 +5,8 @@
 #include "backends/imgui_impl_sdl.h"
 #include "imgui.h"
 #include "SceneManager.h"
-#include "Subject.h"
 #include "Texture2D.h"
-
+//#include "InterfaceWindow.h"
 
 
 int GetOpenGLDriverIndex()
@@ -24,9 +23,13 @@ int GetOpenGLDriverIndex()
 	return openglIndex;
 }
 
+dae::Renderer::Renderer():
+m_Window(nullptr), m_InterfaceWindowsVec(), m_InterFaceWindowName(InterFaceNames::start), m_Renderer(nullptr)
+{
+}
+
 void dae::Renderer::Init(SDL_Window * window)
 {
-	m_ShowDemo = false;
 	m_Window = window;
 	m_Renderer = SDL_CreateRenderer(window, GetOpenGLDriverIndex(), SDL_RENDERER_ACCELERATED);// | SDL_RENDERER_PRESENTVSYNC);
 	if (m_Renderer == nullptr) 
@@ -53,7 +56,12 @@ void dae::Renderer::Render()
 
 
 
-	DifficultyInterface();
+	for (auto interFacewindow: m_InterfaceWindowsVec)
+	{
+		interFacewindow.Render(m_InterFaceWindowName);
+	}
+	
+	//DifficultyInterface();
 
 	
 	ImGui::Render();
@@ -98,11 +106,16 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const
 }
 
 
+void dae::Renderer::AddInterfaceWindow(InterfaceWindow interFaceWindow)
+{
+	m_InterfaceWindowsVec.push_back(interFaceWindow);
+}
+
 void dae::Renderer::DifficultyInterface()
 {
 	ImGui::Begin("Difficulty");
 	//ImGui::Text("Easy");
-	if (ImGui::Button("Easy"))
+	if (ImGui::Button("Easy", ImVec2{200,20}))
 	{
 		
 		std::cout << "a\n";

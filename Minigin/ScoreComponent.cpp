@@ -30,6 +30,6 @@ void dae::ScoreComponent::InfluenceScore(int inf, std::shared_ptr<dae::GameObjec
 		m_Score += inf;
 		m_Text = "Score: " + std::to_string(m_Score);
 	}
-	object->GetSubject().Notify(object, eventObeserver::scoreChaned);
-	//Subject::GetInstance().Notify(*object, eventObeserver::healthChanged);
+	object->GetSubject().Notify(object, EventObeserver::scoreChaned);
+	//Subject::GetInstance().Notify(*object, EventObeserver::healthChanged);
 }

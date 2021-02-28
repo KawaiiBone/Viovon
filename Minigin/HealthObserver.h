@@ -6,13 +6,13 @@ namespace dae
 {
 	class RenderComponent;
 	class GameObject;
-	enum class eventObeserver;
+	enum class EventObeserver;
 	class HealthObserver : public Observer
 	{
 	public:
 		HealthObserver(std::pair< Transform, RenderComponent*> pRenderComHealth, std::pair< Transform, RenderComponent*> pRenderComDead);
 		~HealthObserver();
-		void OnNotify(std::shared_ptr<dae::GameObject>, eventObeserver event) override;
+		void OnNotify(std::shared_ptr<dae::GameObject>, EventObeserver event) override;
 		void Render() const override;
 	private:
 		std::pair< Transform, RenderComponent*> m_pHealthRenderComp;

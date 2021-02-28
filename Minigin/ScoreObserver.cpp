@@ -16,25 +16,25 @@ dae::ScoreObserver::~ScoreObserver()
 	m_pScoreComp.second = nullptr;
 }
 
-void dae::ScoreObserver::OnNotify(std::shared_ptr<dae::GameObject> entity, eventObeserver event)
+void dae::ScoreObserver::OnNotify(std::shared_ptr<dae::GameObject> entity, EventObeserver event)
 {
 	switch (event) {
-	case eventObeserver::scoreChaned:
+	case EventObeserver::scoreChaned:
 		m_pScoreComp.second->Update(entity->GetComponent<ScoreComponent>()->GetTxt());
 		break;
-	case eventObeserver::defeatingCoily:
+	case EventObeserver::defeatingCoily:
 		//gets through when coily is defeated
 		break;
-	case eventObeserver::flyingDisc:
+	case EventObeserver::flyingDisc:
 		//gets through when usin a flyingDisc
 		break;
-	case eventObeserver::catchingSlickAndSam:
+	case EventObeserver::catchingSlickAndSam:
 		//gets through when catchingSlickAndSam 
 		break;
-	case eventObeserver::remainingDisc:
+	case EventObeserver::remainingDisc:
 		//gets through when there are at the end  any remainingDisc
 		break;
-	case eventObeserver::none:
+	case EventObeserver::none:
 		break;
 	default:;
 	}

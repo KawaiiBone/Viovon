@@ -15,9 +15,9 @@ void dae::HealthComponent::Update(float deltaTime, GameObject& object)
 	//if (m_Health <= 0)
 	//{
 	//	std::make_shared<GameObject> tmp = object;
-	//	//object.GetSubject().Notify((tmp), eventObeserver::died);
+	//	//object.GetSubject().Notify((tmp), EventObeserver::died);
 	//	//object.Die();
-	//	//Subject::GetInstance().Notify(object, eventObeserver::died);
+	//	//Subject::GetInstance().Notify(object, EventObeserver::died);
 	//	deltaTime;
 	//}
 	deltaTime;
@@ -37,14 +37,14 @@ void dae::HealthComponent::InfluenceHealth(int inf, std::shared_ptr<dae::GameObj
 		m_Health += inf;
 		m_Text =  "HP: " + std::to_string(m_Health);
 	}
-	object->GetSubject().Notify(object, eventObeserver::healthChanged);
+	object->GetSubject().Notify(object, EventObeserver::healthChanged);
 
 	if (m_Health <= 0)
 	{
-		object->GetSubject().Notify(object, eventObeserver::died);
+		object->GetSubject().Notify(object, EventObeserver::died);
 	}
 	
-	//Subject::GetInstance().Notify(*object, eventObeserver::healthChanged);
+	//Subject::GetInstance().Notify(*object, EventObeserver::healthChanged);
 }
 
 
