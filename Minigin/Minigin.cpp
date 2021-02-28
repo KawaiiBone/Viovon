@@ -53,22 +53,28 @@ void dae::Minigin::LoadGame() const
 {
 	auto& renderer = Renderer::GetInstance();
 	InterfacePart closeWindow{
-{"closeWindow",ImVec2{0,0}},
+	{"closeWindow",ImVec2{0,0}},
 	{"" },
 		{InterFaceNames::none }
 		};
 	InterfacePart BackToStartWindow{
-{"BackToStartScreen",ImVec2{0,0}},
+	{"BackToStartScreen",ImVec2{0,0}},
 	{"" },
 		{InterFaceNames::start }
 	};
 	InterfaceWindow m_StartWindow("Startscreen", InterFaceNames::start);
-	InterfacePart startPart{
+	InterfacePart howToPlayPart{
 		{"HowToPlay",ImVec2{0,0}},
 		{"Hello!!!!" },
 		{InterFaceNames::howToPlay }
 	};
-	m_StartWindow.AddInterfacePart(startPart);
+	InterfacePart ModesPart{
+	{"Modes",ImVec2{0,0}},
+	{"" },
+	{InterFaceNames::modes }
+	};
+	m_StartWindow.AddInterfacePart(howToPlayPart);
+	m_StartWindow.AddInterfacePart(ModesPart);
 	m_StartWindow.AddInterfacePart(closeWindow);
 	renderer.AddInterfaceWindow(m_StartWindow);
 
@@ -79,12 +85,45 @@ void dae::Minigin::LoadGame() const
 		{InterFaceNames::none }
 	};
 
+	InterfaceWindow m_ModesWindow("Modes", InterFaceNames::modes);
+
+	InterfacePart SinglePlayerButtonPart{
+{"1 player",ImVec2{0,0}},
+{"" },
+	{InterFaceNames::modes }
+	};
+	InterfacePart TwoPlayerButtonPart{
+{"2 players",ImVec2{0,0}},
+{"" },
+	{InterFaceNames::modes }
+	};
+	InterfacePart ThreePlayerButtonPart{
+{"3 players",ImVec2{0,0}},
+{"" },
+	{InterFaceNames::modes }
+	};
+	InterfacePart FourPlayerButtonPart{
+{"4 players",ImVec2{0,0}},
+{"" },
+	{InterFaceNames::modes }
+	};
+	m_ModesWindow.AddInterfacePart(SinglePlayerButtonPart);
+	m_ModesWindow.AddInterfacePart(TwoPlayerButtonPart);
+	m_ModesWindow.AddInterfacePart(ThreePlayerButtonPart);
+	m_ModesWindow.AddInterfacePart(FourPlayerButtonPart);
+	m_ModesWindow.AddInterfacePart(BackToStartWindow);
+	m_ModesWindow.AddInterfacePart(closeWindow);
+	renderer.AddInterfaceWindow(m_ModesWindow);
+	
 	m_HowToPlayWindow.AddInterfacePart(HowTOplayPart);
 	m_HowToPlayWindow.AddInterfacePart(BackToStartWindow);
 	m_HowToPlayWindow.AddInterfacePart(closeWindow);
 	renderer.AddInterfaceWindow(m_HowToPlayWindow);
 
 
+
+
+	
 
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 

@@ -83,6 +83,7 @@ namespace dae
 		start,
 		howToPlay,
 		buttons,
+		modes,
 		none,
 	};
 
