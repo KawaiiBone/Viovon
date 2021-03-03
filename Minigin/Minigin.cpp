@@ -88,18 +88,18 @@ void dae::Minigin::LoadGame() const
 	InterfaceWindow m_ModesWindow("Modes", InterFaceNames::modes);
 
 	InterfacePart SinglePlayerButtonPart{
-{"1 player",ImVec2{0,0}},
-{"" },
+	{"1 player",ImVec2{0,0}},
+	{"" },
 	{InterFaceNames::modes }
 	};
 	InterfacePart TwoPlayerButtonPart{
-{"2 players",ImVec2{0,0}},
-{"" },
+	{"2 players",ImVec2{0,0}},
+	{"" },
 	{InterFaceNames::modes }
 	};
 	InterfacePart ThreePlayerButtonPart{
-{"3 players",ImVec2{0,0}},
-{"" },
+	{"3 players",ImVec2{0,0}},
+	{"" },
 	{InterFaceNames::modes }
 	};
 	InterfacePart FourPlayerButtonPart{
@@ -259,11 +259,13 @@ void dae::Minigin::ProcessInput(bool& doContinue, SceneManager& sceneMan, InputM
 	int index{ 0 };
 	for (auto player : sceneMan.GetPlayers())//bad
 	{
-		std::shared_ptr<Command> command{ inputman.ProcessInput(index) };// maybe change this
-		if (command)
-		{
-			(*command).Execute(player);
-		}
+		std::vector<std::shared_ptr<Command>> commands{ inputman.ProcessInput(index) };// maybe change this
+		
+			for (std::shared_ptr<Command> pCommand: commands)
+			{
+				(*pCommand).Execute(player);
+				
+			}
 		index++;
 	}
 
@@ -275,6 +277,25 @@ void dae::Minigin::ProcessInput(bool& doContinue, SceneManager& sceneMan, InputM
 			return;
 		}
 	}
+	//int index{ 0 };
+	//for (auto player : sceneMan.GetPlayers())//bad
+	//{
+	//	std::shared_ptr<Command> command{ inputman.ProcessInput(index) };// maybe change this
+	//	if (command)
+	//	{
+	//		(*command).Execute(player);
+	//	}
+	//	index++;
+	//}
+
+	//for (auto player : sceneMan.GetPlayers())
+	//{
+	//	if (!player->GetComponent<QuitComponent>()->ContinueGame())
+	//	{
+	//		doContinue = player->GetComponent<QuitComponent>()->ContinueGame();
+	//		return;
+	//	}
+	//}
 	//doContinue = sceneMan.GetPlayer()->GetComponent<QuitComponent>()->ContinueGame();
 }
 

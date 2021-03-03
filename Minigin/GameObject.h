@@ -28,9 +28,10 @@ namespace dae
 
 
 		void SetMovement(float x, float y);
-		void SetVelocity(Transform vel);
+		void SetVelocity(float x, float y);
 		Transform GetVelocity()const;
-
+		void ResetVelocity();
+		
 
 		Subject& GetSubject() ;
 		void AddObeserver(Observer* pObs);

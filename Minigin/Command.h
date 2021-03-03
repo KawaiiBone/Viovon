@@ -89,7 +89,7 @@ namespace dae
 		{
 
 
-			object->SetVelocity(Transform{ -800.f,0,0 } );// to test
+			object->SetVelocity(-800.f,0 );// to test
 
 		}
 	};
@@ -99,7 +99,7 @@ namespace dae
 		MoveRight() { };
 		void Execute(std::shared_ptr<dae::GameObject> object) override
 		{
-			object->SetVelocity(Transform{ 800.f,0,0 });// to test
+			object->SetVelocity(800.f,0);// to test
 		}
 	};
 
@@ -111,7 +111,7 @@ namespace dae
 		{
 
 
-			object->SetVelocity(Transform{ 0,-800.f,0 });// to test
+			object->SetVelocity( 0,-800.f);// to test
 
 		}
 	};
@@ -121,7 +121,7 @@ namespace dae
 		MoveDown() { };
 		void Execute(std::shared_ptr<dae::GameObject> object) override
 		{
-			object->SetVelocity(Transform{ 0,800.f,0 });
+			object->SetVelocity( 0,800.f);
 			
 		}
 	};

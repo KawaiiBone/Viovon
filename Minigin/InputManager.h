@@ -18,7 +18,7 @@ namespace dae
 		InputManager(std::vector<std::pair<Command*, OperateKey>> pcommandsVec);
 		InputManager();
 		~InputManager();
-		std::shared_ptr<Command> ProcessInput(int index);
+		std::vector<std::shared_ptr<Command>> ProcessInput(int index);
 		
 		void AddCommandAndKey(const OperateCommand& command);
 		

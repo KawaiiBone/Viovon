@@ -81,15 +81,27 @@ void dae::GameObject::Die()
 	
 }
 
-void dae::GameObject::SetVelocity(Transform vel)
+void dae::GameObject::SetVelocity(float x, float y)
 {
-	m_Velocity = vel;
+	if (x == 0)
+	{
+		m_Velocity.SetPosition(m_Velocity.GetPosition().x, y, m_Velocity.GetPosition().z);
+	}
+	else if (y == 0)
+	{
+		m_Velocity.SetPosition(x, m_Velocity.GetPosition().y, m_Velocity.GetPosition().z);
+	}
 }
 
 
 dae::Transform dae::GameObject::GetVelocity() const
 {
 	return m_Velocity;
+}
+
+void dae::GameObject::ResetVelocity()
+{
+	m_Velocity.SetPosition(0, 0, 0);
 }
 
 dae::Subject& dae::GameObject::GetSubject()  

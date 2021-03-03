@@ -46,24 +46,28 @@ dae::InputManager::~InputManager()
 
 }
 
-std::shared_ptr<dae::Command> dae::InputManager::ProcessInput(int index)
+
+
+std::vector<std::shared_ptr<dae::Command>> dae::InputManager::ProcessInput(int index)
 {
 	m_ControllerID = index;
 	m_PlayedIndex = index;
+	std::vector<std::shared_ptr<dae::Command>> tmpCommandsVec{};
+
 
 	SDL_Event e;
 	const Uint8* pStates = SDL_GetKeyboardState(nullptr);
 	while (SDL_PollEvent(&e)) {
 		if (e.type == SDL_QUIT)
 		{
-			return m_pQuitCommand;
+			tmpCommandsVec.push_back(m_pQuitCommand);
 		}
 		/*if (e.type == SDL_SCANCODE_A) {
 			return m_pDieCommand;
 		}*/
 		if (pStates[SDL_SCANCODE_A])
 		{
-			return m_pDieCommand;
+			tmpCommandsVec.push_back(m_pDieCommand);
 		}
 
 	}
@@ -75,7 +79,7 @@ std::shared_ptr<dae::Command> dae::InputManager::ProcessInput(int index)
 		{
 			if (IsKeyUsed(pCommand))
 			{
-				return pCommand.pCommand;
+				tmpCommandsVec.push_back(pCommand.pCommand);
 			}
 		}
 	}
@@ -85,9 +89,8 @@ std::shared_ptr<dae::Command> dae::InputManager::ProcessInput(int index)
 	}
 
 
+		return tmpCommandsVec;
 
-
-	return nullptr;
 }
 
 
