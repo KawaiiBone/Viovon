@@ -67,7 +67,8 @@ namespace dae
 		std::vector<BaseComponent*> m_VectorpBComponents;
 		bool m_IsDead;
 		Subject m_subject;
-		
+		// maybe add connected components: base compoenent + render component
+		// 	std::vector<std::pair<RenderComponent*,BaseComponent*>>
 	};
 
 

@@ -20,12 +20,12 @@ namespace dae
 		~InputManager();
 		std::vector<std::shared_ptr<Command>> ProcessInput(int index);
 		
-		void AddCommandAndKey(const OperateCommand& command);
+		void AddDefaultCommandAndKey(const OperateCommand& command);
 		
 
 	private:
 
-
+		 
 
 
 

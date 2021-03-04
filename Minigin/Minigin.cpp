@@ -277,26 +277,7 @@ void dae::Minigin::ProcessInput(bool& doContinue, SceneManager& sceneMan, InputM
 			return;
 		}
 	}
-	//int index{ 0 };
-	//for (auto player : sceneMan.GetPlayers())//bad
-	//{
-	//	std::shared_ptr<Command> command{ inputman.ProcessInput(index) };// maybe change this
-	//	if (command)
-	//	{
-	//		(*command).Execute(player);
-	//	}
-	//	index++;
-	//}
-
-	//for (auto player : sceneMan.GetPlayers())
-	//{
-	//	if (!player->GetComponent<QuitComponent>()->ContinueGame())
-	//	{
-	//		doContinue = player->GetComponent<QuitComponent>()->ContinueGame();
-	//		return;
-	//	}
-	//}
-	//doContinue = sceneMan.GetPlayer()->GetComponent<QuitComponent>()->ContinueGame();
+	
 }
 
 
@@ -307,28 +288,16 @@ void dae::Minigin::CreateDefaultCommandKeys(InputManager& inputman)
 
 	//default controls
 
-	//inputman.AddCommandAndKey({ std::make_shared<Die>(), OperateKey::keyStrokeUp, XINPUT_GAMEPAD_B });
-	//inputman.AddCommandAndKey({ std::make_shared<Quit>(), OperateKey::keyStrokeUp, XINPUT_GAMEPAD_Y });
-	//inputman.AddCommandAndKey({ std::make_shared<MoveLeft>(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_LEFT });
-	//inputman.AddCommandAndKey({ std::make_shared<MoveRight>(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_RIGHT });
-	//inputman.AddCommandAndKey({ std::make_shared<MoveUp>(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_UP });
-	//inputman.AddCommandAndKey({ std::make_shared<MoveDown>(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_DOWN });
-	//inputman.AddCommandAndKey({ std::make_shared<GainHp>(), OperateKey::keyStrokeDown, XINPUT_GAMEPAD_X });
-	//inputman.AddCommandAndKey({ std::make_shared<LoseHp>(), OperateKey::keyStrokeDown, XINPUT_GAMEPAD_A });
-	//inputman.AddCommandAndKey({ std::make_shared<IncreaseScore>(), OperateKey::keyStrokeDown, XINPUT_GAMEPAD_LEFT_SHOULDER });
-	//inputman.AddCommandAndKey({ std::make_shared<DecreaseScore>(), OperateKey::keyStrokeDown, XINPUT_GAMEPAD_RIGHT_SHOULDER });
 
-
-
-	inputman.AddCommandAndKey({ std::make_shared<Die>(), OperateKey::keyStrokeUp, BButton });
-	inputman.AddCommandAndKey({ std::make_shared<Quit>(), OperateKey::keyStrokeUp, YButton });
-	inputman.AddCommandAndKey({ std::make_shared<MoveLeft>(), OperateKey::pressedDown, LeftButton });
-	inputman.AddCommandAndKey({ std::make_shared<MoveRight>(), OperateKey::pressedDown, RightButton });
-	inputman.AddCommandAndKey({ std::make_shared<MoveUp>(), OperateKey::pressedDown, UpButton });
-	inputman.AddCommandAndKey({ std::make_shared<MoveDown>(), OperateKey::pressedDown, DownButton });
-	inputman.AddCommandAndKey({ std::make_shared<GainHp>(), OperateKey::keyStrokeDown, XButton });
-	inputman.AddCommandAndKey({ std::make_shared<LoseHp>(), OperateKey::keyStrokeDown, AButton });
-	inputman.AddCommandAndKey({ std::make_shared<IncreaseScore>(), OperateKey::keyStrokeDown, L1Button });
-	inputman.AddCommandAndKey({ std::make_shared<DecreaseScore>(), OperateKey::keyStrokeDown, R1Button });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<Die>(), OperateKey::keyStrokeUp, BButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<Quit>(), OperateKey::keyStrokeUp, YButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<MoveLeft>(), OperateKey::pressedDown, LeftButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<MoveRight>(), OperateKey::pressedDown, RightButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<MoveUp>(), OperateKey::pressedDown, UpButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<MoveDown>(), OperateKey::pressedDown, DownButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<GainHp>(), OperateKey::keyStrokeDown, XButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<LoseHp>(), OperateKey::keyStrokeDown, AButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<IncreaseScore>(), OperateKey::keyStrokeDown, L1Button });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<DecreaseScore>(), OperateKey::keyStrokeDown, R1Button });
 
 }

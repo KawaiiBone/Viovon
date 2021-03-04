@@ -26,12 +26,9 @@ void dae::InterfaceWindow::Render(InterFaceNames& interFaceName)
 			{
 				ImGui::Text(interFaceButton.text.c_str());
 			}
-			if (interFaceButton.button.first != Invalid_String)
+			if (interFaceButton.button.first != Invalid_String && ImGui::Button(interFaceButton.button.first.c_str(), interFaceButton.button.second))
 			{
-				if (ImGui::Button(interFaceButton.button.first.c_str(), interFaceButton.button.second))
-				{
-					interFaceName = interFaceButton.interFaceName;
-				}
+				interFaceName = interFaceButton.interFaceName;
 
 			}
 		}

@@ -7,11 +7,10 @@ m_Text("0"),m_ContinueGame(true)
 {
 }
 
-void dae::QuitComponent::Update(float deltaTime, GameObject& object)
+void dae::QuitComponent::Update(float , GameObject& )
 {
-	return;
-	object;
-	deltaTime;
+	
+
 }
 
 std::string dae::QuitComponent::GetTxt()

@@ -10,11 +10,9 @@ dae::ScoreComponent::ScoreComponent(int maxScore) :
 
 }
 
-void dae::ScoreComponent::Update(float deltaTime, GameObject& object)
+void dae::ScoreComponent::Update(float , GameObject& )
 {
-	return;
-	object;
-	deltaTime;
+
 }
 
 std::string dae::ScoreComponent::GetTxt()
