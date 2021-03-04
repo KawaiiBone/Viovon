@@ -13,6 +13,7 @@ namespace dae
 		void Cleanup();
 		void Run();
 	private:
+		void CreateUI() const;
 		void CreateDefaultCommandKeys(InputManager& inputman);
 		void ProcessInput(bool& doContinue, SceneManager& sceneMan, InputManager& inputman);
 		static const int MsPerFrame = 16; //16 for 60 fps, 33 for 30 fps

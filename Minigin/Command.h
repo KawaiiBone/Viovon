@@ -26,9 +26,9 @@ namespace dae
 	{
 	public:
 		Jump() { };
-		void Execute(std::shared_ptr<dae::GameObject> object) override
+		void Execute(std::shared_ptr<dae::GameObject> ) override
 		{
-			std::cout << object->IsDead() << " jump!\n";
+			
 
 		}
 	};
@@ -39,9 +39,9 @@ namespace dae
 	public:
 		Fire() { };
 		~Fire() = default;
-		void Execute(std::shared_ptr<dae::GameObject> object) override
+		void Execute(std::shared_ptr<dae::GameObject> ) override
 		{
-			std::cout << object->IsDead() << "fire!\n";
+		
 
 		}
 	};
@@ -60,9 +60,8 @@ namespace dae
 	{
 	public:
 		Crouch() { };
-		void Execute(std::shared_ptr<dae::GameObject> object) override
+		void Execute(std::shared_ptr<dae::GameObject> ) override
 		{
-			std::cout << object->IsDead() << "Crouch!\n";
 		}
 	};
 
@@ -70,10 +69,9 @@ namespace dae
 	{
 	public:
 		Die() {  };
-		void Execute(std::shared_ptr<dae::GameObject> object) override
+		void Execute(std::shared_ptr<dae::GameObject> ) override
 		{
-			object->Die();
-			//std::cout << object->Die() << " jump!\n";
+
 
 		}
 	};

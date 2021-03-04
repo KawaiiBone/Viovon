@@ -8,7 +8,7 @@ dae::FPSComponent::FPSComponent() :
 {
 }
 
-void dae::FPSComponent::Update(float deltaTime, GameObject& object)
+void dae::FPSComponent::Update(float deltaTime, GameObject& ) //<- VERY IMPORTANT TO KNOW
 {
 	if (counter >= 1.f)
 	{
@@ -25,7 +25,6 @@ void dae::FPSComponent::Update(float deltaTime, GameObject& object)
 		numbersVec.push_back(1 / deltaTime);
 		counter += deltaTime;
 	}
-	object;
 }
 
 std::string dae::FPSComponent::GetTxt()

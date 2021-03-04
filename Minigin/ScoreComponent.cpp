@@ -10,11 +10,9 @@ dae::ScoreComponent::ScoreComponent(int maxScore) :
 
 }
 
-void dae::ScoreComponent::Update(float deltaTime, GameObject& object)
+void dae::ScoreComponent::Update(float , GameObject& )
 {
-	return;
-	object;
-	deltaTime;
+
 }
 
 std::string dae::ScoreComponent::GetTxt()
@@ -31,5 +29,5 @@ void dae::ScoreComponent::InfluenceScore(int inf, std::shared_ptr<dae::GameObjec
 		m_Text = "Score: " + std::to_string(m_Score);
 	}
 	object->GetSubject().Notify(object, EventObeserver::scoreChaned);
-	//Subject::GetInstance().Notify(*object, EventObeserver::healthChanged);
+
 }

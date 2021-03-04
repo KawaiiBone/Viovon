@@ -51,77 +51,10 @@ void dae::Minigin::Initialize()
  */
 void dae::Minigin::LoadGame() const
 {
-	auto& renderer = Renderer::GetInstance();
-	InterfacePart closeWindow{
-	{"closeWindow",ImVec2{0,0}},
-	{"" },
-		{InterFaceNames::none }
-		};
-	InterfacePart BackToStartWindow{
-	{"BackToStartScreen",ImVec2{0,0}},
-	{"" },
-		{InterFaceNames::start }
-	};
-	InterfaceWindow m_StartWindow("Startscreen", InterFaceNames::start);
-	InterfacePart howToPlayPart{
-		{"HowToPlay",ImVec2{0,0}},
-		{"Hello!!!!" },
-		{InterFaceNames::howToPlay }
-	};
-	InterfacePart ModesPart{
-	{"Modes",ImVec2{0,0}},
-	{"" },
-	{InterFaceNames::modes }
-	};
-	m_StartWindow.AddInterfacePart(howToPlayPart);
-	m_StartWindow.AddInterfacePart(ModesPart);
-	m_StartWindow.AddInterfacePart(closeWindow);
-	renderer.AddInterfaceWindow(m_StartWindow);
-
-	InterfaceWindow m_HowToPlayWindow("HowToPlay", InterFaceNames::howToPlay);
-	InterfacePart HowTOplayPart{
-		{Invalid_String,ImVec2{0,0}},
-		{"Let Charachter Die: B button\nQuit game: Y Button\nGain Hp: X Button\n Lose Hp: A Button\n Move left: Left Button\nMove Right: Right Button\nMove Up: Up Button\nMove down: down Button\nMore Score: L1 Button\nLose Score:  R1 Button" },
-		{InterFaceNames::none }
-	};
-
-	InterfaceWindow m_ModesWindow("Modes", InterFaceNames::modes);
-
-	InterfacePart SinglePlayerButtonPart{
-	{"1 player",ImVec2{0,0}},
-	{"" },
-	{InterFaceNames::modes }
-	};
-	InterfacePart TwoPlayerButtonPart{
-	{"2 players",ImVec2{0,0}},
-	{"" },
-	{InterFaceNames::modes }
-	};
-	InterfacePart ThreePlayerButtonPart{
-	{"3 players",ImVec2{0,0}},
-	{"" },
-	{InterFaceNames::modes }
-	};
-	InterfacePart FourPlayerButtonPart{
-{"4 players",ImVec2{0,0}},
-{"" },
-	{InterFaceNames::modes }
-	};
-	m_ModesWindow.AddInterfacePart(SinglePlayerButtonPart);
-	m_ModesWindow.AddInterfacePart(TwoPlayerButtonPart);
-	m_ModesWindow.AddInterfacePart(ThreePlayerButtonPart);
-	m_ModesWindow.AddInterfacePart(FourPlayerButtonPart);
-	m_ModesWindow.AddInterfacePart(BackToStartWindow);
-	m_ModesWindow.AddInterfacePart(closeWindow);
-	renderer.AddInterfaceWindow(m_ModesWindow);
-	
-	m_HowToPlayWindow.AddInterfacePart(HowTOplayPart);
-	m_HowToPlayWindow.AddInterfacePart(BackToStartWindow);
-	m_HowToPlayWindow.AddInterfacePart(closeWindow);
-	renderer.AddInterfaceWindow(m_HowToPlayWindow);
 
 
 
+	CreateUI();
 
 	
 
@@ -141,17 +74,18 @@ void dae::Minigin::LoadGame() const
 
 	SDL_Color colorFps{ 255,0,0 };
 	auto fontFps = ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
-	auto FpsObject = std::make_shared<GameObject>(0.f, 10.f, new FPSComponent(), new TextComponent("FPS", fontFps, colorFps, false));
+	auto FpsObject = std::make_shared<GameObject>(0.f, 10.f);
+	FpsObject->AddPairComponent(new TextComponent("FPS", fontFps, colorFps, false), new FPSComponent());
 	scene.Add(FpsObject/*, false*/);
 
 
 
 
 	auto QBertObject = std::make_shared<GameObject>(50.f, 50.f, new TextureComponent("QBert/QbertCharachter.png", 0.25f));
-	QBertObject->AddComponent(new QuitComponent());
-	QBertObject->AddComponent(new PlayerMovement());
-	QBertObject->AddComponent(new HealthComponent(20));
-	QBertObject->AddComponent(new ScoreComponent(2000));
+	QBertObject->AddBaseComponent(new QuitComponent());
+	QBertObject->AddBaseComponent(new PlayerMovement());
+	QBertObject->AddBaseComponent(new HealthComponent(20));
+	QBertObject->AddBaseComponent(new ScoreComponent(2000));
 
 
 	SDL_Color colorHP{ 255,255,255 };
@@ -174,10 +108,10 @@ void dae::Minigin::LoadGame() const
 
 
 	auto QBertObject2 = std::make_shared<GameObject>(100.f, 50.f, new TextureComponent("QBert/QbertCharachter.png", 0.25f));
-	QBertObject2->AddComponent(new QuitComponent());
-	QBertObject2->AddComponent(new PlayerMovement());
-	QBertObject2->AddComponent(new HealthComponent(20));
-	QBertObject2->AddComponent(new ScoreComponent(2000));
+	QBertObject2->AddBaseComponent(new QuitComponent());
+	QBertObject2->AddBaseComponent(new PlayerMovement());
+	QBertObject2->AddBaseComponent(new HealthComponent(20));
+	QBertObject2->AddBaseComponent(new ScoreComponent(2000));
 
 	auto hpObserver2{ new HealthObserver({Transform(10,150,0),new TextComponent("HP: 20", fontHP, colorHP, false)},
 		{Transform(100,150,0),new TextComponent("You Died: ", fontHP, colorHP, false)}) };
@@ -250,11 +184,86 @@ void dae::Minigin::Run()
 	Cleanup();
 }
 
+void dae::Minigin::CreateUI() const
+{
+	//interface parts
+	auto& renderer = Renderer::GetInstance();
+	InterfacePart closeWindow{
+	{"closeWindow",ImVec2{0,0}},
+	{"" },
+		{InterFaceNames::none }
+	};
+	
+	InterfacePart BackToStartWindow{
+	{"BackToStartScreen",ImVec2{0,0}},
+	{"" },
+		{InterFaceNames::start }
+	};
+	
+	
+	InterfacePart howToPlayPart{
+		{"HowToPlay",ImVec2{0,0}},
+		{"Hello!!!!" },
+		{InterFaceNames::howToPlay }
+	};
+	InterfacePart ModesPart{
+	{"Modes",ImVec2{0,0}},
+	{"" },
+	{InterFaceNames::modes }
+	};
+	InterfacePart HowTOplayPart{
+		{Invalid_String,ImVec2{0,0}},
+		{"Let Charachter Die: B button\nQuit game: Y Button\nGain Hp: X Button\n Lose Hp: A Button\n Move left: Left Button\nMove Right: Right Button\nMove Up: Up Button\nMove down: down Button\nMore Score: L1 Button\nLose Score:  R1 Button" },
+		{InterFaceNames::none }
+	};
 
 
+	InterfacePart SinglePlayerButtonPart{
+	{"1 player",ImVec2{0,0}},
+	{"" },
+	{InterFaceNames::modes }
+	};
+	InterfacePart TwoPlayerButtonPart{
+	{"2 players",ImVec2{0,0}},
+	{"" },
+	{InterFaceNames::modes }
+	};
+	InterfacePart ThreePlayerButtonPart{
+	{"3 players",ImVec2{0,0}},
+	{"" },
+	{InterFaceNames::modes }
+	};
+	InterfacePart FourPlayerButtonPart{
+{"4 players",ImVec2{0,0}},
+{"" },
+	{InterFaceNames::modes }
+	};
+	//interface windows
+	InterfaceWindow m_StartWindow("Startscreen", InterFaceNames::start);
+	InterfaceWindow m_HowToPlayWindow("HowToPlay", InterFaceNames::howToPlay);
+	InterfaceWindow m_ModesWindow("Modes", InterFaceNames::modes);
+	
+	m_StartWindow.AddInterfacePart(howToPlayPart);
+	m_StartWindow.AddInterfacePart(ModesPart);
+	m_StartWindow.AddInterfacePart(closeWindow);
+	renderer.AddInterfaceWindow(m_StartWindow);
+	
+	m_ModesWindow.AddInterfacePart(SinglePlayerButtonPart);
+	m_ModesWindow.AddInterfacePart(TwoPlayerButtonPart);
+	m_ModesWindow.AddInterfacePart(ThreePlayerButtonPart);
+	m_ModesWindow.AddInterfacePart(FourPlayerButtonPart);
+	m_ModesWindow.AddInterfacePart(BackToStartWindow);
+	m_ModesWindow.AddInterfacePart(closeWindow);
+	renderer.AddInterfaceWindow(m_ModesWindow);
+
+	m_HowToPlayWindow.AddInterfacePart(HowTOplayPart);
+	m_HowToPlayWindow.AddInterfacePart(BackToStartWindow);
+	m_HowToPlayWindow.AddInterfacePart(closeWindow);
+	renderer.AddInterfaceWindow(m_HowToPlayWindow);
+}
 
 
-void dae::Minigin::ProcessInput(bool& doContinue, SceneManager& sceneMan, InputManager& inputman)
+void dae::Minigin::ProcessInput(bool& doContinue, SceneManager& sceneMan, InputManager& inputman) 
 {
 	int index{ 0 };
 	for (auto player : sceneMan.GetPlayers())//bad
@@ -277,26 +286,7 @@ void dae::Minigin::ProcessInput(bool& doContinue, SceneManager& sceneMan, InputM
 			return;
 		}
 	}
-	//int index{ 0 };
-	//for (auto player : sceneMan.GetPlayers())//bad
-	//{
-	//	std::shared_ptr<Command> command{ inputman.ProcessInput(index) };// maybe change this
-	//	if (command)
-	//	{
-	//		(*command).Execute(player);
-	//	}
-	//	index++;
-	//}
-
-	//for (auto player : sceneMan.GetPlayers())
-	//{
-	//	if (!player->GetComponent<QuitComponent>()->ContinueGame())
-	//	{
-	//		doContinue = player->GetComponent<QuitComponent>()->ContinueGame();
-	//		return;
-	//	}
-	//}
-	//doContinue = sceneMan.GetPlayer()->GetComponent<QuitComponent>()->ContinueGame();
+	
 }
 
 
@@ -307,28 +297,16 @@ void dae::Minigin::CreateDefaultCommandKeys(InputManager& inputman)
 
 	//default controls
 
-	//inputman.AddCommandAndKey({ std::make_shared<Die>(), OperateKey::keyStrokeUp, XINPUT_GAMEPAD_B });
-	//inputman.AddCommandAndKey({ std::make_shared<Quit>(), OperateKey::keyStrokeUp, XINPUT_GAMEPAD_Y });
-	//inputman.AddCommandAndKey({ std::make_shared<MoveLeft>(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_LEFT });
-	//inputman.AddCommandAndKey({ std::make_shared<MoveRight>(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_RIGHT });
-	//inputman.AddCommandAndKey({ std::make_shared<MoveUp>(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_UP });
-	//inputman.AddCommandAndKey({ std::make_shared<MoveDown>(), OperateKey::pressedDown, XINPUT_GAMEPAD_DPAD_DOWN });
-	//inputman.AddCommandAndKey({ std::make_shared<GainHp>(), OperateKey::keyStrokeDown, XINPUT_GAMEPAD_X });
-	//inputman.AddCommandAndKey({ std::make_shared<LoseHp>(), OperateKey::keyStrokeDown, XINPUT_GAMEPAD_A });
-	//inputman.AddCommandAndKey({ std::make_shared<IncreaseScore>(), OperateKey::keyStrokeDown, XINPUT_GAMEPAD_LEFT_SHOULDER });
-	//inputman.AddCommandAndKey({ std::make_shared<DecreaseScore>(), OperateKey::keyStrokeDown, XINPUT_GAMEPAD_RIGHT_SHOULDER });
 
-
-
-	inputman.AddCommandAndKey({ std::make_shared<Die>(), OperateKey::keyStrokeUp, BButton });
-	inputman.AddCommandAndKey({ std::make_shared<Quit>(), OperateKey::keyStrokeUp, YButton });
-	inputman.AddCommandAndKey({ std::make_shared<MoveLeft>(), OperateKey::pressedDown, LeftButton });
-	inputman.AddCommandAndKey({ std::make_shared<MoveRight>(), OperateKey::pressedDown, RightButton });
-	inputman.AddCommandAndKey({ std::make_shared<MoveUp>(), OperateKey::pressedDown, UpButton });
-	inputman.AddCommandAndKey({ std::make_shared<MoveDown>(), OperateKey::pressedDown, DownButton });
-	inputman.AddCommandAndKey({ std::make_shared<GainHp>(), OperateKey::keyStrokeDown, XButton });
-	inputman.AddCommandAndKey({ std::make_shared<LoseHp>(), OperateKey::keyStrokeDown, AButton });
-	inputman.AddCommandAndKey({ std::make_shared<IncreaseScore>(), OperateKey::keyStrokeDown, L1Button });
-	inputman.AddCommandAndKey({ std::make_shared<DecreaseScore>(), OperateKey::keyStrokeDown, R1Button });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<Die>(), OperateKey::keyStrokeUp, BButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<Quit>(), OperateKey::keyStrokeUp, YButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<MoveLeft>(), OperateKey::pressedDown, LeftButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<MoveRight>(), OperateKey::pressedDown, RightButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<MoveUp>(), OperateKey::pressedDown, UpButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<MoveDown>(), OperateKey::pressedDown, DownButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<GainHp>(), OperateKey::keyStrokeDown, XButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<LoseHp>(), OperateKey::keyStrokeDown, AButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<IncreaseScore>(), OperateKey::keyStrokeDown, L1Button });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<DecreaseScore>(), OperateKey::keyStrokeDown, R1Button });
 
 }

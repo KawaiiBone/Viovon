@@ -94,7 +94,7 @@ std::vector<std::shared_ptr<dae::Command>> dae::InputManager::ProcessInput(int i
 }
 
 
-void dae::InputManager::AddCommandAndKey(const OperateCommand& command)
+void dae::InputManager::AddDefaultCommandAndKey(const OperateCommand& command)
 {
 	m_pCommandsVector[0].push_back(command);
 	m_pCommandsVector[1].push_back(command);

@@ -10,18 +10,9 @@ m_Health(maxHp), m_MaxHealth(maxHp), m_Text{  "HP: " + std::to_string(maxHp) }
 	
 }
 
-void dae::HealthComponent::Update(float deltaTime, GameObject& object)
+void dae::HealthComponent::Update(float , GameObject& )
 {
-	//if (m_Health <= 0)
-	//{
-	//	std::make_shared<GameObject> tmp = object;
-	//	//object.GetSubject().Notify((tmp), EventObeserver::died);
-	//	//object.Die();
-	//	//Subject::GetInstance().Notify(object, EventObeserver::died);
-	//	deltaTime;
-	//}
-	deltaTime;
-	object;
+
 }
 
 std::string dae::HealthComponent::GetTxt()
