@@ -32,5 +32,9 @@ std::string dae::FPSComponent::GetTxt()
 	return m_Text;
 }
 
+void dae::FPSComponent::SubjectRender() const
+{
+}
+
 
 

@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "ComponentsHeaders.h"
 
+
 dae::ScoreObserver::ScoreObserver(std::pair< Transform, RenderComponent*> pRenderComScore)
 	: m_pScoreComp(pRenderComScore)
 {

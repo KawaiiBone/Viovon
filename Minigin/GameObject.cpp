@@ -66,8 +66,12 @@ void dae::GameObject::Render() const
 	{
 		m_pRenderComponent->Render(m_Pos.GetPosition().x, m_Pos.GetPosition().y);
 	}
-
-	m_subject.Render();
+	
+	for (auto pBaseComp : m_VectorpBComponents)
+	{
+		pBaseComp->SubjectRender();
+	}
+	
 }
 
 void dae::GameObject::AddBaseComponent(BaseComponent* myComponent)
@@ -135,15 +139,6 @@ void dae::GameObject::ResetVelocity()
 	m_Velocity.SetPosition(0, 0, 0);
 }
 
-dae::Subject& dae::GameObject::GetSubject()  
-{
-	return m_subject;
-}
-
-void dae::GameObject::AddObeserver(Observer* pObs)
-{
-	m_subject.AddObserver(pObs);
-}
 
 
 dae::GameObject::~GameObject()

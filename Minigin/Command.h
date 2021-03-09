@@ -69,10 +69,10 @@ namespace dae
 	{
 	public:
 		Die() {  };
-		void Execute(std::shared_ptr<dae::GameObject> ) override
+		void Execute(std::shared_ptr<dae::GameObject> object) override
 		{
 
-
+			object->Die();
 		}
 	};
 

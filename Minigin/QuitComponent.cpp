@@ -27,3 +27,7 @@ bool dae::QuitComponent::ContinueGame() const
 {
 	return m_ContinueGame;
 }
+
+void dae::QuitComponent::SubjectRender() const
+{
+}

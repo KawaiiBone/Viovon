@@ -21,4 +21,8 @@ std::string dae::PlayerMovement::GetTxt()
 	return m_Text;
 }
 
+void dae::PlayerMovement::SubjectRender() const
+{
+}
+
 

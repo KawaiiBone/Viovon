@@ -40,6 +40,11 @@ void Scene::Render() const
 	}
 }
 
+std::string Scene::GetSceneName() const
+{
+	return m_Name;
+}
+
 
 void Scene::DestroyDeadObjects()
 {

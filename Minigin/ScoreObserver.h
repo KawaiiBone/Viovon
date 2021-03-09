@@ -2,11 +2,13 @@
 #include "Observer.h"
 #include "Transform.h"
 
+
 namespace dae
 {
 	class RenderComponent;
 	class GameObject;
 	enum class EventObeserver;
+	
 	
 	class ScoreObserver : public Observer
 	{
@@ -17,5 +19,6 @@ namespace dae
 		void Render() const override;
 	private:
 		std::pair< Transform, RenderComponent*> m_pScoreComp;
+
 	};
 }

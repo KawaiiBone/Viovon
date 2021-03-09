@@ -5,14 +5,14 @@
 #include "Subject.h"
 
 dae::HealthComponent::HealthComponent(int maxHp):
-m_Health(maxHp), m_MaxHealth(maxHp), m_Text{  "HP: " + std::to_string(maxHp) }
+m_Health(maxHp), m_MaxHealth(maxHp), m_Text{  "HP: " + std::to_string(maxHp) }, m_Subject{  }
 {
 	
 }
 
 void dae::HealthComponent::Update(float , GameObject& )
 {
-
+	
 }
 
 std::string dae::HealthComponent::GetTxt()
@@ -28,14 +28,22 @@ void dae::HealthComponent::InfluenceHealth(int inf, std::shared_ptr<dae::GameObj
 		m_Health += inf;
 		m_Text =  "HP: " + std::to_string(m_Health);
 	}
-	object->GetSubject().Notify(object, EventObeserver::healthChanged);
-
+	m_Subject.Notify(object, EventObeserver::healthChanged);
 	if (m_Health <= 0)
 	{
-		object->GetSubject().Notify(object, EventObeserver::died);
+		m_Subject.Notify(object, EventObeserver::died);
 	}
 	
 	//Subject::GetInstance().Notify(*object, EventObeserver::healthChanged);
 }
 
 
+void dae::HealthComponent::AddObserver(Observer* pObs)
+{
+	m_Subject.AddObserver(pObs);
+}
+
+void dae::HealthComponent::SubjectRender() const
+{
+	m_Subject.Render();
+}

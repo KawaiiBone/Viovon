@@ -36,8 +36,7 @@ namespace dae
 		void ResetVelocity();
 		
 
-		Subject& GetSubject() ;
-		void AddObeserver(Observer* pObs);
+	
 		
 		~GameObject();
 		GameObject(const GameObject& other) = delete;
@@ -65,7 +64,7 @@ namespace dae
 		RenderComponent* m_pRenderComponent;
 		std::vector<BaseComponent*> m_VectorpBComponents;
 		bool m_IsDead;
-		Subject m_subject;//dont put here create a sepperate class, also dont put it then in component
+		//Subject m_subject;//dont put here create a sepperate class, also dont put it then in component
 		// maybe add connected components: base compoenent + render component
 		// 	std::vector<std::pair<RenderComponent*,BaseComponent*>>
 		

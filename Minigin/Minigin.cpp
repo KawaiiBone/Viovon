@@ -56,7 +56,6 @@ void dae::Minigin::LoadGame() const
 
 	CreateUI();
 
-	
 
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
@@ -80,49 +79,10 @@ void dae::Minigin::LoadGame() const
 
 
 
-
-	auto QBertObject = std::make_shared<GameObject>(50.f, 50.f, new TextureComponent("QBert/QbertCharachter.png", 0.25f));
-	QBertObject->AddBaseComponent(new QuitComponent());
-	QBertObject->AddBaseComponent(new PlayerMovement());
-	QBertObject->AddBaseComponent(new HealthComponent(20));
-	QBertObject->AddBaseComponent(new ScoreComponent(2000));
-
-
-	SDL_Color colorHP{ 255,255,255 };
-	auto fontHP = ResourceManager::GetInstance().LoadFont("Lingua.otf", 26);
-	auto hpObserver{ new HealthObserver({Transform(10,100,0),new TextComponent("HP: 20", fontHP, colorHP, false)},
-		{Transform(100,100,0),new TextComponent("You Died: ", fontHP, colorHP, false)}) };
-
-	auto scoreObserver{ new ScoreObserver({Transform(500,100,0),new TextComponent("Score: 0", fontHP, colorHP, false)}) };
+	AddPlayers(scene, 4);
 
 
 
-
-	QBertObject->AddObeserver(hpObserver);
-	QBertObject->AddObeserver(scoreObserver);
-	scene.Add(QBertObject/*, true*/);
-
-
-
-	SceneManager::GetInstance().AddPlayer(QBertObject);
-
-
-	auto QBertObject2 = std::make_shared<GameObject>(100.f, 50.f, new TextureComponent("QBert/QbertCharachter.png", 0.25f));
-	QBertObject2->AddBaseComponent(new QuitComponent());
-	QBertObject2->AddBaseComponent(new PlayerMovement());
-	QBertObject2->AddBaseComponent(new HealthComponent(20));
-	QBertObject2->AddBaseComponent(new ScoreComponent(2000));
-
-	auto hpObserver2{ new HealthObserver({Transform(10,150,0),new TextComponent("HP: 20", fontHP, colorHP, false)},
-		{Transform(100,150,0),new TextComponent("You Died: ", fontHP, colorHP, false)}) };
-
-	auto scoreObserver2{ new ScoreObserver({Transform(500,150,0),new TextComponent("Score: 0", fontHP, colorHP, false)}) };
-	QBertObject2->AddObeserver(hpObserver2);
-	QBertObject2->AddObeserver(scoreObserver2);
-
-
-	scene.Add(QBertObject2/*, true*/);
-	SceneManager::GetInstance().AddPlayer(QBertObject2);
 
 
 }
@@ -193,14 +153,14 @@ void dae::Minigin::CreateUI() const
 	{"" },
 		{InterFaceNames::none }
 	};
-	
+
 	InterfacePart BackToStartWindow{
 	{"BackToStartScreen",ImVec2{0,0}},
 	{"" },
 		{InterFaceNames::start }
 	};
-	
-	
+
+
 	InterfacePart howToPlayPart{
 		{"HowToPlay",ImVec2{0,0}},
 		{"Hello!!!!" },
@@ -242,12 +202,12 @@ void dae::Minigin::CreateUI() const
 	InterfaceWindow m_StartWindow("Startscreen", InterFaceNames::start);
 	InterfaceWindow m_HowToPlayWindow("HowToPlay", InterFaceNames::howToPlay);
 	InterfaceWindow m_ModesWindow("Modes", InterFaceNames::modes);
-	
+
 	m_StartWindow.AddInterfacePart(howToPlayPart);
 	m_StartWindow.AddInterfacePart(ModesPart);
 	m_StartWindow.AddInterfacePart(closeWindow);
 	renderer.AddInterfaceWindow(m_StartWindow);
-	
+
 	m_ModesWindow.AddInterfacePart(SinglePlayerButtonPart);
 	m_ModesWindow.AddInterfacePart(TwoPlayerButtonPart);
 	m_ModesWindow.AddInterfacePart(ThreePlayerButtonPart);
@@ -263,18 +223,18 @@ void dae::Minigin::CreateUI() const
 }
 
 
-void dae::Minigin::ProcessInput(bool& doContinue, SceneManager& sceneMan, InputManager& inputman) 
+void dae::Minigin::ProcessInput(bool& doContinue, SceneManager& sceneMan, InputManager& inputman)
 {
 	int index{ 0 };
 	for (auto player : sceneMan.GetPlayers())//bad
 	{
 		std::vector<std::shared_ptr<Command>> commands{ inputman.ProcessInput(index) };// maybe change this
-		
-			for (std::shared_ptr<Command> pCommand: commands)
-			{
-				(*pCommand).Execute(player);
-				
-			}
+
+		for (std::shared_ptr<Command> pCommand : commands)
+		{
+			(*pCommand).Execute(player);
+
+		}
 		index++;
 	}
 
@@ -286,7 +246,7 @@ void dae::Minigin::ProcessInput(bool& doContinue, SceneManager& sceneMan, InputM
 			return;
 		}
 	}
-	
+
 }
 
 
@@ -309,4 +269,64 @@ void dae::Minigin::CreateDefaultCommandKeys(InputManager& inputman)
 	inputman.AddDefaultCommandAndKey({ std::make_shared<IncreaseScore>(), OperateKey::keyStrokeDown, L1Button });
 	inputman.AddDefaultCommandAndKey({ std::make_shared<DecreaseScore>(), OperateKey::keyStrokeDown, R1Button });
 
+}
+
+void dae::Minigin::AddPlayers(Scene& sceneMan, int totalPlayers) const
+{
+	const int maxPlayers{ 4 };
+	if (totalPlayers > maxPlayers)
+	{
+		totalPlayers = maxPlayers;
+	}
+	else if (totalPlayers < 1)
+	{
+		totalPlayers = 1;
+	}
+
+
+
+	ImVec2 posPlayer{50,50};
+	ImVec2 posHealthObserver{10,100};
+	ImVec2 posDeadObserver{100,100};
+	ImVec2 posScoreObserver{500,100};
+
+	const float playerSpace{ 100.f };
+	const float textSpace{ 25.f };
+
+	for (int i = 0; i < totalPlayers; i++)
+	{
+		SDL_Color colorHP{ 255,255,255 };
+		auto fontHP = ResourceManager::GetInstance().LoadFont("Lingua.otf", 26);
+		auto hpObserver{ new HealthObserver({Transform(posHealthObserver.x,posHealthObserver.y,0),new TextComponent("HP: 20", fontHP, colorHP, false)},
+			{Transform(posDeadObserver.x,posDeadObserver.y,0),new TextComponent("You Died: ", fontHP, colorHP, false)}) };
+
+		auto scoreObserver{ new ScoreObserver({Transform(posScoreObserver.x,posScoreObserver.y,0),new TextComponent("Score: 0", fontHP, colorHP, false)}) };
+
+		
+		auto hpComponent{ new HealthComponent(20) };
+		auto scoreComponent{ new ScoreComponent(2000) };
+
+		hpComponent->AddObserver(hpObserver);
+		scoreComponent->AddObserver(scoreObserver);
+
+		
+		auto QBertObject = std::make_shared<GameObject>(posPlayer.x, posPlayer.y, new TextureComponent("QBert/QbertCharachter.png", 0.25f));
+		QBertObject->AddBaseComponent(new QuitComponent());
+		QBertObject->AddBaseComponent(new PlayerMovement());
+		QBertObject->AddBaseComponent(hpComponent);
+		QBertObject->AddBaseComponent(scoreComponent);
+
+
+
+
+		sceneMan.Add(QBertObject);
+		SceneManager::GetInstance().AddPlayer(QBertObject);
+
+		posPlayer.y += playerSpace/2;
+		posPlayer.x += playerSpace;
+		posHealthObserver.y += textSpace;
+		posDeadObserver.y += textSpace;
+		posScoreObserver.y += textSpace;
+		
+	}
 }

@@ -12,7 +12,7 @@ namespace dae
 
 		void Update(float deltaTime);
 		void Render() const;
-
+		std::string GetSceneName()const;
 
 		
 		~Scene();
