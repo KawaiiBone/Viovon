@@ -8,9 +8,45 @@
 
 namespace dae
 {
-	enum class OperateKey;
 	class Command;
-	struct OperateCommand;
+	//typedef unsigned int UINT;
+
+
+	enum class OperateKey
+	{
+		pressedDown,
+		keyStrokeDown,
+		keyStrokeUp
+
+	};
+
+
+	struct OperateCommand
+	{
+		std::shared_ptr<Command> pCommand;
+		OperateKey operateKey;
+		UINT ControllerKey;
+	};
+
+
+	enum  ControllerButton
+	{
+		XButton = 0x4000,
+		YButton = 0x8000,
+		AButton = 0x1000,
+		BButton = 0x2000,
+		LeftButton = 0x0004,
+		RightButton = 0x0008,
+		UpButton = 0x0001,
+		DownButton = 0x0002,
+		R1Button = 0x0200,
+		L1Button = 0x0100,
+		R2Button = 0x0080,
+		L2Button = 0x0040,
+		StartButton = 0x0010,
+		BackButton = 0x0020,
+		none,
+	};
 	
 	class InputManager final : public Singleton<InputManager>
 	{

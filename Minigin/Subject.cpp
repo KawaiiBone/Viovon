@@ -37,7 +37,7 @@ void dae::Subject::RemoveObserver(Observer* observer)
 	
 }
 
-void dae::Subject::Notify(std::shared_ptr<dae::GameObject> entity, EventObeserver event)
+void dae::Subject::Notify(std::shared_ptr<dae::GameObject> entity, EventObserver event)
 {
 	for (Observer* pObser: m_ObserversVec)
 	{

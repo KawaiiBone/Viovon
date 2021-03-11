@@ -28,13 +28,13 @@ void dae::HealthComponent::InfluenceHealth(int inf, std::shared_ptr<dae::GameObj
 		m_Health += inf;
 		m_Text =  "HP: " + std::to_string(m_Health);
 	}
-	m_Subject.Notify(object, EventObeserver::healthChanged);
+	m_Subject.Notify(object, EventObserver::healthChanged);
 	if (m_Health <= 0)
 	{
-		m_Subject.Notify(object, EventObeserver::died);
+		m_Subject.Notify(object, EventObserver::died);
 	}
 	
-	//Subject::GetInstance().Notify(*object, EventObeserver::healthChanged);
+	//Subject::GetInstance().Notify(*object, EventObserver::healthChanged);
 }
 
 

@@ -40,59 +40,32 @@
     <Filter Include="Source Files\Observers">
       <UniqueIdentifier>{9af122d5-85cc-4cc2-922a-df2cae449829}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{964789ce-1531-4013-8a63-5892dccd85de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\BaseComponents">
+      <UniqueIdentifier>{aa24c726-2964-4936-b185-a483ec29d5f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\RenderComponents">
+      <UniqueIdentifier>{5f985a44-c528-43c6-98f3-969d7d79849f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine">
+      <UniqueIdentifier>{5ca73d33-5364-45f2-b005-cfe5576baeb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Input">
+      <UniqueIdentifier>{f141e30c-8910-43e1-8d71-1b30a2925f30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Observers">
+      <UniqueIdentifier>{4bb6cd57-b01b-4d6f-95cd-a6ec34f553e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Rendering">
+      <UniqueIdentifier>{9af2d3d8-58b2-40f0-b7eb-6ff1a36d0cd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene">
+      <UniqueIdentifier>{687428a3-f35a-4a08-808e-b43ff682655f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TextureComponent.h">
-      <Filter>Source Files\Components\RenderComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="TextComponent.h">
-      <Filter>Source Files\Components\RenderComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderComponent.h">
-      <Filter>Source Files\Components\RenderComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSComponent.h">
-      <Filter>Source Files\Components\BaseComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseComponent.h">
-      <Filter>Source Files\Components\BaseComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Source Files\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Source Files\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Font.h">
-      <Filter>Source Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Source Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture2D.h">
-      <Filter>Source Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Source Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Minigin.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="MiniginPCH.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Command.h">
-      <Filter>Source Files\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>Source Files\Input</Filter>
-    </ClInclude>
     <ClInclude Include="..\3rdParty\imgui-1.81\imstb_truetype.h">
       <Filter>imguis</Filter>
     </ClInclude>
@@ -117,44 +90,92 @@
     <ClInclude Include="..\3rdParty\imgui-1.81\backends\imgui_impl_sdl.h">
       <Filter>imguis</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Source Files\Scene</Filter>
+    <ClInclude Include="ComponentsHeaders.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerMovement.h">
-      <Filter>Source Files\Components\BaseComponents</Filter>
+    <ClInclude Include="RenderComponent.h">
+      <Filter>Header Files\Components\RenderComponents</Filter>
     </ClInclude>
-    <ClInclude Include="QuitComponent.h">
-      <Filter>Source Files\Components\BaseComponents</Filter>
+    <ClInclude Include="TextComponent.h">
+      <Filter>Header Files\Components\RenderComponents</Filter>
     </ClInclude>
-    <ClInclude Include="enumsAndStructs.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="TextureComponent.h">
+      <Filter>Header Files\Components\RenderComponents</Filter>
     </ClInclude>
-    <ClInclude Include="Observer.h">
-      <Filter>Source Files\Observers</Filter>
+    <ClInclude Include="BaseComponent.h">
+      <Filter>Header Files\Components\BaseComponents</Filter>
     </ClInclude>
-    <ClInclude Include="Subject.h">
-      <Filter>Source Files\Observers</Filter>
+    <ClInclude Include="FPSComponent.h">
+      <Filter>Header Files\Components\BaseComponents</Filter>
     </ClInclude>
     <ClInclude Include="HealthComponent.h">
-      <Filter>Source Files\Components\BaseComponents</Filter>
+      <Filter>Header Files\Components\BaseComponents</Filter>
     </ClInclude>
-    <ClInclude Include="ObserversHeaders.h">
-      <Filter>Source Files\Observers</Filter>
+    <ClInclude Include="PlayerMovement.h">
+      <Filter>Header Files\Components\BaseComponents</Filter>
     </ClInclude>
-    <ClInclude Include="HealthObserver.h">
-      <Filter>Source Files\Observers</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentsHeaders.h">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreObserver.h">
-      <Filter>Source Files\Observers</Filter>
+    <ClInclude Include="QuitComponent.h">
+      <Filter>Header Files\Components\BaseComponents</Filter>
     </ClInclude>
     <ClInclude Include="ScoreComponent.h">
-      <Filter>Source Files\Components\BaseComponents</Filter>
+      <Filter>Header Files\Components\BaseComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Minigin.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniginPCH.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthObserver.h">
+      <Filter>Header Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Header Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="ObserversHeaders.h">
+      <Filter>Header Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreObserver.h">
+      <Filter>Header Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Header Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="InterfaceWindow.h">
-      <Filter>Source Files\Rendering</Filter>
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2D.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -20,17 +20,17 @@ dae::HealthObserver::~HealthObserver()
 	m_pDeadRenderComp.second = nullptr;
 }
 
-void dae::HealthObserver::OnNotify(std::shared_ptr<dae::GameObject> entity, EventObeserver event)
+void dae::HealthObserver::OnNotify(std::shared_ptr<dae::GameObject> entity, EventObserver event)
 {
 	switch (event) {
-	case EventObeserver::died:
+	case EventObserver::died:
 		entity->IsDead();//update here
 		m_PlayerDied = true;
 		break;
-	case EventObeserver::healthChanged:
+	case EventObserver::healthChanged:
 		m_pHealthRenderComp.second->Update(entity->GetComponent<HealthComponent>()->GetTxt());
 		break;
-	case EventObeserver::none:
+	case EventObserver::none:
 		break;
 	default:;
 	}

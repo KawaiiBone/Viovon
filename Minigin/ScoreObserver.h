@@ -7,7 +7,7 @@ namespace dae
 {
 	class RenderComponent;
 	class GameObject;
-	enum class EventObeserver;
+	enum class EventObserver;
 	
 	
 	class ScoreObserver : public Observer
@@ -15,7 +15,7 @@ namespace dae
 	public:
 		ScoreObserver(std::pair< Transform, RenderComponent*> pRenderComScore);
 		~ScoreObserver();
-		void OnNotify(std::shared_ptr<dae::GameObject> entity, EventObeserver event) override;
+		void OnNotify(std::shared_ptr<dae::GameObject> entity, EventObserver event) override;
 		void Render() const override;
 	private:
 		std::pair< Transform, RenderComponent*> m_pScoreComp;
