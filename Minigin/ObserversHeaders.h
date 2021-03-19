@@ -1,4 +1,4 @@
 #pragma once
 #include "Observer.h"
-#include "HealthObserver.h"
+#include "LivesObserver.h"
 #include "ScoreObserver.h"

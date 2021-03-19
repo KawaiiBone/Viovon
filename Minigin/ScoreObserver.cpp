@@ -4,7 +4,7 @@
 #include "ComponentsHeaders.h"
 
 
-dae::ScoreObserver::ScoreObserver(std::pair< Transform, RenderComponent*> pRenderComScore)
+dae::ScoreObserver::ScoreObserver(const StationaryRenderComponent& pRenderComScore)
 	: m_pScoreComp(pRenderComScore)
 {
 
@@ -13,15 +13,15 @@ dae::ScoreObserver::ScoreObserver(std::pair< Transform, RenderComponent*> pRende
 
 dae::ScoreObserver::~ScoreObserver()
 {
-	delete m_pScoreComp.second;
-	m_pScoreComp.second = nullptr;
+	delete m_pScoreComp.renderComp;
+	m_pScoreComp.renderComp = nullptr;
 }
 
 void dae::ScoreObserver::OnNotify(std::shared_ptr<dae::GameObject> entity, EventObserver event)
 {
 	switch (event) {
 	case EventObserver::scoreChaned:
-		m_pScoreComp.second->Update(entity->GetComponent<ScoreComponent>()->GetTxt());
+		m_pScoreComp.renderComp->Update(entity->GetComponent<ScoreComponent>()->GetTxt());
 		break;
 	case EventObserver::defeatingCoily:
 		//gets through when coily is defeated
@@ -43,6 +43,6 @@ void dae::ScoreObserver::OnNotify(std::shared_ptr<dae::GameObject> entity, Event
 
 void dae::ScoreObserver::Render() const
 {
-	m_pScoreComp.second->Render(m_pScoreComp.first.GetPosition().x, m_pScoreComp.first.GetPosition().y);
+	m_pScoreComp.renderComp->Render(m_pScoreComp.x, m_pScoreComp.y);
 
 }

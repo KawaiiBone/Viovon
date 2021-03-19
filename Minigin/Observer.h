@@ -3,11 +3,21 @@
 namespace dae
 {
 
-	
+
+
 	class RenderComponent;
 	class GameObject;
 	enum class EventObserver;
 	
+
+	struct StationaryRenderComponent
+	{
+		float x;
+		float y;
+		RenderComponent* renderComp;
+	};
+
+
 	class Observer
 	{
 	public:

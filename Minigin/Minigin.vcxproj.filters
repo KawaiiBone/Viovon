@@ -64,6 +64,12 @@
     <Filter Include="Header Files\Scene">
       <UniqueIdentifier>{687428a3-f35a-4a08-808e-b43ff682655f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Audio">
+      <UniqueIdentifier>{957cc8cf-0db1-4a4e-9119-742ac611e9f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Audio">
+      <UniqueIdentifier>{24d085b3-1f3f-4b33-bacb-948090a99b48}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\3rdParty\imgui-1.81\imstb_truetype.h">
@@ -108,7 +114,7 @@
     <ClInclude Include="FPSComponent.h">
       <Filter>Header Files\Components\BaseComponents</Filter>
     </ClInclude>
-    <ClInclude Include="HealthComponent.h">
+    <ClInclude Include="LivesComponent.h">
       <Filter>Header Files\Components\BaseComponents</Filter>
     </ClInclude>
     <ClInclude Include="PlayerMovement.h">
@@ -132,7 +138,7 @@
     <ClInclude Include="InputManager.h">
       <Filter>Header Files\Input</Filter>
     </ClInclude>
-    <ClInclude Include="HealthObserver.h">
+    <ClInclude Include="LivesObserver.h">
       <Filter>Header Files\Observers</Filter>
     </ClInclude>
     <ClInclude Include="Observer.h">
@@ -176,6 +182,9 @@
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="audio.h">
+      <Filter>Header Files\Audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -260,10 +269,10 @@
     <ClCompile Include="Subject.cpp">
       <Filter>Source Files\Observers</Filter>
     </ClCompile>
-    <ClCompile Include="HealthComponent.cpp">
+    <ClCompile Include="LivesComponent.cpp">
       <Filter>Source Files\Components\BaseComponents</Filter>
     </ClCompile>
-    <ClCompile Include="HealthObserver.cpp">
+    <ClCompile Include="LivesObserver.cpp">
       <Filter>Source Files\Observers</Filter>
     </ClCompile>
     <ClCompile Include="ScoreObserver.cpp">
@@ -274,6 +283,9 @@
     </ClCompile>
     <ClCompile Include="InterfaceWindow.cpp">
       <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="audio.cpp">
+      <Filter>Source Files\Audio</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -13,12 +13,12 @@ namespace dae
 	class ScoreObserver : public Observer
 	{
 	public:
-		ScoreObserver(std::pair< Transform, RenderComponent*> pRenderComScore);
+		ScoreObserver(const StationaryRenderComponent& pRenderComScore);
 		~ScoreObserver();
 		void OnNotify(std::shared_ptr<dae::GameObject> entity, EventObserver event) override;
 		void Render() const override;
 	private:
-		std::pair< Transform, RenderComponent*> m_pScoreComp;
+		StationaryRenderComponent m_pScoreComp;
 
 	};
 }

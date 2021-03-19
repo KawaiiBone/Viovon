@@ -264,8 +264,8 @@ void dae::Minigin::CreateDefaultCommandKeys(InputManager& inputman)
 	inputman.AddDefaultCommandAndKey({ std::make_shared<MoveRight>(), OperateKey::pressedDown, RightButton });
 	inputman.AddDefaultCommandAndKey({ std::make_shared<MoveUp>(), OperateKey::pressedDown, UpButton });
 	inputman.AddDefaultCommandAndKey({ std::make_shared<MoveDown>(), OperateKey::pressedDown, DownButton });
-	inputman.AddDefaultCommandAndKey({ std::make_shared<GainHp>(), OperateKey::keyStrokeDown, XButton });
-	inputman.AddDefaultCommandAndKey({ std::make_shared<LoseHp>(), OperateKey::keyStrokeDown, AButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<GainLife>(), OperateKey::keyStrokeDown, XButton });
+	inputman.AddDefaultCommandAndKey({ std::make_shared<LoseLife>(), OperateKey::keyStrokeDown, AButton });
 	inputman.AddDefaultCommandAndKey({ std::make_shared<IncreaseScore>(), OperateKey::keyStrokeDown, L1Button });
 	inputman.AddDefaultCommandAndKey({ std::make_shared<DecreaseScore>(), OperateKey::keyStrokeDown, R1Button });
 
@@ -297,16 +297,16 @@ void dae::Minigin::AddPlayers(Scene& sceneMan, int totalPlayers) const
 	{
 		SDL_Color colorHP{ 255,255,255 };
 		auto fontHP = ResourceManager::GetInstance().LoadFont("Lingua.otf", 26);
-		auto hpObserver{ new HealthObserver({Transform(posHealthObserver.x,posHealthObserver.y,0),new TextComponent("HP: 20", fontHP, colorHP, false)},
-			{Transform(posDeadObserver.x,posDeadObserver.y,0),new TextComponent("You Died: ", fontHP, colorHP, false)}) };
+		auto livesObserver{ new LivesObserver({posHealthObserver.x,posHealthObserver.y,new TextComponent("Lives: 20", fontHP, colorHP, false)},
+			{posDeadObserver.x,posDeadObserver.y,new TextComponent("You Died: ", fontHP, colorHP, false)}) };
 
-		auto scoreObserver{ new ScoreObserver({Transform(posScoreObserver.x,posScoreObserver.y,0),new TextComponent("Score: 0", fontHP, colorHP, false)}) };
+		auto scoreObserver{ new ScoreObserver({posScoreObserver.x,posScoreObserver.y,new TextComponent("Score: 0", fontHP, colorHP, false)}) };
 
 		
-		auto hpComponent{ new HealthComponent(20) };
+		auto hpComponent{ new LivesComponent(20) };
 		auto scoreComponent{ new ScoreComponent(2000) };
 
-		hpComponent->AddObserver(hpObserver);
+		hpComponent->AddObserver(livesObserver);
 		scoreComponent->AddObserver(scoreObserver);
 
 		

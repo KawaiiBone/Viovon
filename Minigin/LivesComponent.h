@@ -5,19 +5,19 @@
 namespace dae
 {
 	class Obserer;
-	class HealthComponent : public  BaseComponent
+	class LivesComponent : public  BaseComponent
 	{
 	public:
-		HealthComponent(int maxHp);
+		LivesComponent(int maxLives);
 		void Update(float deltaTime, GameObject& object) override;
 		std::string GetTxt() override;
-		void InfluenceHealth(int inf, std::shared_ptr<dae::GameObject> object);
+		void InfluenceLife(int inf, std::shared_ptr<dae::GameObject> object);
 		void AddObserver(Observer* pObs);
 		void SubjectRender()const override;
 	
 	private:
-		int m_Health;
-		const int m_MaxHealth;
+		int m_Lives;
+		const int m_MaxLives;
 		std::string m_Text;
 		Subject m_Subject;
 

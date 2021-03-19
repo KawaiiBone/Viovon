@@ -125,29 +125,29 @@ namespace dae
 	};
 
 
-	class GainHp : public Command// for testing
+	class GainLife : public Command// for testing
 	{
 	public:
-		GainHp() { };
+		GainLife() { };
 		void Execute(std::shared_ptr<dae::GameObject> object) override
 		{
-			if (object->GetComponent<HealthComponent>())
+			if (object->GetComponent<LivesComponent>())
 			{
-				object->GetComponent<HealthComponent>()->InfluenceHealth(5, object);
+				object->GetComponent<LivesComponent>()->InfluenceLife(5, object);
 
 			}
 		}
 	};
 
-	class LoseHp : public Command// for testing
+	class LoseLife : public Command// for testing
 	{
 	public:
-		LoseHp() { };
+		LoseLife() { };
 		void Execute(std::shared_ptr<dae::GameObject> object) override
 		{
-			if (object->GetComponent<HealthComponent>())
+			if (object->GetComponent<LivesComponent>())
 			{
-				object->GetComponent<HealthComponent>()->InfluenceHealth(-5, object);
+				object->GetComponent<LivesComponent>()->InfluenceLife(-5, object);
 			}
 		}
 	};
@@ -160,7 +160,7 @@ namespace dae
 		IncreaseScore() { };
 		void Execute(std::shared_ptr<dae::GameObject> object) override
 		{
-			if (object->GetComponent<HealthComponent>())
+			if (object->GetComponent<LivesComponent>())
 			{
 				object->GetComponent<ScoreComponent>()->InfluenceScore(+5, object);
 			}
@@ -173,7 +173,7 @@ namespace dae
 		DecreaseScore() { };
 		void Execute(std::shared_ptr<dae::GameObject> object) override
 		{
-			if (object->GetComponent<HealthComponent>())
+			if (object->GetComponent<LivesComponent>())
 			{
 				object->GetComponent<ScoreComponent>()->InfluenceScore(-5, object);
 			}

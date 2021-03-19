@@ -4,5 +4,5 @@
 #include "FPSComponent.h"
 #include "QuitComponent.h"
 #include "PlayerMovement.h"
-#include "HealthComponent.h"
+#include "LivesComponent.h"
 #include "ScoreComponent.h"
