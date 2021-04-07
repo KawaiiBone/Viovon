@@ -186,6 +186,12 @@
     <ClInclude Include="audio.h">
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
+    <ClInclude Include="ServiceLocater.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundService.h">
+      <Filter>Header Files\Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -285,6 +291,12 @@
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="audio.cpp">
+      <Filter>Source Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="ServiceLocater.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundService.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
   </ItemGroup>

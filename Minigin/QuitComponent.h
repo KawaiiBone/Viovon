@@ -3,7 +3,7 @@
 
 namespace dae
 {
-	class QuitComponent : public BaseComponent
+	class QuitComponent final : public BaseComponent
 	{
 	public:
 		QuitComponent();

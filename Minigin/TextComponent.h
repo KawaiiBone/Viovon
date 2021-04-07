@@ -10,7 +10,7 @@ namespace dae
 	class Font;
 	class Texture2D;
 	class FPSComponent;
-	class TextComponent : public RenderComponent
+	class TextComponent final : public RenderComponent
 	{
 	public:
 		TextComponent(const std::string& text, const std::shared_ptr<Font>& font, const SDL_Color color, bool isStaticTxt);

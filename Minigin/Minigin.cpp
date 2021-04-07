@@ -8,6 +8,8 @@
 #include "ResourceManager.h"
 #include <SDL.h>
 
+
+#include "audio.h"
 #include "Command.h"
 #include "GameObject.h"
 #include "Scene.h"
@@ -17,6 +19,9 @@
 #include "ObserversHeaders.h"
 #include "InterfaceWindow.h"
 
+#include "ServiceLocater.h"
+
+
 
 
 
@@ -25,11 +30,20 @@ using namespace std::chrono;
 
 void dae::Minigin::Initialize()
 {
+	_putenv("SDL_AUDIODRIVER=DirectSound");//fix for audio
+	
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
 	}
 
+	if (SDL_Init(SDL_INIT_AUDIO) != 0)
+	{
+		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
+	}
+	
+	initAudio();//for audio
+	
 	m_Window = SDL_CreateWindow(
 		"Programming 4 assignment",
 		SDL_WINDOWPOS_CENTERED,
@@ -83,15 +97,15 @@ void dae::Minigin::LoadGame() const
 
 
 
-
-
 }
 
 void dae::Minigin::Cleanup()
 {
+	ServiceLocater::CleanUp();
 	Renderer::GetInstance().Destroy();
 	SDL_DestroyWindow(m_Window);
 	m_Window = nullptr;
+	endAudio();
 	SDL_Quit();
 }
 
@@ -99,6 +113,10 @@ void dae::Minigin::Run()
 {
 	Initialize();
 
+	ServiceLocater::RegisterSoundSystem(new SoundSystem());//makes sound
+	ServiceLocater::GetSoundSystem().PlaySound("../Data/sounds/door1.wav", 50);//test
+	ServiceLocater::GetSoundSystem().PlaySound("../Data/sounds/door1.wav", 50);
+	ServiceLocater::GetSoundSystem().PlayMusic("../Data/music/highlands.wav", 100);
 	// tell the resource manager where he can find the game data
 	ResourceManager::GetInstance().Init("../Data/");
 
@@ -126,8 +144,7 @@ void dae::Minigin::Run()
 
 			ProcessInput(doContinue, sceneManager, input);
 
-
-
+			
 
 			//subject;
 			sceneManager.Update(deltaTime);

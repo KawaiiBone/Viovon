@@ -3,7 +3,7 @@
 
 namespace dae
 {
-	class PlayerMovement: public  BaseComponent
+	class PlayerMovement final : public  BaseComponent
 	{
 	public:
 		PlayerMovement();

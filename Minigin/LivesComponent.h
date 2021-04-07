@@ -5,7 +5,7 @@
 namespace dae
 {
 	class Obserer;
-	class LivesComponent : public  BaseComponent
+	class LivesComponent final : public  BaseComponent
 	{
 	public:
 		LivesComponent(int maxLives);

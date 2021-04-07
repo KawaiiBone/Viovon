@@ -2,9 +2,9 @@
 #include "Windows.h"
 #include <iostream>
 #include "GameObject.h"
-
 #include "ComponentsHeaders.h"
 
+#include "ServiceLocater.h"
 
 namespace dae
 {
@@ -162,6 +162,8 @@ namespace dae
 		{
 			if (object->GetComponent<LivesComponent>())
 			{
+				auto& a = ServiceLocater::GetSoundSystem();
+				a.PlaySound("../Data/sounds/door1.wav", 100);//it works!!!
 				object->GetComponent<ScoreComponent>()->InfluenceScore(+5, object);
 			}
 		}
@@ -175,6 +177,8 @@ namespace dae
 		{
 			if (object->GetComponent<LivesComponent>())
 			{
+				auto& a = ServiceLocater::GetSoundSystem();
+				a.PlaySound("../Data/sounds/door2.wav", 100);//it works!!!
 				object->GetComponent<ScoreComponent>()->InfluenceScore(-5, object);
 			}
 		}

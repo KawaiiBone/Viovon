@@ -74,7 +74,7 @@ Audio * createAudio(const char * filename, uint8_t loop, int volume);
 void freeAudio(Audio * audio);
 
 /*
- * Play a wave file currently must be S16LE format 2 channel stereo
+ * PlaySound a wave file currently must be S16LE format 2 channel stereo
  *
  * @param filename      Filename to open, use getAbsolutePath
  * @param volume        Volume 0 - 128. SDL_MIX_MAXVOLUME constant for max volume

@@ -5,7 +5,7 @@
 namespace dae
 {
 	class Observer;
-	class ScoreComponent : public  BaseComponent
+	class ScoreComponent final : public  BaseComponent
 	{
 	public:
 		ScoreComponent(int maxScore);
