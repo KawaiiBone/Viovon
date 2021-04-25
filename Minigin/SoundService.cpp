@@ -14,6 +14,7 @@ dae::SoundSystem::SoundSystem() :
 
 dae::SoundSystem::~SoundSystem()
 {
+	m_IsCleaningUp = true;
 	m_Thread.join();
 	//	SDL_Quit();
 }

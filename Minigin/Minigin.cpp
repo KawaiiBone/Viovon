@@ -28,6 +28,14 @@
 using namespace std;
 using namespace std::chrono;
 
+dae::Minigin::Minigin()
+{
+	Initialize();
+	ResourceManager::GetInstance().Init("../Data/");//stays
+	ServiceLocater::RegisterSoundSystem(new SoundSystem());//makes sound
+
+}
+
 void dae::Minigin::Initialize()
 {
 	_putenv("SDL_AUDIODRIVER=DirectSound");//fix for audio
@@ -111,16 +119,18 @@ void dae::Minigin::Cleanup()
 
 void dae::Minigin::Run()
 {
-	Initialize();
 
-	ServiceLocater::RegisterSoundSystem(new SoundSystem());//makes sound
-	ServiceLocater::GetSoundSystem().PlaySound("../Data/sounds/door1.wav", 50);//test
-	ServiceLocater::GetSoundSystem().PlaySound("../Data/sounds/door1.wav", 50);
-	ServiceLocater::GetSoundSystem().PlayMusic("../Data/music/highlands.wav", 100);
-	// tell the resource manager where he can find the game data
-	ResourceManager::GetInstance().Init("../Data/");
-
-	LoadGame();
+	//Initialize();
+	//ServiceLocater::RegisterSoundSystem(new SoundSystem());//makes sound
+	//ServiceLocater::GetSoundSystem().PlaySound("../Data/sounds/door1.wav", 50);//test
+	//ServiceLocater::GetSoundSystem().PlaySound("../Data/sounds/door1.wav", 50);
+	//ServiceLocater::GetSoundSystem().PlayMusic("../Data/music/highlands.wav", 100);
+	//// tell the resource manager where he can find the game data
+	///
+	//LoadGame();
+	//
+	//ResourceManager::GetInstance().Init("../Data/");
+	//ServiceLocater::RegisterSoundSystem(new SoundSystem());//makes sound
 
 	{
 		auto& renderer = Renderer::GetInstance();

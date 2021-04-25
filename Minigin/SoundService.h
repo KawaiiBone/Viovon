@@ -13,6 +13,7 @@ namespace dae
 		virtual void PlayMusic(const std::string& filename, const int volume) = 0;
 		virtual void UpdateAudio() = 0;
 		virtual void CleanUp() = 0;
+		virtual  bool IsNullSound()const = 0;
 
 	};
 
@@ -35,6 +36,7 @@ namespace dae
 		void CleanUp() override;
 		void PauseAudio();
 		void UnpauseAudio();
+		bool IsNullSound()const override { return false; };
 	private:
 		void UpdateAudio()override;
 		std::queue<AudioInfo> m_QueueSounds;
@@ -48,9 +50,11 @@ namespace dae
 	class NullSoundSystem final : public SoundService
 	{
 	public:
+		~NullSoundSystem() = default;
 		void PlaySound(const std::string&, const int) override { std::cout << "Playing NULLSound"; };
 		virtual void PlayMusic(const std::string&, const int) {};
 		void UpdateAudio()override {};
 		 void CleanUp() override {};
+		 bool IsNullSound()const override { return true; };
 	};
 }
