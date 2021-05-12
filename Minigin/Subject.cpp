@@ -5,7 +5,7 @@
 dae::Subject::Subject():
 	m_ObserversVec{}
 {
-	std::cout << "a";
+	
 }
 
 dae::Subject::~Subject()

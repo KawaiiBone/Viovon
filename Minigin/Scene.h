@@ -6,14 +6,15 @@ namespace dae
 	class GameObject;
 	class Scene
 	{
-		friend Scene& SceneManager::CreateScene(const std::string& name);
+		friend Scene& SceneManager::CreateScene(const TypeOfScene typescene);
 	public:
 		void Add(const std::shared_ptr<GameObject>& object/*, bool IsPlayer*/);
 
 		void Update(float deltaTime);
 		void Render() const;
-		std::string GetSceneName()const;
+		TypeOfScene GetSceneName()const;
 
+		
 		
 		~Scene();
 		Scene(const Scene& other) = delete;
@@ -22,10 +23,10 @@ namespace dae
 		Scene& operator=(Scene&& other) = delete;
 
 	private: 
-		explicit Scene(const std::string& name);
+		explicit Scene(const TypeOfScene typescene);
 		void DestroyDeadObjects();
 
-		std::string m_Name;
+		const TypeOfScene  m_TypeScene;
 		std::vector < std::shared_ptr<GameObject>> m_Objects{};
 		
 		

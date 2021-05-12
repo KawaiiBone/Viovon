@@ -13,10 +13,93 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Input">
+      <UniqueIdentifier>{d6aa011f-d0ee-4591-9411-f8a44b22c114}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{2ccb6987-0a43-4e3b-b51a-4dc052eddce9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{28be577a-c40d-4749-b3b9-efe607c36175}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\BaseComponents">
+      <UniqueIdentifier>{0808dca1-2c7b-4682-bb72-ddaa83582d65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\RenderComponents">
+      <UniqueIdentifier>{b443ff3b-6623-4534-a923-c99a17f343b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{5b2033e6-e7a2-4ac7-b4d0-eea75e15ae53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\BaseComponents">
+      <UniqueIdentifier>{03482430-d114-4cbd-896a-44c9587e720f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\RenderComponents">
+      <UniqueIdentifier>{630bf67e-244c-436b-81f4-5092fae67d93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Observers">
+      <UniqueIdentifier>{37e9045b-31ab-4883-ad3b-35c468b14d62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Observer">
+      <UniqueIdentifier>{bfad2e23-1170-4d05-a464-7da3db04a8fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QBert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QBertGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QBertMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QBertMovementComponent.cpp">
+      <Filter>Source Files\Components\BaseComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockComponent.cpp">
+      <Filter>Source Files\Components\BaseComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="QBertComponentsHeaders.h">
+      <Filter>Header Files\Components\BaseComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="QBertCommands.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="QbertTexturesComponent.cpp">
+      <Filter>Source Files\Components\RenderComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="QBertObserver.cpp">
+      <Filter>Source Files\Observer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="QBert.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QBertGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QBertMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QBertMovementComponent.h">
+      <Filter>Header Files\Components\BaseComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockComponent.h">
+      <Filter>Header Files\Components\BaseComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="QBertCommands.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="QbertTexturesComponent.h">
+      <Filter>Header Files\Components\RenderComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="QBertObserver.h">
+      <Filter>Header Files\Observers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

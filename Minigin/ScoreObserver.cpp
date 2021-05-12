@@ -20,7 +20,7 @@ dae::ScoreObserver::~ScoreObserver()
 void dae::ScoreObserver::OnNotify(std::shared_ptr<dae::GameObject> entity, EventObserver event)
 {
 	switch (event) {
-	case EventObserver::scoreChaned:
+	case EventObserver::scoreChanged:
 		m_pScoreComp.renderComp->Update(entity->GetComponent<ScoreComponent>()->GetTxt());
 		break;
 	case EventObserver::defeatingCoily:

@@ -333,12 +333,31 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPat
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BlockComponent.cpp" />
+    <ClCompile Include="QBertObserver.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="QBert.cpp" />
+    <ClCompile Include="QBertCommands.cpp" />
+    <ClCompile Include="QBertComponentsHeaders.h" />
+    <ClCompile Include="QBertGame.cpp" />
+    <ClCompile Include="QBertMap.cpp" />
+    <ClCompile Include="QBertMovementComponent.cpp" />
+    <ClCompile Include="QbertTexturesComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Minigin\Minigin.vcxproj">
       <Project>{41b0ec47-d48c-4b0f-951b-d98595ffae0a}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BlockComponent.h" />
+    <ClInclude Include="QBertObserver.h" />
+    <ClInclude Include="QBert.h" />
+    <ClInclude Include="QBertCommands.h" />
+    <ClInclude Include="QBertGame.h" />
+    <ClInclude Include="QBertMap.h" />
+    <ClInclude Include="QBertMovementComponent.h" />
+    <ClInclude Include="QbertTexturesComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

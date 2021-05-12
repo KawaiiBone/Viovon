@@ -8,12 +8,11 @@ dae::PlayerMovement::PlayerMovement()
 {
 }
 
-void dae::PlayerMovement::Update(float deltaTime, GameObject& object)
+void dae::PlayerMovement::Update(float , GameObject& )
 {
 
 
-	object.SetMovement(object.GetVelocity().GetPosition().x*deltaTime, object.GetVelocity().GetPosition().y * deltaTime);
-	object.ResetVelocity();
+
 }
 
 std::string dae::PlayerMovement::GetTxt()

@@ -4,19 +4,22 @@
 
 void dae::SceneManager::Update(float deltaTime)
 {
-	
-	for(auto& scene : m_Scenes)
-	{
-		scene->Update(deltaTime);
-	}
+
+
+	m_Scenes[m_ScenesVecIndex].first->Update(deltaTime);
+	//for(auto& scene : m_Scenes)
+	//{
+	//	scene->Update(deltaTime);
+	//}
 }
 
-void dae::SceneManager::Render()
+void dae::SceneManager::Render() const
 {
-	for (const auto& scene : m_Scenes)
-	{
-		scene->Render();
-	}
+	m_Scenes[m_ScenesVecIndex].first->Render();
+	//for (const auto& scene : m_Scenes)
+	//{
+	//	scene->Render();
+	//}
 }
 
 
@@ -33,20 +36,35 @@ void dae::SceneManager::AddPlayer(std::shared_ptr<GameObject>& object)
 	m_pPlayers.push_back(object);
 }
 
-dae::Scene& dae::SceneManager::CreateScene(const std::string& name)
+void dae::SceneManager::ChangeScene(const TypeOfScene typeScene)
 {
-	const auto scene = std::shared_ptr<Scene>(new Scene(name));
-	m_Scenes.push_back(scene);
+
+	int counter{ 0 };
+	for (std::pair<std::shared_ptr<Scene>, TypeOfScene> element : m_Scenes)
+	{
+		if (element.second == typeScene)
+		{
+			m_ScenesVecIndex = counter;
+			return;
+		}
+		counter++;
+	}
+}
+
+dae::Scene& dae::SceneManager::CreateScene(const TypeOfScene typeScene)
+{
+	const auto scene = std::shared_ptr<Scene>(new Scene(typeScene));
+	m_Scenes.push_back({ scene, typeScene });
 	return *scene;
 }
 
-std::shared_ptr<dae::Scene>	 dae::SceneManager::GetPointerScene(const std::string& name)
+std::shared_ptr<dae::Scene>	 dae::SceneManager::GetPointerScene(const TypeOfScene sceneName)
 {
-	for (auto scene : m_Scenes)
+	for (std::pair<std::shared_ptr<Scene>, TypeOfScene> scene : m_Scenes)
 	{
-		if (scene->GetSceneName() == name)
+		if (scene.second == sceneName)
 		{
-			return scene;
+			return scene.first;
 		}
 	}
 	return nullptr;

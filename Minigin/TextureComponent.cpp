@@ -43,3 +43,13 @@ void dae::TextureComponent::Update(const std::string& string)
 	}
 	return;
 }
+
+float dae::TextureComponent::GetWidth()
+{
+	return m_Width;
+}
+
+float dae::TextureComponent::GetHeight()
+{
+	return m_Height;
+}

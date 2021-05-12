@@ -12,6 +12,8 @@ namespace dae
 		TextureComponent(const std::string& filename,float scale);
 		void Render(float x, float y) const override;
 		void Update(const std::string& string) override;
+		float GetWidth();
+		float GetHeight();
 
 		~TextureComponent() = default;
 		TextureComponent(const TextureComponent& other) = delete;

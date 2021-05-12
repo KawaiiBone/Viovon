@@ -3,7 +3,6 @@
 #include <iostream>
 #include "GameObject.h"
 #include "ComponentsHeaders.h"
-
 #include "ServiceLocater.h"
 
 namespace dae
@@ -22,7 +21,7 @@ namespace dae
 	};
 
 
-	class Jump : public Command
+	class Jump final : public Command
 	{
 	public:
 		Jump() { };
@@ -34,7 +33,7 @@ namespace dae
 	};
 
 
-	class Fire : public Command
+	class Fire final : public Command
 	{
 	public:
 		Fire() { };
@@ -46,7 +45,7 @@ namespace dae
 		}
 	};
 
-	class Quit : public Command
+	class Quit final : public Command
 	{
 	public:
 		Quit() {  };
@@ -56,7 +55,7 @@ namespace dae
 		}
 	};
 
-	class Crouch : public Command
+	class Crouch final : public Command
 	{
 	public:
 		Crouch() { };
@@ -65,7 +64,7 @@ namespace dae
 		}
 	};
 
-	class Die : public Command
+	class Die final : public Command
 	{
 	public:
 		Die() {  };
@@ -79,53 +78,10 @@ namespace dae
 
 
 
-	class MoveLeft : public Command
-	{
-	public:
-		MoveLeft() {  };
-		void Execute(std::shared_ptr<dae::GameObject> object) override
-		{
 
 
-			object->SetVelocity(-800.f,0 );// to test
 
-		}
-	};
-	class MoveRight : public Command
-	{
-	public:
-		MoveRight() { };
-		void Execute(std::shared_ptr<dae::GameObject> object) override
-		{
-			object->SetVelocity(800.f,0);// to test
-		}
-	};
-
-	class MoveUp : public Command
-	{
-	public:
-		MoveUp() {  };
-		void Execute(std::shared_ptr<dae::GameObject> object) override
-		{
-
-
-			object->SetVelocity( 0,-800.f);// to test
-
-		}
-	};
-	class MoveDown : public Command
-	{
-	public:
-		MoveDown() { };
-		void Execute(std::shared_ptr<dae::GameObject> object) override
-		{
-			object->SetVelocity( 0,800.f);
-			
-		}
-	};
-
-
-	class GainLife : public Command// for testing
+	class GainLife final : public Command// for testing
 	{
 	public:
 		GainLife() { };
@@ -139,7 +95,7 @@ namespace dae
 		}
 	};
 
-	class LoseLife : public Command// for testing
+	class LoseLife final : public Command// for testing
 	{
 	public:
 		LoseLife() { };
@@ -154,7 +110,7 @@ namespace dae
 
 
 
-	class IncreaseScore : public Command//for testing
+	class IncreaseScore final : public Command//for testing
 	{
 	public:
 		IncreaseScore() { };
@@ -169,7 +125,7 @@ namespace dae
 		}
 	};
 
-	class DecreaseScore : public Command// for testing
+	class DecreaseScore final : public Command// for testing
 	{
 	public:
 		DecreaseScore() { };

@@ -1,5 +1,5 @@
 ﻿#pragma once
-
+#include <vector>
 namespace dae
 {
 
@@ -8,11 +8,13 @@ namespace dae
 	{
 		died,
 		healthChanged,
-		scoreChaned,
+		scoreChanged,
 		defeatingCoily,
 		flyingDisc,
 		remainingDisc,
 		catchingSlickAndSam,
+		lostPlatform,
+		gainedPlatform,
 		none,
 	};
 

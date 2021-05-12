@@ -9,20 +9,20 @@ dae::GameObject::GameObject(float x, float y)
 	m_Pos.SetPosition(x, y, 0.0f);
 }
 
-dae::GameObject::GameObject(float x, float y, RenderComponent * pRender)
+dae::GameObject::GameObject(float x, float y, std::shared_ptr<RenderComponent> pRender)
 	:m_pRenderComponent{ pRender }, m_VectorpBComponents{  }, m_IsDead{ false }, m_Velocity{0,0,0}, m_VectorCombinedComponents{}
 {
 	
 	m_Pos.SetPosition(x, y, 0.0f);
 }
 
-dae::GameObject::GameObject(float x, float y, std::vector<BaseComponent*> bvComp, RenderComponent* pRender)
+dae::GameObject::GameObject(float x, float y, std::vector<BaseComponent*> bvComp, std::shared_ptr<RenderComponent> pRender)
 	: m_pRenderComponent{ pRender }, m_VectorpBComponents{ bvComp }, m_IsDead{ false }, m_Velocity{ 0,0,0 }, m_VectorCombinedComponents{}
 {
 	m_Pos.SetPosition(x, y, 0.0f);
 }
 
-dae::GameObject::GameObject(float x, float y, BaseComponent* bvComp, RenderComponent* pRender)
+dae::GameObject::GameObject(float x, float y, BaseComponent* bvComp, std::shared_ptr<RenderComponent> pRender)
 	: m_pRenderComponent{ pRender }, m_VectorpBComponents{ bvComp }, m_IsDead{ false }, m_VectorCombinedComponents{}
 {
 	m_Pos.SetPosition(x, y, 0.0f);
@@ -86,7 +86,7 @@ void dae::GameObject::AddBaseComponent(BaseComponent* myComponent)
 	}
 }
 
-void dae::GameObject::AddRenderComponent(RenderComponent* RenderComponent)
+void dae::GameObject::AddRenderComponent(std::shared_ptr<RenderComponent> RenderComponent)
 {
 	if (!m_pRenderComponent)
 	{
@@ -99,10 +99,7 @@ void dae::GameObject::AddPairComponent(RenderComponent* RenderComponent, BaseCom
 	m_VectorCombinedComponents.push_back({ RenderComponent, myComponent });
 }
 
-void dae::GameObject::SetMovement(float x, float y)
-{
-	m_Pos.SetPosition(m_Pos.GetPosition().x + x, m_Pos.GetPosition().y + y, m_Pos.GetPosition().z);
-}
+
 
 
 bool dae::GameObject::IsDead() const
@@ -116,35 +113,27 @@ void dae::GameObject::Die()
 	
 }
 
-void dae::GameObject::SetVelocity(float x, float y)
-{
-	if (x == 0)
-	{
-		m_Velocity.SetPosition(m_Velocity.GetPosition().x, y, m_Velocity.GetPosition().z);
-	}
-	else if (y == 0)
-	{
-		m_Velocity.SetPosition(x, m_Velocity.GetPosition().y, m_Velocity.GetPosition().z);
-	}
-}
 
 
-dae::Transform dae::GameObject::GetVelocity() const
+
+
+
+void dae::GameObject::SetPosition(float x, float y)
 {
-	return m_Velocity;
+	m_Pos.SetPosition(x, y, m_Pos.GetPosition().z);
 }
 
-void dae::GameObject::ResetVelocity()
+dae::Transform dae::GameObject::GetPosition() const
 {
-	m_Velocity.SetPosition(0, 0, 0);
+	return m_Pos;
 }
+
 
 
 
 dae::GameObject::~GameObject()
 {
-	delete m_pRenderComponent;
-	m_pRenderComponent = nullptr;
+
 	
 	for (auto pBaseComp : m_VectorpBComponents)
 	{

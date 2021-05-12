@@ -28,7 +28,8 @@
 using namespace std;
 using namespace std::chrono;
 
-dae::Minigin::Minigin()
+dae::Minigin::Minigin():
+	m_WindowSize{640,480}
 {
 	Initialize();
 	ResourceManager::GetInstance().Init("../Data/");//stays
@@ -51,27 +52,29 @@ void dae::Minigin::Initialize()
 	}
 	
 	initAudio();//for audio
+
+
 	
-	m_Window = SDL_CreateWindow(
+	m_pWindow = SDL_CreateWindow(
 		"Programming 4 assignment",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		640,
-		480,
+		m_WindowSize.width,
+		m_WindowSize.height,
 		SDL_WINDOW_OPENGL
 	);
-	if (m_Window == nullptr)
+	if (m_pWindow == nullptr)
 	{
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
 
-	Renderer::GetInstance().Init(m_Window);
+	Renderer::GetInstance().Init(m_pWindow);
 }
 
 /**
  * Code constructing the scene world starts here
  */
-void dae::Minigin::LoadGame() const
+void dae::Minigin::TestLoadGame(const int amountOfPLayers) const
 {
 
 
@@ -79,17 +82,17 @@ void dae::Minigin::LoadGame() const
 	CreateUI();
 
 
-	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
+	auto& scene = SceneManager::GetInstance().CreateScene(TypeOfScene::demo);
 
-	auto backgroundObject = std::make_shared<GameObject>(0.f, 0.f, new TextureComponent("background.jpg"));
+	auto backgroundObject = std::make_shared<GameObject>(0.f, 0.f, std::make_shared<TextureComponent>("background.jpg"));
 	scene.Add(backgroundObject/*, false*/);
 
-	auto logoObject = std::make_shared<GameObject>(216.f, 180.f, new TextureComponent("logo.png"));
+	auto logoObject = std::make_shared<GameObject>(216.f, 180.f, std::make_shared<TextureComponent>("logo.png"));
 	scene.Add(logoObject/*, false*/);
 
 	SDL_Color colorTitle{ 255,255,255 };
 	auto fontTitle = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	auto daeTitleObject = std::make_shared<GameObject>(80.f, 20.f, new TextComponent("Programming 4 Assignment", fontTitle, colorTitle, true));
+	auto daeTitleObject = std::make_shared<GameObject>(80.f, 20.f, std::make_shared<TextComponent>("Programming 4 Assignment", fontTitle, colorTitle, true));
 	scene.Add(daeTitleObject/*, false*/);
 
 
@@ -101,7 +104,7 @@ void dae::Minigin::LoadGame() const
 
 
 
-	AddPlayers(scene, 4);
+	AddPlayers(scene, amountOfPLayers);
 
 
 
@@ -111,8 +114,8 @@ void dae::Minigin::Cleanup()
 {
 	ServiceLocater::CleanUp();
 	Renderer::GetInstance().Destroy();
-	SDL_DestroyWindow(m_Window);
-	m_Window = nullptr;
+	SDL_DestroyWindow(m_pWindow);
+	m_pWindow = nullptr;
 	endAudio();
 	SDL_Quit();
 }
@@ -127,7 +130,7 @@ void dae::Minigin::Run()
 	//ServiceLocater::GetSoundSystem().PlayMusic("../Data/music/highlands.wav", 100);
 	//// tell the resource manager where he can find the game data
 	///
-	//LoadGame();
+	//TestLoadGame();
 	//
 	//ResourceManager::GetInstance().Init("../Data/");
 	//ServiceLocater::RegisterSoundSystem(new SoundSystem());//makes sound
@@ -136,7 +139,7 @@ void dae::Minigin::Run()
 		auto& renderer = Renderer::GetInstance();
 		auto& sceneManager = SceneManager::GetInstance();
 		auto& input = InputManager::GetInstance();
-		CreateDefaultCommandKeys(input);
+		
 		//auto& subject = Subject::GetInstance();
 
 
@@ -169,6 +172,11 @@ void dae::Minigin::Run()
 	}
 
 	Cleanup();
+}
+
+dae::WindowSize dae::Minigin::GetWindowSize() const
+{
+	return m_WindowSize;
 }
 
 void dae::Minigin::CreateUI() const
@@ -279,22 +287,18 @@ void dae::Minigin::ProcessInput(bool& doContinue, SceneManager& sceneMan, InputM
 
 
 
-void dae::Minigin::CreateDefaultCommandKeys(InputManager& inputman)
+void dae::Minigin::CreateDefaultCommandKeys()
 {
 
 	//default controls
+	auto& input = InputManager::GetInstance();
 
-
-	inputman.AddDefaultCommandAndKey({ std::make_shared<Die>(), OperateKey::keyStrokeUp, BButton });
-	inputman.AddDefaultCommandAndKey({ std::make_shared<Quit>(), OperateKey::keyStrokeUp, YButton });
-	inputman.AddDefaultCommandAndKey({ std::make_shared<MoveLeft>(), OperateKey::pressedDown, LeftButton });
-	inputman.AddDefaultCommandAndKey({ std::make_shared<MoveRight>(), OperateKey::pressedDown, RightButton });
-	inputman.AddDefaultCommandAndKey({ std::make_shared<MoveUp>(), OperateKey::pressedDown, UpButton });
-	inputman.AddDefaultCommandAndKey({ std::make_shared<MoveDown>(), OperateKey::pressedDown, DownButton });
-	inputman.AddDefaultCommandAndKey({ std::make_shared<GainLife>(), OperateKey::keyStrokeDown, XButton });
-	inputman.AddDefaultCommandAndKey({ std::make_shared<LoseLife>(), OperateKey::keyStrokeDown, AButton });
-	inputman.AddDefaultCommandAndKey({ std::make_shared<IncreaseScore>(), OperateKey::keyStrokeDown, L1Button });
-	inputman.AddDefaultCommandAndKey({ std::make_shared<DecreaseScore>(), OperateKey::keyStrokeDown, R1Button });
+	input.AddDefaultCommandAndKey({ std::make_shared<Die>(), OperateKey::keyStrokeUp, BButton });
+	input.AddDefaultCommandAndKey({ std::make_shared<Quit>(), OperateKey::keyStrokeUp, YButton });
+	input.AddDefaultCommandAndKey({ std::make_shared<GainLife>(), OperateKey::keyStrokeDown, XButton });
+	input.AddDefaultCommandAndKey({ std::make_shared<LoseLife>(), OperateKey::keyStrokeDown, AButton });
+	input.AddDefaultCommandAndKey({ std::make_shared<IncreaseScore>(), OperateKey::keyStrokeDown, L1Button });
+	input.AddDefaultCommandAndKey({ std::make_shared<DecreaseScore>(), OperateKey::keyStrokeDown, R1Button });
 
 }
 
@@ -337,7 +341,7 @@ void dae::Minigin::AddPlayers(Scene& sceneMan, int totalPlayers) const
 		scoreComponent->AddObserver(scoreObserver);
 
 		
-		auto QBertObject = std::make_shared<GameObject>(posPlayer.x, posPlayer.y, new TextureComponent("QBert/QbertCharachter.png", 0.25f));
+		auto QBertObject = std::make_shared<GameObject>(posPlayer.x, posPlayer.y, std::make_shared<TextureComponent>("QBert/QbertCharachter.png", 0.25f));
 		QBertObject->AddBaseComponent(new QuitComponent());
 		QBertObject->AddBaseComponent(new PlayerMovement());
 		QBertObject->AddBaseComponent(hpComponent);

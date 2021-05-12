@@ -6,7 +6,7 @@ using namespace dae;
 
 unsigned int Scene::m_IdCounter = 0;
 
-Scene::Scene(const std::string& name) : m_Name(name) {}
+Scene::Scene(const TypeOfScene typescene) : m_TypeScene(typescene) {}
 
 
 
@@ -40,9 +40,9 @@ void Scene::Render() const
 	}
 }
 
-std::string Scene::GetSceneName() const
+TypeOfScene Scene::GetSceneName() const
 {
-	return m_Name;
+	return m_TypeScene;
 }
 
 

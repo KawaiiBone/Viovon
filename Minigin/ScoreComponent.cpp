@@ -1,7 +1,6 @@
 ﻿#include "MiniginPCH.h"
 #include "ScoreComponent.h"
 #include "GameObject.h"
-
 #include "Subject.h"
 
 dae::ScoreComponent::ScoreComponent(int maxScore) :
@@ -28,7 +27,7 @@ void dae::ScoreComponent::InfluenceScore(int inf, std::shared_ptr<dae::GameObjec
 		m_Score += inf;
 		m_Text = "Score: " + std::to_string(m_Score);
 	}
-	m_Subject.Notify(object, EventObserver::scoreChaned);
+	m_Subject.Notify(object, EventObserver::scoreChanged);
 
 }
 
@@ -40,6 +39,19 @@ void dae::ScoreComponent::AddObserver(Observer* pObs)
 void dae::ScoreComponent::SubjectRender() const
 {
 	m_Subject.Render();
+}
+
+void dae::ScoreComponent::OnPlatform(std::shared_ptr<dae::GameObject> object, bool gainedPlatform)
+{
+	if (gainedPlatform)
+	{
+		m_Subject.Notify(object, EventObserver::gainedPlatform);
+	}
+	else
+	{
+		m_Subject.Notify(object, EventObserver::lostPlatform);
+	}
+	
 }
 
 

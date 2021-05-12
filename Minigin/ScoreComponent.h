@@ -14,6 +14,7 @@ namespace dae
 		void InfluenceScore(int inf, std::shared_ptr<dae::GameObject> object);
 		void AddObserver(Observer* pObs);
 		void SubjectRender()const override;
+		void OnPlatform(std::shared_ptr<dae::GameObject> object, bool gainedPlatform);
 	private:
 		int m_Score;
 		const int m_MaxScore;
