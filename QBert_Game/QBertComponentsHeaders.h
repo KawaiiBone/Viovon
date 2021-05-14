@@ -1,5 +1,7 @@
 #pragma once
-#include "BlockComponent.h"
+#include "MapBlockComponent.h"
+#include "MapPartComponent.h"
 #include "QBertMovementComponent.h"
+#include "MapDiskComponent.h"
 
 

@@ -23,7 +23,7 @@ void dae::QBertGame::LoadQbertGame()
 	auto& scene = dae::SceneManager::GetInstance().CreateScene(TypeOfScene::demo);
 
 	auto backgroundObject = std::make_shared<dae::GameObject>(0.f, 0.f, std::make_shared<TextureComponent>("background.jpg"));
-	scene.Add(backgroundObject/*, false*/);
+	scene.AddBackground(backgroundObject/*, false*/);
 
 	auto logoObject = std::make_shared<dae::GameObject>(216.f, 180.f, std::make_shared<TextureComponent>("logo.png"));
 	scene.Add(logoObject/*, false*/);
@@ -40,8 +40,8 @@ void dae::QBertGame::LoadQbertGame()
 	FpsObject->AddPairComponent(new dae::TextComponent("FPS", fontFps, colorFps, false), new dae::FPSComponent());
 	scene.Add(FpsObject/*, false*/);
 
-	
 	m_Map.LoadMap(scene);
+	
 	
 	m_QBert.LoadQbert(scene, m_Map.GetQbertSpawnPos().GetPosition().x, m_Map.GetQbertSpawnPos().GetPosition().y, m_Map.GetFirstBlock());
 

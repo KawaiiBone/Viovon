@@ -2,27 +2,33 @@
 #include <memory>
 #include <string>
 #include "BaseComponent.h"
-#include "BlockComponent.h"
+#include "MapPartComponent.h"
 
 namespace dae
 {
-	
+	struct AxialCoordinates;
 	class QBertMovementComponent final : public BaseComponent
 	{
 	public:
-		QBertMovementComponent(GameObject* pBlockObject);
+		QBertMovementComponent(GameObject* pBlockObject, int row, int collum);
 		~QBertMovementComponent();
 		void Update(float deltaTime, GameObject& object) override;
 		std::string GetTxt() override;
 		void SubjectRender()const override;
 		PlatformStatus GetPlatformStatus();
+		AxialCoordinates GetCoordinates();
+		void SetCoordinates(AxialCoordinates coordinates);
 
 		glm::vec2 GetNewPosition();
-		bool CanHandleMovement(MovementQbert movQbert);
+		bool CanHandleMovement(GameObject* movQbert);
 	private:
 		void SetBlockObject( GameObject* pBlockObject);
 		GameObject* m_pBlockObject;
 		bool m_HasLostPlatform;
+		int m_Row;
+		int m_Collum;
+		
+		
 	};
 
 }

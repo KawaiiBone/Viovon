@@ -60,7 +60,7 @@
     <ClCompile Include="QBertMovementComponent.cpp">
       <Filter>Source Files\Components\BaseComponents</Filter>
     </ClCompile>
-    <ClCompile Include="BlockComponent.cpp">
+    <ClCompile Include="MapBlockComponent.cpp">
       <Filter>Source Files\Components\BaseComponents</Filter>
     </ClCompile>
     <ClCompile Include="QBertComponentsHeaders.h">
@@ -74,6 +74,12 @@
     </ClCompile>
     <ClCompile Include="QBertObserver.cpp">
       <Filter>Source Files\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="MapPartComponent.cpp">
+      <Filter>Source Files\Components\BaseComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="MapDiskComponent.cpp">
+      <Filter>Source Files\Components\BaseComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,7 +95,7 @@
     <ClInclude Include="QBertMovementComponent.h">
       <Filter>Header Files\Components\BaseComponents</Filter>
     </ClInclude>
-    <ClInclude Include="BlockComponent.h">
+    <ClInclude Include="MapBlockComponent.h">
       <Filter>Header Files\Components\BaseComponents</Filter>
     </ClInclude>
     <ClInclude Include="QBertCommands.h">
@@ -100,6 +106,12 @@
     </ClInclude>
     <ClInclude Include="QBertObserver.h">
       <Filter>Header Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="MapPartComponent.h">
+      <Filter>Header Files\Components\BaseComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="MapDiskComponent.h">
+      <Filter>Header Files\Components\BaseComponents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

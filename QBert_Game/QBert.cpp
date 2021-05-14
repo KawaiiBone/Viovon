@@ -49,7 +49,7 @@ void dae::QBert::LoadQbert(Scene& sceneMan, float StartPosx, float StartPosy, Ga
 	QBertObject->AddBaseComponent(hpComponent);
 	QBertObject->AddBaseComponent(scoreComponent);
 	
-	QBertObject->AddBaseComponent(new dae::QBertMovementComponent(pblockObject));
+	QBertObject->AddBaseComponent(new dae::QBertMovementComponent(pblockObject,6,0));
 
 
 

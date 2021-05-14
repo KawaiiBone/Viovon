@@ -1,0 +1,12 @@
+{
+  "MapSizeColumns": 7,
+  "LeftFloatingDiscs": [ 4 ],
+  "RightFloatingDiscs": [ 3, 7 ],
+  "PenaltyPlatforms": false,
+  "TextureAdressName": [ "BlueBlock", "YellowBlock", "PinkBlock" ],
+  "TextureNickName": [ "BeginBlock", "MidBlock", "EndBlock" ]
+
+
+}
+
+

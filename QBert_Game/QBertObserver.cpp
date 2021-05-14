@@ -17,13 +17,13 @@ void dae::QBertObserver::OnNotify(std::shared_ptr<dae::GameObject> object, Event
 	{
 	case dae::EventObserver::lostPlatform:
 		m_PLatformCounter--;
-		std::cout << "LostOne!";
+		std::cout << "LostOne!\n";
 		break;
 	case EventObserver::gainedPlatform:
 		m_PLatformCounter++;
 		if (m_MaxPlatforms == m_PLatformCounter)
 		{
-			std::cout << "victory!";
+			std::cout << "victory!\n";
 		}
 		//gets through when coily is defeated
 		break;
