@@ -1,0 +1,109 @@
+﻿#include "AIBaseComponent.h"
+#include "GameObject.h"
+#include "Scene.h"
+#include "MapPartComponent.h"
+#include "QBertMovementComponent.h"
+
+
+dae::AIBaseComponent::AIBaseComponent(int row, int collum, float cooldownDuration,const std::vector<std::string>& vecTextureNames)
+	: m_Row(row),
+	m_Collum(collum),
+	m_MovementCooldown{ cooldownDuration,0.f, true },
+	m_VecTextureNames(vecTextureNames),
+	m_IndexTexturesNames(0)
+
+{
+
+	m_QbertObject = SceneManager::GetInstance().GetPlayers()[0].get();
+	auto scene = SceneManager::GetInstance().GetCurrentScene();
+	m_pBlockObject = scene->GetMapPart(m_Row, m_Collum).second;
+
+
+}
+
+dae::AIBaseComponent::~AIBaseComponent()
+{
+	/*delete m_pBlockObject;
+	m_pBlockObject = nullptr;*/
+}
+
+
+
+void dae::AIBaseComponent::SetBlockObject(GameObject* pBlockObject)
+{
+
+	m_pBlockObject = pBlockObject;
+}
+
+bool dae::AIBaseComponent::DidHitQBert() const
+{
+	if (m_QbertObject->GetComponent<QBertMovementComponent>()->GetCoordinates() == AxialCoordinates{ m_Row,m_Collum })
+	{
+		return true;
+	}
+	return false;
+}
+
+void dae::AIBaseComponent::ResetCooldownCounter()
+{
+	m_MovementCooldown.cooldownCounter = 0.f;
+}
+
+bool dae::AIBaseComponent::IsInCooldown(float deltaTime)
+{
+	if (m_MovementCooldown.cooldownCounter < m_MovementCooldown.cooldownDuration)
+	{
+		m_MovementCooldown.cooldownCounter += deltaTime;
+		return true;
+	}
+	return false;
+}
+
+void dae::AIBaseComponent::NextTexture()
+{
+	m_IndexTexturesNames++;
+}
+
+
+std::string dae::AIBaseComponent::GetTxt()
+{
+	return m_VecTextureNames[m_IndexTexturesNames];
+}
+
+
+dae::AxialCoordinates dae::AIBaseComponent::GetCoordinates() const
+{
+	return { m_Row, m_Collum };
+}
+
+dae::GameObject* dae::AIBaseComponent::GetPQBertObject() const
+{
+	return m_QbertObject;
+}
+
+void dae::AIBaseComponent::SetCoordinates(AxialCoordinates coordinates)
+{
+	m_Row = coordinates.row;
+	m_Collum = coordinates.collum;
+}
+
+
+
+
+
+
+//bool dae::CoilyAiComponent::CanHandleMovement(GameObject* movQbert)
+//{
+//	//auto tmpP = m_pBlockObject->GetComponent<MapBlockComponent>()->HandleQbertMovement(movQbert);
+//	auto tmpP = m_pBlockObject->GetComponent<MapPartComponent>()->HandleQbertMovement(movQbert);
+//	if (tmpP)
+//	{
+//		m_MovementCooldown.cooldownOver = false;
+//		m_MovementCooldown.cooldownCounter = 0.f;
+//		SetBlockObject(tmpP);
+//		return true;
+//	}
+//	return false;
+//}
+
+

@@ -24,7 +24,7 @@ namespace dae
 	public:
 		Scene& CreateScene(const TypeOfScene typeScene);
 		std::shared_ptr<Scene> GetPointerScene( const TypeOfScene sceneNam );
-
+		std::shared_ptr<Scene> GetCurrentScene();
 		void Update(float deltaTime);
 		void Render() const;
 		

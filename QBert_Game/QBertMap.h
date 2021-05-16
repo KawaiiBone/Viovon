@@ -50,24 +50,18 @@ namespace dae
 	private:
 		void ReadFiles();
 		void CreateGameBlocks();
-		void CreateTextures();
 		void CreateGameDisks(int row, int collum, int currentRow, int maxRow, float posx, float posy,float width, float height);
-		void FinishGameDisks();
 
-		//std::pair<std::vector<GameObject>, std::vector<GameObject>> m_GameBlocks;
+
 		
-		std::vector < std::pair< std::shared_ptr<GameObject>, AxialCoordinates>> m_GameBlocks;
-		std::vector < std::pair<std::shared_ptr<GameObject>, int>> m_GameLeftDisks;
-		std::vector < std::pair<std::shared_ptr<GameObject>, int>> m_GameRightDisks;
 		const int m_WindowWidth;
 		const int m_WindowHeight;
-		Transform m_QbertSpawnPos;
-		std::vector<std::pair<std::string, std::string>> m_FileNamesWithNickNames;
-		bool m_PlatformPenalty;
+		std::vector<std::pair<std::string, std::string>> m_BlockFileNamesWithNickNames;
+		std::string m_DiskAdressName;
+		const std::string m_FilePath;
 		int m_AmountOfCollums;
 		std::vector<int> m_LeftFloatingDiscs;
 		std::vector<int> m_RightFloatingDiscs;
-
 		std::unordered_map<AxialCoordinates, std::shared_ptr<GameObject>, MyHash> m_UnMapBackgroundParts;
 		
 

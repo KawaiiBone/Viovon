@@ -333,6 +333,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPat
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AIBaseComponent.cpp" />
+    <ClCompile Include="CoilyAiComponent.cpp" />
     <ClCompile Include="MapBlockComponent.cpp" />
     <ClCompile Include="MapDiskComponent.cpp" />
     <ClCompile Include="MapPartComponent.cpp" />
@@ -345,6 +347,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPat
     <ClCompile Include="QBertMap.cpp" />
     <ClCompile Include="QBertMovementComponent.cpp" />
     <ClCompile Include="QbertTexturesComponent.cpp" />
+    <ClCompile Include="SlickOrSlamAiComponent.cpp" />
+    <ClCompile Include="UggOrWrongwayAiComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Minigin\Minigin.vcxproj">
@@ -352,6 +356,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPat
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AIBaseComponent.h" />
+    <ClInclude Include="CoilyAiComponent.h" />
     <ClInclude Include="MapBlockComponent.h" />
     <ClInclude Include="MapDiskComponent.h" />
     <ClInclude Include="MapPartComponent.h" />
@@ -362,6 +368,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPat
     <ClInclude Include="QBertMap.h" />
     <ClInclude Include="QBertMovementComponent.h" />
     <ClInclude Include="QbertTexturesComponent.h" />
+    <ClInclude Include="SlickOrSlamAiComponent.h" />
+    <ClInclude Include="UggOrWrongwayAiComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

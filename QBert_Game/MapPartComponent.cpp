@@ -5,13 +5,16 @@
 
 #include "GameObject.h"
 
-dae::MapPartComponent::MapPartComponent(float x, float y, const std::vector<std::string>& textureBlockName, bool isblock)
-	: m_PlatformPos(x, y),
+dae::MapPartComponent::MapPartComponent(float x, float y, float width, float height, const std::vector<std::string>& textureBlockName, bool isblock)
+	: m_PlatformPos(x+ width / 4, y- height / 5),
 	m_TextureBlockNames(textureBlockName),
 	m_NamesVecIndex(0),
-	m_IsBlock(isblock)
+	m_IsBlock(isblock),
+	m_WrongwayPlatformPos(x+ width/1.45f,y+height/1.45f),
+	m_UggPlatformPos(x- width/6, y+width/2)
 
 {
+
 }
 
 dae::MapPartComponent::~MapPartComponent()//gives no memory leaks
@@ -37,24 +40,38 @@ glm::vec2 dae::MapPartComponent::GetPlatformPos() const
 	return m_PlatformPos;
 }
 
-dae::GameObject* dae::MapPartComponent::HandleQbertMovement(GameObject* movQbert)
+dae::GameObject* dae::MapPartComponent::HandleQbertMovement(GameObject* movQbert, bool penaltyBlock)
 {
+
 	if (movQbert->GetComponent<MapPartComponent>()->IsBlock())
 	{
-		ChangeMovementPosBlock(movQbert);
+		ChangeMovementPosBlock(movQbert, penaltyBlock);
 		return movQbert;
 	}
 	else
 	{
-		return movQbert->GetComponent<MapPartComponent>()->HandleQbertMovement(movQbert);
+		return movQbert->GetComponent<MapPartComponent>()->HandleQbertMovement(movQbert, penaltyBlock);
 		//m_PlatformStatus = PlatformStatus::none;
-		
+
 	}
 
 }
 
+void dae::MapPartComponent::HandleAiMovement()
+{
 
 
+	if (MinusNamesVecIndex())
+	{
+		m_PlatformStatus = PlatformStatus::lostStatus;
+	}
+	else
+	{
+		m_PlatformStatus = PlatformStatus::none;
+	}
+
+
+}
 
 
 dae::PlatformStatus dae::MapPartComponent::GetPlatformStatus()
@@ -64,7 +81,7 @@ dae::PlatformStatus dae::MapPartComponent::GetPlatformStatus()
 
 bool dae::MapPartComponent::PlusNamesVecIndex()
 {
-	if ( size_t(m_NamesVecIndex + 1) < m_TextureBlockNames.size() )
+	if (size_t(m_NamesVecIndex + 1) < m_TextureBlockNames.size())
 	{
 		m_NamesVecIndex++;
 		return true;
@@ -90,4 +107,14 @@ void dae::MapPartComponent::SetPlatformStatus(PlatformStatus platStatus)
 bool dae::MapPartComponent::IsBlock()
 {
 	return m_IsBlock;
+}
+
+glm::vec2 dae::MapPartComponent::GetUggPlatformPos() const
+{
+	return m_UggPlatformPos;
+}
+
+glm::vec2 dae::MapPartComponent::GetWrongWayPlatformPos() const
+{
+	return m_WrongwayPlatformPos;
 }

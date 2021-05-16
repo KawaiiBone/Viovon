@@ -7,26 +7,7 @@ namespace dae
 {
 	class GameObject;
 
-	//struct AxialCoordinates
-	//{
-	//	int row;
-	//	int collum;
 
-	//	bool operator==(const AxialCoordinates& other) const
-	//	{
-	//		return (row == other.row
-	//			&& collum == other.collum);
-	//	}
-	//};
-	//struct MyHash
-	//{
-	//	std::size_t operator()(AxialCoordinates const& s) const noexcept
-	//	{
-	//		std::size_t h1 = std::hash<int>{}(s.row);
-	//		std::size_t h2 = std::hash<int>{}(s.collum);
-	//		return h1 ^ (h2 /*<< 1*/);
-	//	}
-	//};
 
 
 

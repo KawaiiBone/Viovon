@@ -69,3 +69,8 @@ std::shared_ptr<dae::Scene>	 dae::SceneManager::GetPointerScene(const TypeOfScen
 	}
 	return nullptr;
 }
+
+std::shared_ptr<dae::Scene> dae::SceneManager::GetCurrentScene()
+{
+	return m_Scenes[m_ScenesVecIndex].first;
+}

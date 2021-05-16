@@ -4,20 +4,20 @@
 #include  "Observer.h"
 
 dae::GameObject::GameObject(float x, float y)
-	:m_pRenderComponent{ nullptr }, m_VectorpBComponents{  }, m_IsDead{ false }, m_Velocity{ 0,0,0 }, m_VectorCombinedComponents{}
+	:m_pRenderComponent{ nullptr }, m_VectorpBComponents{  }, m_IsDead{ false }, m_VectorCombinedComponents{}
 {
 	m_Pos.SetPosition(x, y, 0.0f);
 }
 
 dae::GameObject::GameObject(float x, float y, std::shared_ptr<RenderComponent> pRender)
-	:m_pRenderComponent{ pRender }, m_VectorpBComponents{  }, m_IsDead{ false }, m_Velocity{0,0,0}, m_VectorCombinedComponents{}
+	:m_pRenderComponent{ pRender }, m_VectorpBComponents{  }, m_IsDead{ false },  m_VectorCombinedComponents{}
 {
 	
 	m_Pos.SetPosition(x, y, 0.0f);
 }
 
 dae::GameObject::GameObject(float x, float y, std::vector<BaseComponent*> bvComp, std::shared_ptr<RenderComponent> pRender)
-	: m_pRenderComponent{ pRender }, m_VectorpBComponents{ bvComp }, m_IsDead{ false }, m_Velocity{ 0,0,0 }, m_VectorCombinedComponents{}
+	: m_pRenderComponent{ pRender }, m_VectorpBComponents{ bvComp }, m_IsDead{ false }, m_VectorCombinedComponents{}
 {
 	m_Pos.SetPosition(x, y, 0.0f);
 }

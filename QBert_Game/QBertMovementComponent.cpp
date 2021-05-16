@@ -2,8 +2,8 @@
 #include "Scene.h"
 #include "GameObject.h"
 
-dae::QBertMovementComponent::QBertMovementComponent(GameObject* pBlockObject, int row, int collum)
-	: m_pBlockObject(pBlockObject), m_HasLostPlatform(false), m_Row(row), m_Collum(collum)
+dae::QBertMovementComponent::QBertMovementComponent(GameObject* pBlockObject, int row, int collum, bool blockPenalty)
+	: m_pBlockObject(pBlockObject), m_Row(row), m_Collum(collum), m_MovementCooldown{0.35f,0.f, true}, m_BlockPenalty(blockPenalty)
 {
 	
 }
@@ -14,8 +14,19 @@ dae::QBertMovementComponent::~QBertMovementComponent()
 	m_pBlockObject = nullptr;*/
 }
 
-void dae::QBertMovementComponent::Update(float , GameObject&)
+void dae::QBertMovementComponent::Update(float delta , GameObject&)
 {
+	if (m_MovementCooldown.cooldownCounter < m_MovementCooldown.cooldownDuration)
+	{
+		m_MovementCooldown.cooldownCounter += delta;
+	
+	}
+	else
+	{
+		m_MovementCooldown.cooldownOver = true;
+	}
+
+	
 }
 
 void dae::QBertMovementComponent::SetBlockObject( GameObject* pBlockObject)
@@ -51,6 +62,16 @@ void dae::QBertMovementComponent::SetCoordinates(AxialCoordinates coordinates)
 	m_Collum = coordinates.collum;
 }
 
+bool dae::QBertMovementComponent::IsMovementCooldownOver()
+{
+	return m_MovementCooldown.cooldownOver;
+}
+
+bool dae::QBertMovementComponent::HasBlockPenalty()
+{
+	return m_BlockPenalty;
+}
+
 
 glm::vec2 dae::QBertMovementComponent::GetNewPosition()
 {
@@ -60,12 +81,14 @@ glm::vec2 dae::QBertMovementComponent::GetNewPosition()
 }
 
 
-bool dae::QBertMovementComponent::CanHandleMovement(GameObject* movQbert)
+bool dae::QBertMovementComponent::CanHandleMovement(GameObject* movQber, bool penaltyBlock)
 {
 	//auto tmpP = m_pBlockObject->GetComponent<MapBlockComponent>()->HandleQbertMovement(movQbert);
-	auto tmpP = m_pBlockObject->GetComponent<MapPartComponent>()->HandleQbertMovement(movQbert);
+	auto tmpP = m_pBlockObject->GetComponent<MapPartComponent>()->HandleQbertMovement(movQber, penaltyBlock);
 	if (tmpP)
 	{
+		m_MovementCooldown.cooldownOver = false;
+		m_MovementCooldown.cooldownCounter = 0.f;
 		SetBlockObject(tmpP);
 		return true;
 	}

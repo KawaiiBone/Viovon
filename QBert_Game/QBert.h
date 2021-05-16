@@ -9,7 +9,7 @@ namespace dae
 	{
 	public:
 		QBert();
-	void LoadQbert(Scene& sceneMan, float StartPosx, float StartPosy, GameObject* pblockObject);
+	void LoadQbert(Scene& sceneMan, GameObject* pblockObject);
 	private:
 
 	};

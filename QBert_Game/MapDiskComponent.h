@@ -11,18 +11,18 @@ namespace dae
 	class MapDiskComponent final : public MapPartComponent
 	{
 	public:
-		MapDiskComponent(float x, float y);
+		MapDiskComponent(float x, float y, float width, float height);
 		~MapDiskComponent();
 		void Update(float deltaTime, GameObject& object) override;
 		std::string GetTxt() override;
 		void SubjectRender()const override;
-		GameObject* HandleQbertMovement(GameObject* movQbert) override;
+		GameObject* HandleQbertMovement(GameObject* movQbert, bool penaltyBlock) override;
 
 
 
 
 
-		void ChangeMovementPosBlock(GameObject* movBlock) override;
+		void ChangeMovementPosBlock(GameObject* movBlock, bool penaltyBlock) override;
 	private:
 		
 
@@ -30,25 +30,6 @@ namespace dae
 	};
 
 
-	//class MapDiskComponent final : public MapPartComponent
-	//{
-	//public:
-	//	MapDiskComponent(float x, float y, const std::vector<MovementPosBlock>& movPosBlocksVec, const std::vector<std::string>& textureBlockNames);
-	//	~MapDiskComponent();
-	//	void Update(float deltaTime, GameObject& object) override;
-	//	std::string GetTxt() override;
-	//	void SubjectRender()const override;
-	//	GameObject* HandleQbertMovement(MovementQbert movQbert) override;
-	//	
-	//	
 
-
-
-	//	void ChangeMovementPosBlock(GameObject* movBlock ) override;
-	//private:
-	//	GameObject* m_HighestBlock;
-
-	//	
-	//};
 
 }

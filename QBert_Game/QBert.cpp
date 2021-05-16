@@ -16,9 +16,9 @@ dae::QBert::QBert()
 
 }
 
-void dae::QBert::LoadQbert(Scene& sceneMan, float StartPosx, float StartPosy, GameObject* pblockObject)
+void dae::QBert::LoadQbert(Scene& sceneMan, GameObject* pblockObject)
 {
-	ImVec2 posPlayer{ StartPosx,StartPosy };
+	ImVec2 posPlayer{ pblockObject->GetComponent<MapPartComponent>()->GetPlatformPos().x, pblockObject->GetComponent<MapPartComponent>()->GetPlatformPos().y};
 	ImVec2 posHealthObserver{ 10,100 };
 	ImVec2 posDeadObserver{ 100,100 };
 	ImVec2 posScoreObserver{ 500,100 };
@@ -49,7 +49,7 @@ void dae::QBert::LoadQbert(Scene& sceneMan, float StartPosx, float StartPosy, Ga
 	QBertObject->AddBaseComponent(hpComponent);
 	QBertObject->AddBaseComponent(scoreComponent);
 	
-	QBertObject->AddBaseComponent(new dae::QBertMovementComponent(pblockObject,6,0));
+	QBertObject->AddBaseComponent(new dae::QBertMovementComponent(pblockObject,6,0,false));
 
 
 

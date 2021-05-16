@@ -81,6 +81,18 @@
     <ClCompile Include="MapDiskComponent.cpp">
       <Filter>Source Files\Components\BaseComponents</Filter>
     </ClCompile>
+    <ClCompile Include="CoilyAiComponent.cpp">
+      <Filter>Source Files\Components\BaseComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="AIBaseComponent.cpp">
+      <Filter>Source Files\Components\BaseComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="SlickOrSlamAiComponent.cpp">
+      <Filter>Source Files\Components\BaseComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="UggOrWrongwayAiComponent.cpp">
+      <Filter>Source Files\Components\BaseComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QBert.h">
@@ -111,6 +123,18 @@
       <Filter>Header Files\Components\BaseComponents</Filter>
     </ClInclude>
     <ClInclude Include="MapDiskComponent.h">
+      <Filter>Header Files\Components\BaseComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="CoilyAiComponent.h">
+      <Filter>Header Files\Components\BaseComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="AIBaseComponent.h">
+      <Filter>Header Files\Components\BaseComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="SlickOrSlamAiComponent.h">
+      <Filter>Header Files\Components\BaseComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="UggOrWrongwayAiComponent.h">
       <Filter>Header Files\Components\BaseComponents</Filter>
     </ClInclude>
   </ItemGroup>

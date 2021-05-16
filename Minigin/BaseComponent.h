@@ -2,6 +2,22 @@
 
 namespace dae
 {
+
+	struct Cooldown
+	{
+		const float cooldownDuration;
+		float cooldownCounter;
+		bool cooldownOver;
+		
+		Cooldown(const float cDDur, float cDCount = 0.f, bool cDOver = true):
+			cooldownDuration(cDDur), cooldownCounter(cDCount), cooldownOver(cDOver)
+		{
+			
+		}
+		
+	};
+
+	
 	class GameObject;
 	class BaseComponent
 	{

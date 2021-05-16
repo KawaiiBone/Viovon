@@ -63,7 +63,6 @@ namespace dae
 
 
 	private:
-		Transform m_Velocity;
 		Transform m_Pos;
 		std::shared_ptr<RenderComponent>  m_pRenderComponent;
 		std::vector<BaseComponent*> m_VectorpBComponents;
