@@ -26,7 +26,7 @@ void dae::LivesObserver::OnNotify(std::shared_ptr<dae::GameObject> entity, Event
 {
 	switch (event) {
 	case EventObserver::died:
-		entity->IsDead();//update here
+		//entity->IsDead();//update here
 		m_PlayerDied = true;
 		break;
 	case EventObserver::healthChanged:

@@ -43,6 +43,8 @@ namespace dae
 		bool IsBlock();
 		glm::vec2 GetUggPlatformPos() const;
 		glm::vec2 GetWrongWayPlatformPos() const;
+
+		bool PlatformDone() ;
 	protected:
 		bool PlusNamesVecIndex();
 		bool MinusNamesVecIndex();
@@ -59,6 +61,7 @@ namespace dae
 		PlatformStatus m_PlatformStatus;
 		const bool m_IsBlock;
 		const bool m_Penalty;
+		
 
 	};
 

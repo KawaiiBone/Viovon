@@ -3,11 +3,12 @@
 #include "Scene.h"
 #include "MapPartComponent.h"
 #include "QBertMovementComponent.h"
-
+#include "ScoreComponent.h"
 
 
 dae::SlickOrSlamAiComponent::SlickOrSlamAiComponent(int Row, const std::vector<std::string>& vecTextureNames, float spawnTime) :
 	AIBaseComponent(Row, 1, 0.85f, vecTextureNames, spawnTime)
+	, m_DieScore{300}
 
 {
 
@@ -26,8 +27,10 @@ void dae::SlickOrSlamAiComponent::Update(float delta, GameObject& object)
 {
 	if (!IsInSpawnCooldown(delta, object))
 	{
-		if (DidHitQBert())
+		auto tmpPointer = DidHitQBert();
+		if (tmpPointer)
 		{
+			tmpPointer->GetComponent<ScoreComponent>()->InfluenceScore(m_DieScore, tmpPointer);
 			object.Die();
 		}
 

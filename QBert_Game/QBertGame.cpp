@@ -2,10 +2,7 @@
 #include "Command.h"
 #include "GameObject.h"
 #include "Scene.h"
-
-
 #include "InputManager.h"
-
 #include "QBertCommands.h"
 #include "QbertTexturesComponent.h"
 #include <istream>
@@ -13,7 +10,11 @@
 #include "3rdPartyFiles/rapidjson/document.h"
 
 dae::QBertGame::QBertGame(int windowWidth, int windowHeight) :
-	m_Menu(TypeOfScene::startMenu), m_AmountOfLevels{3}, m_QBertPlayerOne(0), m_QBertPlayerTwo(1)
+	m_Menu(TypeOfScene::startMenu),
+	m_AmountOfLevels{3},
+	m_QBertPlayerOne(0),
+	m_QBertPlayerTwo(1)
+
 	
 {
 
@@ -30,7 +31,7 @@ dae::QBertGame::QBertGame(int windowWidth, int windowHeight) :
 void dae::QBertGame::LoadQbertGame()
 {
 	m_QBertPlayerOne.CreateQbert();
-	m_Menu.CreateMenu();
+	m_Menu.CreateMenu(m_QBertPlayerTwo);
 	for (auto element : m_Levels)
 	{
 		element.CreateLevel();
@@ -42,6 +43,8 @@ void dae::QBertGame::LoadQbertGame()
 	LoadQbertCommandKeys();
 
 }
+
+
 
 void dae::QBertGame::LoadQbertCommandKeys()
 {

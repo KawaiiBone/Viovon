@@ -23,10 +23,16 @@ namespace dae
 		void Update(float deltaTime);
 		void Render() const;
 		TypeOfScene GetSceneName()const;
-		//get map
 		std::pair<AxialCoordinates,GameObject*> GetMapPart(int row, int collum);
 		void AddMap(const std::unordered_map<AxialCoordinates,std::shared_ptr<GameObject>, MyHash>& Unmap );
-	
+
+		bool HasFinishedLevel();
+		void FinishLevel(std::vector<std::shared_ptr<GameObject>>& players);
+		void PlayersToStartingPos(std::vector < std::shared_ptr<GameObject>>& players);
+
+		void SetPlayerStartingCoordinates(const std::vector<std::pair<GameMode, std::vector<AxialCoordinates>>>& startCoordinates);
+
+		size_t AmountOfRemainingDisks();
 		
 		~Scene();
 		Scene(const Scene& other) = delete;
@@ -43,7 +49,7 @@ namespace dae
 		std::vector < std::shared_ptr<GameObject>> m_BackgroundObjects{};
 		std::unordered_map<AxialCoordinates, std::shared_ptr<GameObject>, MyHash> m_UnMap;
 		static unsigned int m_IdCounter;
-		
+		std::vector<std::pair<GameMode, std::vector<AxialCoordinates>>> m_PlayerStartingCoordinates;
 
 	};
 

@@ -48,6 +48,7 @@ void dae::MapBlockComponent::NextBlockTexture()
 	if (MapPartComponent::PlusNamesVecIndex())
 	{
 		MapPartComponent::SetPlatformStatus(PlatformStatus::gainedStatus);
+		
 
 	}
 	else

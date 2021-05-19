@@ -28,7 +28,7 @@ namespace dae
 		void SetCoordinates(AxialCoordinates coordinates);
 		bool CanHandleMovement(GameObject* movQbert);
 		void SetBlockObject(GameObject* pBlockObject);
-		bool DidHitQBert() const;
+		std::shared_ptr<dae::GameObject> DidHitQBert() const;
 		void ResetCooldownCounter();
 		bool IsInMovementCooldown(float deltaTime);
 		bool IsInSpawnCooldown(float deltaTime, GameObject& object);

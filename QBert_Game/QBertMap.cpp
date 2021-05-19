@@ -121,18 +121,13 @@ void dae::QBertMap::CreateGameBlocks()
 			CreateGameDisks(j, i, tmpRow, maxBlocksRow, posBlockX, posBlockY, width, height);
 			auto tmpBlockObject = std::make_shared<dae::GameObject>(posBlockX, posBlockY);
 			m_UnMapBackgroundParts[{tmpRow, collum}] = tmpBlockObject;
-			//std::cout << tmpRow << " " << collum << "    ";
 
 			posBlockX += width;
 			tmpRow++;
 		}
-		//std::cout << "\n";
 		collum++;
-
 		row--;
-
 		posBlockX -= (width * maxBlocksRow) + (width / 2);
-
 		maxBlocksRow++;
 		posBlockY += (height - height / 4);
 
@@ -143,7 +138,7 @@ void dae::QBertMap::CreateGameBlocks()
 
 
 
-	std::vector<std::string> tmpVectorNames{};//CHANGE WHEN I PUT STUFF FROM FILES
+	std::vector<std::string> tmpVectorNames{};
 	for (std::pair<std::string, std::string> element : m_BlockFileNamesWithNickNames)
 	{
 		tmpVectorNames.push_back(element.second);

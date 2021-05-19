@@ -18,13 +18,17 @@ dae::QBertLevel::QBertLevel(TypeOfScene typeScene, int windowWidth, int windowHe
 	: m_TypeScene(typeScene)
 	, m_Map(windowWidth, windowHeight, level)
 	, m_LevelInfo(level)
+	, m_PlayerStartingCoordinates()
 {
+	CreateStartingCoordinatesPlayers();
 }
 
 
 
 void dae::QBertLevel::CreateLevel()
 {
+	CreateStartingCoordinatesPlayers();
+	
 	auto& scene = dae::SceneManager::GetInstance().CreateScene(m_TypeScene);
 
 	auto backgroundObject = std::make_shared<dae::GameObject>(0.f, 0.f, std::make_shared<TextureComponent>("background.jpg"));
@@ -49,38 +53,63 @@ void dae::QBertLevel::CreateLevel()
 	scene.Add(FpsObject/*, false*/);
 
 	m_Map.LoadMap(scene);
-	AddPlayers(scene);
+	//AddPlayers(scene);
 
 	LoadCoily(m_LevelInfo.coilySpawn, scene);
 	LoadUggAbdWrongway(scene);
 	LoadSlickAndSam(scene);
 
-
-	//srand(unsigned int(time(nullptr)));
-
-
+	
+	scene.SetPlayerStartingCoordinates(m_PlayerStartingCoordinates);
 
 
 
 
+
+}
+
+void dae::QBertLevel::CreateStartingCoordinatesPlayers()
+{
+
+	
+	const int collums{ m_LevelInfo.mapSizeColumns - 1 };
+	const int rows{ m_LevelInfo.mapSizeColumns - 1 };
+
+	std::vector<AxialCoordinates> tmpVec{ {rows, 0} };
+	m_PlayerStartingCoordinates.push_back({ GameMode::singleplayer,tmpVec });
+
+	int randomRow = rand() % (1 + 1) - 1;
+	int row{ (rows + randomRow) };
+
+	tmpVec.push_back({ row,1 });
+
+	m_PlayerStartingCoordinates.push_back({ GameMode::versus,tmpVec });
+
+	m_PlayerStartingCoordinates.push_back({ GameMode::coop,{{0,collums},{collums,rows}} });
+
+	
+	
+	
 
 }
 
 void dae::QBertLevel::AddPlayers(Scene& scene)
 {
-	
-	scene.Add(dae::SceneManager::GetInstance().GetPlayers()[0]);
-	dae::SceneManager::GetInstance().GetPlayers()[0]->GetComponent<QBertMovementComponent>()->SetBlockObject(m_Map.GetFirstBlock());
-	dae::SceneManager::GetInstance().GetPlayers()[0]->SetPosition(m_Map.GetFirstBlock()->GetComponent<MapBlockComponent>()->GetPlatformPos().x, m_Map.GetFirstBlock()->GetComponent<MapBlockComponent>()->GetPlatformPos().y);
+	for (auto& element: dae::SceneManager::GetInstance().GetPlayers())
+	{
+		scene.Add(element);
+		element->GetComponent<QBertMovementComponent>()->SetBlockObject(m_Map.GetFirstBlock());
+		element->SetPosition(m_Map.GetFirstBlock()->GetComponent<MapBlockComponent>()->GetPlatformPos().x, m_Map.GetFirstBlock()->GetComponent<MapBlockComponent>()->GetPlatformPos().y);
+	}
 }
 
-void dae::QBertLevel::LoadCoily(bool coilySpawn, Scene& scene) const
+void dae::QBertLevel::LoadCoily(const bool coilySpawn, Scene& scene) const
 {
 	if (coilySpawn)
 	{
 
 		int randomRow = rand() % (1 + 1) - 1;
-		int row{ 6 + randomRow };
+		int row{ (m_LevelInfo.mapSizeColumns-1) + randomRow };
 
 
 		auto m_pBlockObject = scene.GetMapPart(row, 1).second;
@@ -100,7 +129,7 @@ void dae::QBertLevel::LoadUggAbdWrongway(Scene& scene) const
 	for (float element : m_LevelInfo.uggAbdWrongwaySpawnTimes)
 	{
 		int randomRow3 = rand() % (1 + 1) - 1;
-		int row3{ 6 };
+		int row3{ (m_LevelInfo.mapSizeColumns - 1) };
 		std::vector<std::pair<std::string, std::string>> tmpNames3{};
 		if (randomRow3 == 0)
 		{
@@ -136,7 +165,7 @@ void dae::QBertLevel::LoadSlickAndSam(Scene& scene) const
 	{
 		element;
 		int randomRow2 = rand() % (1 + 1) - 1;
-		int row2{ 6 + randomRow2 };
+		int row2{ (m_LevelInfo.mapSizeColumns - 1) + randomRow2 };
 
 
 		auto m_pBlockObject2 = scene.GetMapPart(row2, 1).second;

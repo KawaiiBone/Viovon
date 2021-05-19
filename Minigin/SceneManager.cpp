@@ -1,25 +1,23 @@
 #include "MiniginPCH.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include <algorithm>
+
+#include "GameObject.h"
+
 
 void dae::SceneManager::Update(float deltaTime)
 {
 
 
 	m_Scenes[m_ScenesVecIndex].first->Update(deltaTime);
-	//for(auto& scene : m_Scenes)
-	//{
-	//	scene->Update(deltaTime);
-	//}
+
 }
 
 void dae::SceneManager::Render() const
 {
 	m_Scenes[m_ScenesVecIndex].first->Render();
-	//for (const auto& scene : m_Scenes)
-	//{
-	//	scene->Render();
-	//}
+
 }
 
 
@@ -40,11 +38,15 @@ void dae::SceneManager::ChangeScene(const TypeOfScene typeScene)
 {
 
 	int counter{ 0 };
-	for (std::pair<std::shared_ptr<Scene>, TypeOfScene> element : m_Scenes)
+	const int score{ 50 };
+	for (std::pair<std::shared_ptr<Scene>, TypeOfScene>& element : m_Scenes)
 	{
 		if (element.second == typeScene)
 		{
 			m_ScenesVecIndex = counter;
+			m_Scenes[m_ScenesVecIndex-1].first->FinishLevel(m_pPlayers);
+			m_Scenes[m_ScenesVecIndex].first->PlayersToStartingPos(m_pPlayers);
+			
 			return;
 		}
 		counter++;
@@ -70,14 +72,15 @@ dae::Scene& dae::SceneManager::CreateScene(const TypeOfScene typeScene)
 
 std::shared_ptr<dae::Scene>	 dae::SceneManager::GetPointerScene(const TypeOfScene sceneName)
 {
-	for (std::pair<std::shared_ptr<Scene>, TypeOfScene> scene : m_Scenes)
+
+	auto tmpScene = std::find_if(m_Scenes.begin(), m_Scenes.end(), [sceneName](auto& a) {return a.second == sceneName; });
+
+	if (tmpScene == m_Scenes.end())
 	{
-		if (scene.second == sceneName)
-		{
-			return scene.first;
-		}
+		return nullptr;
 	}
-	return nullptr;
+	return tmpScene->first;
+
 }
 
 std::shared_ptr<dae::Scene> dae::SceneManager::GetCurrentScene()

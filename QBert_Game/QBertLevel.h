@@ -27,12 +27,14 @@ namespace dae
 
 		void CreateLevel();
 	private:
+		void CreateStartingCoordinatesPlayers();
 		void AddPlayers(Scene& scene);
-		void LoadCoily(bool coilySpawn, Scene& scene)const;
+		void LoadCoily(const bool coilySpawn, Scene& scene)const;
 		void LoadUggAbdWrongway(Scene& scene)const;
 		void LoadSlickAndSam(Scene& scene)const;
 		dae::QBertMap m_Map;
 		const TypeOfScene m_TypeScene;
 		const Level m_LevelInfo;
+		std::vector<std::pair<GameMode, std::vector<AxialCoordinates>>>m_PlayerStartingCoordinates;
 	};
 }

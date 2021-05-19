@@ -15,6 +15,7 @@ namespace dae
 		QBertGame(int windowWidth, int windowHeight);
 		void LoadQbertGame();
 	private:
+
 		void LoadQbertCommandKeys();
 		Level ReadLevelFile(int index);
 		QBert m_QBertPlayerOne;
@@ -22,6 +23,8 @@ namespace dae
 		QBertMenu m_Menu;
 		std::vector<QBertLevel> m_Levels;
 		const int m_AmountOfLevels;
+		
+	
 
 	};
 }

@@ -1,5 +1,6 @@
 ﻿#include "UggOrWrongwayAiComponent.h"
 #include "GameObject.h"
+#include "LivesComponent.h"
 #include "Scene.h"
 #include "MapPartComponent.h"
 #include "QBertMovementComponent.h"
@@ -32,8 +33,10 @@ void dae::UggOrWrongwayAiComponent::Update(float delta, GameObject& object)
 	if (!IsInSpawnCooldown(delta, object))
 	{
 
-		if (DidHitQBert())
+		std::shared_ptr<dae::GameObject> tmpPointer = DidHitQBert();
+		if (tmpPointer)
 		{
+			tmpPointer->GetComponent<LivesComponent>()->InfluenceLife(-1, tmpPointer);
 			object.Die();
 		}
 
@@ -87,7 +90,7 @@ void dae::UggOrWrongwayAiComponent::Movement(GameObject& object)
 
 	if (mapPartObject.second)
 	{
-		mapPartObject.second->GetComponent<MapPartComponent>()->HandleAiMovement();
+		//mapPartObject.second->GetComponent<MapPartComponent>()->HandleAiMovement();
 		auto mapPartObjectComp = mapPartObject.second->GetComponent<MapPartComponent>();
 		SetCoordinates(mapPartObject.first);
 		if (m_StartedLeft)

@@ -123,3 +123,8 @@ glm::vec2 dae::MapPartComponent::GetWrongWayPlatformPos() const
 {
 	return m_WrongwayPlatformPos;
 }
+
+bool dae::MapPartComponent::PlatformDone() 
+{
+	return size_t(m_NamesVecIndex + 1) >= m_TextureBlockNames.size();
+}

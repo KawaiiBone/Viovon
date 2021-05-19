@@ -1,8 +1,9 @@
 ﻿#include "QBertObserver.h"
 
 #include <iostream>
-
+#include "SceneManager.h"
 #include "GameObject.h"
+#include "Scene.h"
 #include "Subject.h"
 
 
@@ -23,7 +24,15 @@ void dae::QBertObserver::OnNotify(std::shared_ptr<dae::GameObject> object, Event
 		m_PLatformCounter++;
 		if (m_MaxPlatforms == m_PLatformCounter)
 		{
-			std::cout << "victory!\n";
+			//TypeOfScene tmpTypeScene{ SceneManager::GetInstance().GetCurrentScene()->GetSceneName() };
+
+		
+			std::cout << "victory!\n";//bad
+		/*	if (tmpTypeScene != TypeOfScene::level3)
+			{
+				tmpTypeScene = static_cast<TypeOfScene>(static_cast<int>(tmpTypeScene) + 1);
+				SceneManager::GetInstance().ChangeScene(tmpTypeScene);
+			}*/
 		}
 		//gets through when coily is defeated
 		break;

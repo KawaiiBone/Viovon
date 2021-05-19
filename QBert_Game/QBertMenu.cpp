@@ -1,5 +1,7 @@
 ﻿#include "QBertMenu.h"
 #include <functional>
+
+#include "QBert.h"
 #include "Renderer.h"
 #include "Subject.h"
 
@@ -10,7 +12,7 @@ dae::QBertMenu::QBertMenu(TypeOfScene typeScene) :
 	
 }
 
-void dae::QBertMenu::CreateMenu()
+void dae::QBertMenu::CreateMenu(QBert& qbertP2)
 {
 	dae::SceneManager::GetInstance().CreateScene(m_TypeScene);
 	auto& renderer = Renderer::GetInstance();
@@ -77,8 +79,9 @@ void dae::QBertMenu::CreateMenu()
 {"" },
 	{InterFaceNames::play }
 	};
-	coop.myFunctionWrapper = []() -> void
+	coop.myFunctionWrapper = [&]() -> void
 	{
+		qbertP2.CreateQbert();
 		SceneManager::GetInstance().SetGameMode(GameMode::coop);
 		std::cout << "You choose Co-op! " << std::endl;
 
@@ -219,7 +222,7 @@ void dae::QBertMenu::CreateMenu()
 	selectLevelMenu.AddInterfacePart(levelOne);
 	selectLevelMenu.AddInterfacePart(levelTwo);
 	selectLevelMenu.AddInterfacePart(levelThree);
-	selectLevelMenu.AddInterfacePart(BackToStartWindow);
+	//selectLevelMenu.AddInterfacePart(BackToStartWindow);
 	
 	renderer.AddInterfaceWindow(startMenu);
 	renderer.AddInterfaceWindow(modesMenu);

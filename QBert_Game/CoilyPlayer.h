@@ -1,12 +1,13 @@
 ﻿#pragma once
 namespace dae
 {
-	class QBert
+
+	class CoilyPlayer
 	{
-	public:
-		QBert(int playerIndex);
-		void CreateQbert();
+		CoilyPlayer(int playerIndex);
+		void CreateCoily();
 	private:
 		const int m_PlayerIndex;
+
 	};
 }

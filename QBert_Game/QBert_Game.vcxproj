@@ -335,6 +335,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPat
   <ItemGroup>
     <ClCompile Include="AIBaseComponent.cpp" />
     <ClCompile Include="CoilyAiComponent.cpp" />
+    <ClCompile Include="CoilyPlayer.cpp" />
     <ClCompile Include="MapBlockComponent.cpp" />
     <ClCompile Include="MapDiskComponent.cpp" />
     <ClCompile Include="MapPartComponent.cpp" />
@@ -360,6 +361,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPat
   <ItemGroup>
     <ClInclude Include="AIBaseComponent.h" />
     <ClInclude Include="CoilyAiComponent.h" />
+    <ClInclude Include="CoilyPlayer.h" />
     <ClInclude Include="MapBlockComponent.h" />
     <ClInclude Include="MapDiskComponent.h" />
     <ClInclude Include="MapPartComponent.h" />

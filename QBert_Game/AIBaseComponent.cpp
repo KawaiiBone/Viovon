@@ -36,13 +36,21 @@ void dae::AIBaseComponent::SetBlockObject(GameObject* pBlockObject)
 	m_pBlockObject = pBlockObject;
 }
 
-bool dae::AIBaseComponent::DidHitQBert() const
+std::shared_ptr<dae::GameObject> dae::AIBaseComponent::DidHitQBert() const
 {
-	if (m_QbertObject->GetComponent<QBertMovementComponent>()->GetCoordinates() == AxialCoordinates{ m_Row,m_Collum })
+
+
+	
+	for (auto element : SceneManager::GetInstance().GetPlayers())
 	{
-		return true;
+		if (element->GetComponent<QBertMovementComponent>()->GetCoordinates() == AxialCoordinates{ m_Row,m_Collum })
+		{
+			return element;
+		}
+	
 	}
-	return false;
+	return nullptr;
+	
 }
 
 void dae::AIBaseComponent::ResetCooldownCounter()
@@ -103,19 +111,5 @@ void dae::AIBaseComponent::SetCoordinates(AxialCoordinates coordinates)
 
 
 
-
-//bool dae::CoilyAiComponent::CanHandleMovement(GameObject* movQbert)
-//{
-//	//auto tmpP = m_pBlockObject->GetComponent<MapBlockComponent>()->HandleQbertMovement(movQbert);
-//	auto tmpP = m_pBlockObject->GetComponent<MapPartComponent>()->HandleQbertMovement(movQbert);
-//	if (tmpP)
-//	{
-//		m_MovementCooldown.cooldownOver = false;
-//		m_MovementCooldown.cooldownCounter = 0.f;
-//		SetBlockObject(tmpP);
-//		return true;
-//	}
-//	return false;
-//}
 
 

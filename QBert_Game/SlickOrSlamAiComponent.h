@@ -21,8 +21,9 @@ namespace dae
 	private:
 
 
-		bool CanHandleMovement(GameObject* movQbert);
+		
 		void Movement(GameObject& object);
+		const int m_DieScore;
 
 
 	};
