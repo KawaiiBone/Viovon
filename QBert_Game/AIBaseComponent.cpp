@@ -5,12 +5,13 @@
 #include "QBertMovementComponent.h"
 
 
-dae::AIBaseComponent::AIBaseComponent(int row, int collum, float cooldownDuration,const std::vector<std::string>& vecTextureNames)
+dae::AIBaseComponent::AIBaseComponent(int row, int collum, float cooldownDuration,const std::vector<std::string>& vecTextureNames, float spawnTime)
 	: m_Row(row),
 	m_Collum(collum),
 	m_MovementCooldown{ cooldownDuration,0.f, true },
 	m_VecTextureNames(vecTextureNames),
-	m_IndexTexturesNames(0)
+	m_IndexTexturesNames(0),
+	m_SpawnCooldown{ spawnTime,0.f,false }
 
 {
 
@@ -49,13 +50,24 @@ void dae::AIBaseComponent::ResetCooldownCounter()
 	m_MovementCooldown.cooldownCounter = 0.f;
 }
 
-bool dae::AIBaseComponent::IsInCooldown(float deltaTime)
+bool dae::AIBaseComponent::IsInMovementCooldown(float deltaTime)
 {
 	if (m_MovementCooldown.cooldownCounter < m_MovementCooldown.cooldownDuration)
 	{
 		m_MovementCooldown.cooldownCounter += deltaTime;
 		return true;
 	}
+	return false;
+}
+
+bool dae::AIBaseComponent::IsInSpawnCooldown(float deltaTime, GameObject& object)
+{
+	if (m_SpawnCooldown.cooldownCounter < m_SpawnCooldown.cooldownDuration)
+	{
+		m_SpawnCooldown.cooldownCounter += deltaTime;
+		return true;
+	}
+	object.SetRenderStatus(true);
 	return false;
 }
 

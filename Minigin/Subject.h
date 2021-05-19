@@ -29,7 +29,10 @@ namespace dae
 		howToPlay,
 		buttons,
 		modes,
-		none,
+		controller,
+		play,
+		selectedLevel,
+		none
 	};
 
 

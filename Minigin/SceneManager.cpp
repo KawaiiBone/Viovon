@@ -51,6 +51,16 @@ void dae::SceneManager::ChangeScene(const TypeOfScene typeScene)
 	}
 }
 
+void dae::SceneManager::SetGameMode(GameMode gameMode)
+{
+	m_GameMode = gameMode;
+}
+
+dae::GameMode dae::SceneManager::GetGameMode()
+{
+	return m_GameMode;
+}
+
 dae::Scene& dae::SceneManager::CreateScene(const TypeOfScene typeScene)
 {
 	const auto scene = std::shared_ptr<Scene>(new Scene(typeScene));

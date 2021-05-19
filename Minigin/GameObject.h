@@ -33,7 +33,7 @@ namespace dae
 	
 		void SetPosition(float x, float y);
 		Transform GetPosition() const;
-		
+		void SetRenderStatus(bool ready);
 
 	
 		
@@ -67,6 +67,7 @@ namespace dae
 		std::shared_ptr<RenderComponent>  m_pRenderComponent;
 		std::vector<BaseComponent*> m_VectorpBComponents;
 		bool m_IsDead;
+		bool m_RenderReady;
 
 
 		

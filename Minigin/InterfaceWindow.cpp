@@ -12,11 +12,10 @@ void dae::InterfaceWindow::AddInterfacePart(const InterfacePart& interFaceButton
 	m_InterfaceButtonVec.push_back(interFaceButton);
 }
 
-void dae::InterfaceWindow::Render(InterFaceNames& interFaceName)
+void dae::InterfaceWindow::Render(InterFaceNames& interFaceName) 
 {
 	if (interFaceName == m_InterFaceName)
 	{
-
 
 		ImGui::Begin((m_TitleName.c_str()));
 
@@ -29,11 +28,13 @@ void dae::InterfaceWindow::Render(InterFaceNames& interFaceName)
 			if (interFaceButton.button.first != Invalid_String && ImGui::Button(interFaceButton.button.first.c_str(), interFaceButton.button.second))
 			{
 				interFaceName = interFaceButton.interFaceName;
-
+				interFaceButton.myFunctionWrapper();
+				break;
 			}
 		}
 
 		ImGui::End();
+
 	}
 }
 
@@ -41,3 +42,4 @@ dae::InterFaceNames dae::InterfaceWindow::GetInterFaceName()
 {
 	return m_InterFaceName;
 }
+

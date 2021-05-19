@@ -11,14 +11,15 @@
 #include "QBertComponentsHeaders.h"
 #include "ServiceLocater.h"
 #include "QBertObserver.h"
-dae::QBert::QBert()
-{
+dae::QBert::QBert(int playerIndex):
+	m_PlayerIndex{playerIndex}
 
+{
+	
 }
-
-void dae::QBert::LoadQbert(Scene& sceneMan, GameObject* pblockObject)
+void dae::QBert::CreateQbert()
 {
-	ImVec2 posPlayer{ pblockObject->GetComponent<MapPartComponent>()->GetPlatformPos().x, pblockObject->GetComponent<MapPartComponent>()->GetPlatformPos().y};
+	ImVec2 posPlayer{ 0.f, 0.f };
 	ImVec2 posHealthObserver{ 10,100 };
 	ImVec2 posDeadObserver{ 100,100 };
 	ImVec2 posScoreObserver{ 500,100 };
@@ -29,15 +30,15 @@ void dae::QBert::LoadQbert(Scene& sceneMan, GameObject* pblockObject)
 
 	SDL_Color colorHP{ 255,255,255 };
 	auto fontHP = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 26);
-	
+
 	auto livesObserver{ new dae::LivesObserver({posHealthObserver.x,posHealthObserver.y,new dae::TextComponent("Lives: 20", fontHP, colorHP, false)},
 												   {posDeadObserver.x,posDeadObserver.y,new dae::TextComponent("You Died: ", fontHP, colorHP, false)}) };
 	auto scoreObserver{ new dae::ScoreObserver({posScoreObserver.x,posScoreObserver.y,new dae::TextComponent("Score: 0", fontHP, colorHP, false)}) };
 
-	//IDK WHY THESE ARE SEPARATED pls fix later
+
 	auto hpComponent{ new dae::LivesComponent(20) };
 	auto scoreComponent{ new dae::ScoreComponent(2000) };
-	//IDK WHY THESE ARE SEPARATED pls fix later
+
 	hpComponent->AddObserver(livesObserver);
 	scoreComponent->AddObserver(scoreObserver);
 	scoreComponent->AddObserver(new QBertObserver(28));
@@ -48,11 +49,7 @@ void dae::QBert::LoadQbert(Scene& sceneMan, GameObject* pblockObject)
 	QBertObject->AddBaseComponent(new dae::PlayerMovement());
 	QBertObject->AddBaseComponent(hpComponent);
 	QBertObject->AddBaseComponent(scoreComponent);
-	
-	QBertObject->AddBaseComponent(new dae::QBertMovementComponent(pblockObject,6,0,false));
-
-
-
-	sceneMan.Add(QBertObject);
+	QBertObject->AddBaseComponent(new dae::QBertMovementComponent(/*BlockObject*/nullptr, 6, 0));
 	dae::SceneManager::GetInstance().AddPlayer(QBertObject);
 }
+

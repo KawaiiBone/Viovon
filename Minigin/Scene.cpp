@@ -6,13 +6,15 @@ using namespace dae;
 
 unsigned int Scene::m_IdCounter = 0;
 
-Scene::Scene(const TypeOfScene typescene) : m_TypeScene(typescene) {}
+Scene::Scene(const TypeOfScene typescene) : m_TypeScene(typescene){}
 
 
 void Scene::AddMap(const std::unordered_map<AxialCoordinates, std::shared_ptr<GameObject>, MyHash>& Unmap)
 {
 	m_UnMap = Unmap;
 }
+
+
 
 Scene::~Scene() = default;
 
@@ -44,6 +46,7 @@ void Scene::Update(float deltaTime)
 	{
 		object->Update(deltaTime);
 	}
+
 	
 	DestroyDeadObjects();
 }
@@ -62,6 +65,8 @@ void Scene::Render() const
 	{
 		object->Render();
 	}
+
+
 
 	
 }

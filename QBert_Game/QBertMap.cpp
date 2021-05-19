@@ -6,25 +6,34 @@
 #include "ComponentsHeaders.h"
 #include "QBertComponentsHeaders.h"
 #include <algorithm>
-#include <istream>
-#include <fstream>
 
+
+
+#include "QBertLevel.h"
 #include "QbertTexturesComponent.h"
-#include "3rdPartyFiles/rapidjson/document.h"
 
 
 
-dae::QBertMap::QBertMap(int windowWidth, int windowHeight) :
+
+dae::QBertMap::QBertMap(int windowWidth, int windowHeight,const Level& levelInfo) :
 	m_WindowWidth{ windowWidth }
 	, m_WindowHeight{ windowHeight }
-	, m_AmountOfCollums{0}
-	, m_LeftFloatingDiscs({})
-	, m_RightFloatingDiscs({})
-	, m_DiskAdressName()
+	, m_AmountOfCollums{ levelInfo.mapSizeColumns}
+	, m_LeftFloatingDiscs(levelInfo.leftFloatingDiscs)
+	, m_RightFloatingDiscs(levelInfo.rightFloatingDiscs)
 	, m_FilePath("QBert")
+	, m_PenaltyBlock(levelInfo.penaltyBlocks)
+
+		
 {
-	ReadFiles();
-	//CreateTextures();
+	m_DiskAdressName = m_FilePath + "/" + levelInfo.diskAdress + ".png";
+	
+	for (size_t i = 0; i < levelInfo.blockTextureAdressNames.size() ; ++i)
+	{
+		m_BlockFileNamesWithNickNames.push_back({ m_FilePath+ "/"+ levelInfo.blockTextureAdressNames[i]+".png", levelInfo.blockTextureNickNames[i] });
+	}
+	
+
 	CreateGameBlocks();
 }
 
@@ -43,48 +52,7 @@ dae::GameObject* dae::QBertMap::GetFirstBlock()
 
 
 
-void dae::QBertMap::ReadFiles()
-{
-	std::ifstream file{"Resources/LevelLayout/LevelOne.Json"};
 
-	std::string getText{};
-	std::string getTextCopy{};
-
-	while (std::getline(file, getTextCopy))
-	{
-		getText += getTextCopy;
-	}
-	
-	rapidjson::Reader testReader;
-	rapidjson::Document document;
-	
-	document.Parse(getText.c_str());
-
-	 m_AmountOfCollums = document["MapSizeColumns"].GetInt();
-
-	 for (auto& v : document["LeftFloatingDiscs"].GetArray())
-	 {
-		 m_LeftFloatingDiscs.push_back(v.GetInt());
-	 }
-		
-	 for (auto& v : document["RightFloatingDiscs"].GetArray())
-	 {
-		 m_RightFloatingDiscs.push_back(v.GetInt());
-	 }
-
-
-
-	 for (size_t i = 0; i < document["BlockTextureAdressNames"].GetArray().Size(); i++)
-	 {
-
-		 std::string tmpAdressName{ document["BlockTextureAdressNames"].GetArray()[i].GetString() };
-		 m_BlockFileNamesWithNickNames.push_back({ m_FilePath +"/"+ tmpAdressName + ".png", document["BlockTextureNickNames"].GetArray()[i].GetString() });
-	 }
-
-	 m_DiskAdressName = m_FilePath + "/" + document["DiskName"].GetString() + ".png";
-	
-	
-}
 
 
 void dae::QBertMap::CreateGameDisks( int row, int collum,int currentRow, int maxRow, float posx, float posy, float width, float height)
@@ -151,7 +119,7 @@ void dae::QBertMap::CreateGameBlocks()
 		{
 
 			CreateGameDisks(j, i, tmpRow, maxBlocksRow, posBlockX, posBlockY, width, height);
-			auto tmpBlockObject = std::make_shared<dae::GameObject>(posBlockX, posBlockY/*, m_PTextureComp*/);
+			auto tmpBlockObject = std::make_shared<dae::GameObject>(posBlockX, posBlockY);
 			m_UnMapBackgroundParts[{tmpRow, collum}] = tmpBlockObject;
 			//std::cout << tmpRow << " " << collum << "    ";
 
@@ -189,7 +157,7 @@ void dae::QBertMap::CreateGameBlocks()
 			continue;
 		}
 		auto tmpPos = element.second->GetPosition().GetPosition();
-		element.second->AddPairComponent(new QbertTexturesComponent(2.f, m_BlockFileNamesWithNickNames), new MapBlockComponent(tmpPos.x, tmpPos.y, width, height, tmpVectorNames));
+		element.second->AddPairComponent(new QbertTexturesComponent(2.f, m_BlockFileNamesWithNickNames), new MapBlockComponent(tmpPos.x, tmpPos.y, width, height, tmpVectorNames, m_PenaltyBlock));
 	}
 
 

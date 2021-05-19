@@ -6,8 +6,8 @@
 
 
 
-dae::SlickOrSlamAiComponent::SlickOrSlamAiComponent(int Row, const std::vector<std::string>& vecTextureNames) :
-	AIBaseComponent(Row, 1, 0.85f, vecTextureNames)
+dae::SlickOrSlamAiComponent::SlickOrSlamAiComponent(int Row, const std::vector<std::string>& vecTextureNames, float spawnTime) :
+	AIBaseComponent(Row, 1, 0.85f, vecTextureNames, spawnTime)
 
 {
 
@@ -24,17 +24,19 @@ dae::SlickOrSlamAiComponent::~SlickOrSlamAiComponent()
 
 void dae::SlickOrSlamAiComponent::Update(float delta, GameObject& object)
 {
-	if (DidHitQBert())
+	if (!IsInSpawnCooldown(delta, object))
 	{
-		object.Die();
+		if (DidHitQBert())
+		{
+			object.Die();
+		}
+
+
+		if (!IsInMovementCooldown(delta))
+		{
+			Movement(object);
+		}
 	}
-
-
-	if (!IsInCooldown(delta))
-	{
-		Movement(object);
-	}
-
 
 
 

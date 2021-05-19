@@ -4,6 +4,7 @@
 #include "backends/imgui_impl_opengl2.h"
 #include "backends/imgui_impl_sdl.h"
 #include "imgui.h"
+#include "Scene.h"
 #include "SceneManager.h"
 #include "Texture2D.h"
 #include "Subject.h"
@@ -24,16 +25,16 @@ int GetOpenGLDriverIndex()
 	return openglIndex;
 }
 
-dae::Renderer::Renderer():
-m_Window(nullptr), m_InterfaceWindowsVec(), m_InterFaceWindowName(InterFaceNames::start), m_Renderer(nullptr)
+dae::Renderer::Renderer() :
+	m_Window(nullptr), m_InterfaceWindowsVec(), m_InterFaceWindowName(InterFaceNames::start), m_Renderer(nullptr)
 {
 }
 
-void dae::Renderer::Init(SDL_Window * window)
+void dae::Renderer::Init(SDL_Window* window)
 {
 	m_Window = window;
 	m_Renderer = SDL_CreateRenderer(window, GetOpenGLDriverIndex(), SDL_RENDERER_ACCELERATED);// | SDL_RENDERER_PRESENTVSYNC);
-	if (m_Renderer == nullptr) 
+	if (m_Renderer == nullptr)
 	{
 		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
 	}
@@ -43,34 +44,37 @@ void dae::Renderer::Init(SDL_Window * window)
 	ImGui_ImplSDL2_InitForOpenGL(window, SDL_GL_GetCurrentContext());
 	ImGui_ImplOpenGL2_Init();
 
-	
+
 }
 
-void dae::Renderer::Render() 
+void dae::Renderer::Render()
 {
 	SDL_RenderClear(m_Renderer);
 
-	SceneManager::GetInstance().Render();
 	ImGui_ImplOpenGL2_NewFrame();
 	ImGui_ImplSDL2_NewFrame(m_Window);
 	ImGui::NewFrame();
 
+	SceneManager::GetInstance().Render();
 
-
-	for (auto interFacewindow: m_InterfaceWindowsVec)
+	if (SceneManager::GetInstance().GetCurrentScene()->GetSceneName() == TypeOfScene::startMenu)
 	{
-		interFacewindow.Render(m_InterFaceWindowName);
+
+		for (auto interFacewindow : m_InterfaceWindowsVec)
+		{
+			interFacewindow.Render(m_InterFaceWindowName);
+		}
 	}
-	
+
 	//DifficultyInterface();
 
-	
+
 	ImGui::Render();
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
 
 
-	
+
 	SDL_RenderPresent(m_Renderer);
 }
 
@@ -79,7 +83,7 @@ void dae::Renderer::Destroy()
 	ImGui_ImplOpenGL2_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
 	ImGui::DestroyContext();
-	
+
 	if (m_Renderer != nullptr)
 	{
 		SDL_DestroyRenderer(m_Renderer);
@@ -112,23 +116,3 @@ void dae::Renderer::AddInterfaceWindow(InterfaceWindow interFaceWindow)
 	m_InterfaceWindowsVec.push_back(interFaceWindow);
 }
 
-void dae::Renderer::DifficultyInterface()
-{
-	ImGui::Begin("Difficulty");
-	//ImGui::Text("Easy");
-	if (ImGui::Button("Easy", ImVec2{200,20}))
-	{
-		
-		std::cout << "a\n";
-	
-	}
-	else if(ImGui::Button("Medium"))
-	{
-		std::cout << "a\n";
-	}
-	else if (ImGui::Button("Hard"))
-	{
-		std::cout << "a\n";
-	}
-	ImGui::End();
-}

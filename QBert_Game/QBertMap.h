@@ -12,6 +12,7 @@
 
 namespace dae
 {
+	
 	struct MovementPosBlock;
 	
 	struct AxialCoordinates
@@ -35,20 +36,19 @@ namespace dae
 		}
 	};
 
-	
+	struct Level;
 	class GameObject;
 	class TextureComponent;
 	class Scene;
 	class QBertMap
 	{
 	public:
-		QBertMap(int windowWidth,int windowHeight);
+		QBertMap(int windowWidth,int windowHeight, const Level& levelInfo);
 		void LoadMap(Scene& sceneMan);
-		Transform GetQbertSpawnPos();
 		GameObject* GetFirstBlock();
+		Transform GetQbertSpawnPos();
 		std::pair<GameObject*, GameObject*> GetVersusBlocks();
 	private:
-		void ReadFiles();
 		void CreateGameBlocks();
 		void CreateGameDisks(int row, int collum, int currentRow, int maxRow, float posx, float posy,float width, float height);
 
@@ -63,6 +63,7 @@ namespace dae
 		std::vector<int> m_LeftFloatingDiscs;
 		std::vector<int> m_RightFloatingDiscs;
 		std::unordered_map<AxialCoordinates, std::shared_ptr<GameObject>, MyHash> m_UnMapBackgroundParts;
+		bool m_PenaltyBlock;
 		
 
 	

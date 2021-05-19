@@ -5,13 +5,14 @@
 
 #include "GameObject.h"
 
-dae::MapPartComponent::MapPartComponent(float x, float y, float width, float height, const std::vector<std::string>& textureBlockName, bool isblock)
+dae::MapPartComponent::MapPartComponent(float x, float y, float width, float height, const std::vector<std::string>& textureBlockName, bool isblock, bool penalty)
 	: m_PlatformPos(x+ width / 4, y- height / 5),
 	m_TextureBlockNames(textureBlockName),
 	m_NamesVecIndex(0),
 	m_IsBlock(isblock),
 	m_WrongwayPlatformPos(x+ width/1.45f,y+height/1.45f),
-	m_UggPlatformPos(x- width/6, y+width/2)
+	m_UggPlatformPos(x- width/6, y+width/2),
+	m_Penalty(penalty)
 
 {
 
@@ -40,18 +41,17 @@ glm::vec2 dae::MapPartComponent::GetPlatformPos() const
 	return m_PlatformPos;
 }
 
-dae::GameObject* dae::MapPartComponent::HandleQbertMovement(GameObject* movQbert, bool penaltyBlock)
+dae::GameObject* dae::MapPartComponent::HandleQbertMovement(GameObject* movQbert)
 {
 
 	if (movQbert->GetComponent<MapPartComponent>()->IsBlock())
 	{
-		ChangeMovementPosBlock(movQbert, penaltyBlock);
+		ChangeMovementPosBlock(movQbert);
 		return movQbert;
 	}
 	else
 	{
-		return movQbert->GetComponent<MapPartComponent>()->HandleQbertMovement(movQbert, penaltyBlock);
-		//m_PlatformStatus = PlatformStatus::none;
+		return movQbert->GetComponent<MapPartComponent>()->HandleQbertMovement(movQbert);
 
 	}
 
@@ -102,6 +102,11 @@ bool dae::MapPartComponent::MinusNamesVecIndex()
 void dae::MapPartComponent::SetPlatformStatus(PlatformStatus platStatus)
 {
 	m_PlatformStatus = platStatus;
+}
+
+bool dae::MapPartComponent::HasPenalty()
+{
+	return m_Penalty;
 }
 
 bool dae::MapPartComponent::IsBlock()

@@ -31,13 +31,13 @@ namespace dae
 	class MapPartComponent : public BaseComponent
 	{
 	public:
-		MapPartComponent(float x, float y, float width, float height, const std::vector<std::string>& textureBlockName, bool isblock);
+		MapPartComponent(float x, float y, float width, float height, const std::vector<std::string>& textureBlockName, bool isblock, bool hasPenalty);
 		virtual ~MapPartComponent();
 		void Update(float deltaTime, GameObject& object) override;
 		std::string GetTxt() override;
 		void SubjectRender()const override;
 		glm::vec2 GetPlatformPos() const;
-		virtual	GameObject* HandleQbertMovement(GameObject* movQbert, bool penaltyBlock);
+		virtual	GameObject* HandleQbertMovement(GameObject* movQbert);
 		void HandleAiMovement();
 		PlatformStatus GetPlatformStatus();
 		bool IsBlock();
@@ -47,8 +47,8 @@ namespace dae
 		bool PlusNamesVecIndex();
 		bool MinusNamesVecIndex();
 		void SetPlatformStatus(PlatformStatus platStatus);
-		virtual void ChangeMovementPosBlock(GameObject* movBlock, bool penaltyBlock) = 0;// maybe change
-
+		virtual void ChangeMovementPosBlock(GameObject* movBlock) = 0;
+		bool HasPenalty();
 
 	private:
 		const glm::vec2 m_PlatformPos;
@@ -58,6 +58,7 @@ namespace dae
 		const glm::vec2 m_UggPlatformPos;
 		PlatformStatus m_PlatformStatus;
 		const bool m_IsBlock;
+		const bool m_Penalty;
 
 	};
 

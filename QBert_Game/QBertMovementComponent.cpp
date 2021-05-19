@@ -2,8 +2,8 @@
 #include "Scene.h"
 #include "GameObject.h"
 
-dae::QBertMovementComponent::QBertMovementComponent(GameObject* pBlockObject, int row, int collum, bool blockPenalty)
-	: m_pBlockObject(pBlockObject), m_Row(row), m_Collum(collum), m_MovementCooldown{0.35f,0.f, true}, m_BlockPenalty(blockPenalty)
+dae::QBertMovementComponent::QBertMovementComponent(GameObject* pBlockObject, int row, int collum)
+	: m_pBlockObject(pBlockObject), m_Row(row), m_Collum(collum), m_MovementCooldown{0.35f,0.f, true}
 {
 	
 }
@@ -67,10 +67,7 @@ bool dae::QBertMovementComponent::IsMovementCooldownOver()
 	return m_MovementCooldown.cooldownOver;
 }
 
-bool dae::QBertMovementComponent::HasBlockPenalty()
-{
-	return m_BlockPenalty;
-}
+
 
 
 glm::vec2 dae::QBertMovementComponent::GetNewPosition()
@@ -81,10 +78,10 @@ glm::vec2 dae::QBertMovementComponent::GetNewPosition()
 }
 
 
-bool dae::QBertMovementComponent::CanHandleMovement(GameObject* movQber, bool penaltyBlock)
+bool dae::QBertMovementComponent::CanHandleMovement(GameObject* movQber )
 {
 	//auto tmpP = m_pBlockObject->GetComponent<MapBlockComponent>()->HandleQbertMovement(movQbert);
-	auto tmpP = m_pBlockObject->GetComponent<MapPartComponent>()->HandleQbertMovement(movQber, penaltyBlock);
+	auto tmpP = m_pBlockObject->GetComponent<MapPartComponent>()->HandleQbertMovement(movQber);
 	if (tmpP)
 	{
 		m_MovementCooldown.cooldownOver = false;

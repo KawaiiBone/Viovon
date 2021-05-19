@@ -16,13 +16,13 @@ namespace dae
 		void Update(float deltaTime, GameObject& object) override;
 		std::string GetTxt() override;
 		void SubjectRender()const override;
-		GameObject* HandleQbertMovement(GameObject* movQbert, bool penaltyBlock) override;
+		GameObject* HandleQbertMovement(GameObject* movQbert) override;
 
 
 
 
 
-		void ChangeMovementPosBlock(GameObject* movBlock, bool penaltyBlock) override;
+		void ChangeMovementPosBlock(GameObject* movBlock) override;
 	private:
 		
 

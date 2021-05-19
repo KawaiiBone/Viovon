@@ -1,16 +1,15 @@
 ﻿#pragma once
 #include <memory>
-
+#include <GameObject.h>
 namespace dae
 {
 	class Scene;
-	class GameObject;
 	class QBert
 	{
 	public:
-		QBert();
-	void LoadQbert(Scene& sceneMan, GameObject* pblockObject);
+		QBert(int playerIndex);
+		void CreateQbert();
 	private:
-
+		const int m_PlayerIndex;
 	};
 }

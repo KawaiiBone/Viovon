@@ -134,7 +134,7 @@ void dae::Minigin::Run()
 	//
 	//ResourceManager::GetInstance().Init("../Data/");
 	//ServiceLocater::RegisterSoundSystem(new SoundSystem());//makes sound
-
+	//CreateUI();
 	{
 		auto& renderer = Renderer::GetInstance();
 		auto& sceneManager = SceneManager::GetInstance();
@@ -234,10 +234,10 @@ void dae::Minigin::CreateUI() const
 	{InterFaceNames::modes }
 	};
 	//interface windows
-	InterfaceWindow m_StartWindow("Startscreen", InterFaceNames::start);
-	InterfaceWindow m_HowToPlayWindow("HowToPlay", InterFaceNames::howToPlay);
 	InterfaceWindow m_ModesWindow("Modes", InterFaceNames::modes);
+	InterfaceWindow m_HowToPlayWindow("HowToPlay", InterFaceNames::howToPlay);
 
+	InterfaceWindow m_StartWindow("Startscreen", InterFaceNames::start);
 	m_StartWindow.AddInterfacePart(howToPlayPart);
 	m_StartWindow.AddInterfacePart(ModesPart);
 	m_StartWindow.AddInterfacePart(closeWindow);

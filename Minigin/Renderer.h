@@ -30,7 +30,7 @@ namespace dae
 		void AddInterfaceWindow(InterfaceWindow interFaceWindow);
 	private:
 
-		void DifficultyInterface();
+
 		
 		SDL_Renderer* m_Renderer{};
 		SDL_Window* m_Window;

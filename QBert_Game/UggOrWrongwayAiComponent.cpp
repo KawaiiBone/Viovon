@@ -6,8 +6,8 @@
 
 
 
-dae::UggOrWrongwayAiComponent::UggOrWrongwayAiComponent(int Row, const std::vector<std::string>& vecTextureNames) :
-	AIBaseComponent(Row, 6, 0.85f, vecTextureNames)
+dae::UggOrWrongwayAiComponent::UggOrWrongwayAiComponent(int Row, const std::vector<std::string>& vecTextureNames, float spawnTime) :
+	AIBaseComponent(Row, 6, 0.85f, vecTextureNames, spawnTime)
 
 {
 	if (Row > 0)
@@ -29,15 +29,19 @@ dae::UggOrWrongwayAiComponent::~UggOrWrongwayAiComponent()
 
 void dae::UggOrWrongwayAiComponent::Update(float delta, GameObject& object)
 {
-	if (DidHitQBert())
+	if (!IsInSpawnCooldown(delta, object))
 	{
-		object.Die();
-	}
+
+		if (DidHitQBert())
+		{
+			object.Die();
+		}
 
 
-	if (!IsInCooldown(delta))
-	{
-		Movement(object);
+		if (!IsInMovementCooldown(delta))
+		{
+			Movement(object);
+		}
 	}
 
 
@@ -67,8 +71,8 @@ void dae::UggOrWrongwayAiComponent::Movement(GameObject& object)
 	std::pair<AxialCoordinates, GameObject*>mapPartObject{};
 	if (m_StartedLeft)
 	{
-		
-		 mapPartObject = scene->GetMapPart(GetCoordinates().row + 1, GetCoordinates().collum + randomCollum);
+
+		mapPartObject = scene->GetMapPart(GetCoordinates().row + 1, GetCoordinates().collum + randomCollum);
 	}
 	else
 	{
@@ -76,12 +80,11 @@ void dae::UggOrWrongwayAiComponent::Movement(GameObject& object)
 		{
 			rowPart = 1;
 		}
-			mapPartObject = scene->GetMapPart(GetCoordinates().row - rowPart, GetCoordinates().collum + randomCollum);
+		mapPartObject = scene->GetMapPart(GetCoordinates().row - rowPart, GetCoordinates().collum + randomCollum);
 	}
-	std::cout << mapPartObject.first.row << "   " << mapPartObject.first.collum << "\n";
 
 
-	
+
 	if (mapPartObject.second)
 	{
 		mapPartObject.second->GetComponent<MapPartComponent>()->HandleAiMovement();

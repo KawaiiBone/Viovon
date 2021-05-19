@@ -24,7 +24,7 @@ namespace dae
 
 			if (mapPartObject.second && playerObjectComp->IsMovementCooldownOver())
 			{
-				playerObjectComp->CanHandleMovement(mapPartObject.second, playerObjectComp->HasBlockPenalty());
+				playerObjectComp->CanHandleMovement(mapPartObject.second);
 				
 				auto mapPartObjectComp = mapPartObject.second->GetComponent<MapPartComponent>();
 
@@ -84,7 +84,7 @@ namespace dae
 			if (mapPartObject.second && playerObjectComp->IsMovementCooldownOver())
 			{
 				
-				playerObjectComp->CanHandleMovement(mapPartObject.second, playerObjectComp->HasBlockPenalty());
+				playerObjectComp->CanHandleMovement(mapPartObject.second);
 				
 		
 				auto mapPartObjectComp = mapPartObject.second->GetComponent<MapPartComponent>();
@@ -144,7 +144,7 @@ namespace dae
 			{
 				auto mapPartObjectComp = mapPartObject.second->GetComponent<MapPartComponent>();
 
-				playerObjectComp->CanHandleMovement(mapPartObject.second, playerObjectComp->HasBlockPenalty());
+				playerObjectComp->CanHandleMovement(mapPartObject.second );
 
 				
 				object->SetPosition(mapPartObjectComp->GetPlatformPos().x, mapPartObjectComp->GetPlatformPos().y);
@@ -190,7 +190,7 @@ namespace dae
 			{
 				auto mapPartObjectComp = mapPartObject.second->GetComponent<MapPartComponent>();
 
-				playerObjectComp->CanHandleMovement(mapPartObject.second, playerObjectComp->HasBlockPenalty());
+				playerObjectComp->CanHandleMovement(mapPartObject.second );
 				
 				object->SetPosition(mapPartObjectComp->GetPlatformPos().x, mapPartObjectComp->GetPlatformPos().y);
 				playerObjectComp->SetCoordinates(mapPartObject.first);

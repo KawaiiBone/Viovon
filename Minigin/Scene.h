@@ -1,4 +1,5 @@
 #pragma once
+#include "InterfaceWindow.h"
 #include "SceneManager.h"
 #include "unordered_map"
 #include "../QBert_Game/QBertMap.h"
@@ -8,8 +9,7 @@ namespace dae
 	class GameObject;
 
 
-
-
+	enum class InterFaceNames;
 
 
 	
@@ -26,7 +26,7 @@ namespace dae
 		//get map
 		std::pair<AxialCoordinates,GameObject*> GetMapPart(int row, int collum);
 		void AddMap(const std::unordered_map<AxialCoordinates,std::shared_ptr<GameObject>, MyHash>& Unmap );
-		
+	
 		
 		~Scene();
 		Scene(const Scene& other) = delete;
@@ -41,9 +41,10 @@ namespace dae
 		const TypeOfScene  m_TypeScene;
 		std::vector < std::shared_ptr<GameObject>> m_Objects{};
 		std::vector < std::shared_ptr<GameObject>> m_BackgroundObjects{};
-
 		std::unordered_map<AxialCoordinates, std::shared_ptr<GameObject>, MyHash> m_UnMap;
-		static unsigned int m_IdCounter; 
+		static unsigned int m_IdCounter;
+		
+
 	};
 
 }

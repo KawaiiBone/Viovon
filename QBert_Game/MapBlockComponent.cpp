@@ -8,8 +8,8 @@
 
 
 
-dae::MapBlockComponent::MapBlockComponent(float x, float y, float width, float height, const  std::vector<std::string>& textureBlockNames)
-	: MapPartComponent{ x,y,width,height,textureBlockNames, true }
+dae::MapBlockComponent::MapBlockComponent(float x, float y, float width, float height, const  std::vector<std::string>& textureBlockNames, bool penalty)
+	: MapPartComponent{ x,y,width,height,textureBlockNames, true,penalty }
 
 
 {
@@ -36,9 +36,9 @@ void dae::MapBlockComponent::SubjectRender() const
 
 
 
-dae::GameObject* dae::MapBlockComponent::HandleQbertMovement(GameObject* movQbert, bool penaltyBlock)
+dae::GameObject* dae::MapBlockComponent::HandleQbertMovement(GameObject* movQbert)
 {
-	return MapPartComponent::HandleQbertMovement(movQbert, penaltyBlock);
+	return MapPartComponent::HandleQbertMovement(movQbert);
 }
 
 
@@ -68,12 +68,12 @@ void dae::MapBlockComponent::PenaltyChangeBlockTexture()
 	}
 }
 
-void dae::MapBlockComponent::ChangeMovementPosBlock(GameObject* movBlock, bool penaltyBlock)
+void dae::MapBlockComponent::ChangeMovementPosBlock(GameObject* movBlock)
 {
 
 
 
-	if (penaltyBlock)
+	if (HasPenalty())
 	{
 		movBlock->GetComponent<MapBlockComponent>()->PenaltyChangeBlockTexture();
 

@@ -8,7 +8,7 @@
 
 
 dae::MapDiskComponent::MapDiskComponent(float, float, float width, float height) :
-	MapPartComponent(0.f, 0.f, width, height,{}, false)
+	MapPartComponent(0.f, 0.f, width, height,{}, false, false)
 	
 
 
@@ -37,12 +37,13 @@ void dae::MapDiskComponent::SubjectRender() const
 
 
 
-dae::GameObject* dae::MapDiskComponent::HandleQbertMovement(GameObject* movQbert, bool penaltyBlock)
+dae::GameObject* dae::MapDiskComponent::HandleQbertMovement(GameObject* movQbert)
 {
 
-	auto scene = SceneManager::GetInstance().GetPointerScene(TypeOfScene::demo);
+	auto scene = SceneManager::GetInstance().GetCurrentScene();
 	auto object = scene->GetMapPart(6, 0).second;
-	object->GetComponent<MapBlockComponent>()->ChangeMovementPosBlock(object, penaltyBlock);
+	
+	object->GetComponent<MapBlockComponent>()->ChangeMovementPosBlock(object);
 	movQbert->Die();
 	return object;
 
@@ -53,7 +54,7 @@ dae::GameObject* dae::MapDiskComponent::HandleQbertMovement(GameObject* movQbert
 
 
 
-void dae::MapDiskComponent::ChangeMovementPosBlock(GameObject*, bool )
+void dae::MapDiskComponent::ChangeMovementPosBlock(GameObject* )
 {
 
 

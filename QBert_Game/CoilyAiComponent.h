@@ -15,7 +15,7 @@ namespace dae
 	class CoilyAiComponent final : public AIBaseComponent
 	{
 	public:
-		CoilyAiComponent(int maxRow, const std::vector<std::string>& vecTextureNames);
+		CoilyAiComponent(int maxRow, const std::vector<std::string>& vecTextureNames, float spawnTime);
 		~CoilyAiComponent();
 		void Update(float deltaTime, GameObject& object) override;
 		std::string GetTxt() override;

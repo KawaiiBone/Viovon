@@ -338,6 +338,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPat
     <ClCompile Include="MapBlockComponent.cpp" />
     <ClCompile Include="MapDiskComponent.cpp" />
     <ClCompile Include="MapPartComponent.cpp" />
+    <ClCompile Include="QBertLevel.cpp" />
+    <ClCompile Include="QBertMenu.cpp" />
     <ClCompile Include="QBertObserver.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="QBert.cpp" />
@@ -361,6 +363,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPat
     <ClInclude Include="MapBlockComponent.h" />
     <ClInclude Include="MapDiskComponent.h" />
     <ClInclude Include="MapPartComponent.h" />
+    <ClInclude Include="QBertLevel.h" />
+    <ClInclude Include="QBertMenu.h" />
     <ClInclude Include="QBertObserver.h" />
     <ClInclude Include="QBert.h" />
     <ClInclude Include="QBertCommands.h" />

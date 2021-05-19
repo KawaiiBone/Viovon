@@ -5,8 +5,8 @@
 #include "QBertMovementComponent.h"
 
 
-dae::CoilyAiComponent::CoilyAiComponent(int Row, const std::vector<std::string>& vecTextureNames):
-	AIBaseComponent(Row,1,0.85f, vecTextureNames),
+dae::CoilyAiComponent::CoilyAiComponent(int Row, const std::vector<std::string>& vecTextureNames, float spawnTime):
+	AIBaseComponent(Row,1,0.85f, vecTextureNames, spawnTime),
 	m_IsInBallForm{ true }
 {
 
@@ -23,27 +23,29 @@ dae::CoilyAiComponent::~CoilyAiComponent()
 
 void dae::CoilyAiComponent::Update(float delta, GameObject& object)
 {
-	if (DidHitQBert())
+	if (!IsInSpawnCooldown(delta, object))
 	{
-		return; //add something here!!!!
+		if (DidHitQBert())
+		{
+			return; //add something here!!!!
+		}
+
+
+		if (IsInMovementCooldown(delta))
+		{
+			return;
+		}
+		else if (m_IsInBallForm)
+		{
+
+			BallMovement(object);
+		}
+		else
+		{
+			CoilyMovement(object);
+		}
+
 	}
-
-
-	if (IsInCooldown(delta))
-	{
-		return;
-	}
-	else if (m_IsInBallForm)
-	{
-
-		BallMovement(object);
-	}
-	else
-	{
-		CoilyMovement(object);
-	}
-
-
 }
 
 std::string dae::CoilyAiComponent::GetTxt()

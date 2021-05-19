@@ -1,19 +1,29 @@
 #pragma once
 #include "Singleton.h"
-
+#include <memory>
+#include <vector>
 namespace dae
 {
 	enum class TypeOfScene
 	{
 		startMenu,
 		pauseMenu,
+		demo,
 		level1,
 		level2,
 		level3,
-		demo,
 		none
 	};
 
+	enum class GameMode
+	{
+		singleplayer,
+		coop,
+		versus,
+		none
+
+		
+	};
 	
 
 	
@@ -32,15 +42,14 @@ namespace dae
 		void AddPlayer(std::shared_ptr<GameObject>& object);
 		
 		void ChangeScene(const TypeOfScene typeScene);
-	
+		void SetGameMode(GameMode gameMode);
+		GameMode GetGameMode();
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;
-		
-	//	std::vector<std::shared_ptr<Scene>> m_Scenes;
 		std::vector<std::pair<std::shared_ptr<Scene>,TypeOfScene>> m_Scenes;
-		
 		std::vector < std::shared_ptr<GameObject>> m_pPlayers;
 		int m_ScenesVecIndex{ 0 };
+		GameMode m_GameMode{ GameMode::none };
 	};
 }

@@ -10,7 +10,7 @@ namespace dae
 	class QBertMovementComponent final : public BaseComponent
 	{
 	public:
-		QBertMovementComponent(GameObject* pBlockObject, int row, int collu, bool blockPenalty);
+		QBertMovementComponent(GameObject* pBlockObject, int row, int collu);
 		~QBertMovementComponent();
 		void Update(float deltaTime, GameObject& object) override;
 		std::string GetTxt() override;
@@ -19,16 +19,14 @@ namespace dae
 		AxialCoordinates GetCoordinates();
 		void SetCoordinates(AxialCoordinates coordinates);
 		bool IsMovementCooldownOver();
-		bool HasBlockPenalty();
 		glm::vec2 GetNewPosition();
-		bool CanHandleMovement(GameObject* movQbert, bool penaltyBlock);
-	private:
+		bool CanHandleMovement(GameObject* movQbert);
 		void SetBlockObject( GameObject* pBlockObject);
+	private:
 		GameObject* m_pBlockObject;
 		int m_Row;
 		int m_Collum;
 		Cooldown m_MovementCooldown;
-		const bool m_BlockPenalty;
 		
 		
 		

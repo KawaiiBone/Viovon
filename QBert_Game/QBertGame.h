@@ -1,9 +1,14 @@
 ﻿#pragma once
+#include "QBertLevel.h"
+#include "QBertMenu.h"
 #include "QBert.h"
-#include "QBertMap.h"
 namespace dae
 {
 
+
+
+
+	struct Level;
 	class QBertGame
 	{
 	public:
@@ -11,8 +16,12 @@ namespace dae
 		void LoadQbertGame();
 	private:
 		void LoadQbertCommandKeys();
-		dae::QBert m_QBert;
-		dae::QBertMap m_Map;
+		Level ReadLevelFile(int index);
+		QBert m_QBertPlayerOne;
+		QBert m_QBertPlayerTwo;
+		QBertMenu m_Menu;
+		std::vector<QBertLevel> m_Levels;
+		const int m_AmountOfLevels;
 
 	};
 }

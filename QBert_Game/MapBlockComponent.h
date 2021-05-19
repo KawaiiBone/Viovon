@@ -23,12 +23,12 @@ namespace dae
 	class MapBlockComponent final : public MapPartComponent
 	{
 	public:
-		MapBlockComponent(float x, float y, float width, float height, const std::vector<std::string>& textureBlockNames);
+		MapBlockComponent(float x, float y, float width, float height, const std::vector<std::string>& textureBlockNames, bool penalty);
 		~MapBlockComponent();
 		void Update(float deltaTime, GameObject& object) override;
 		std::string GetTxt() override;
 		void SubjectRender()const override;
-		GameObject* HandleQbertMovement(GameObject* movQbert, bool penaltyBlock) override;
+		GameObject* HandleQbertMovement(GameObject* movQbert) override;
 
 
 		void NextBlockTexture();
@@ -36,7 +36,7 @@ namespace dae
 
 
 
-		void ChangeMovementPosBlock(GameObject* movBlock, bool penaltyBlock) override;
+		void ChangeMovementPosBlock(GameObject* movBlock) override;
 	private:
 
 
