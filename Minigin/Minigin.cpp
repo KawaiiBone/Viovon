@@ -128,24 +128,17 @@ void dae::Minigin::Run()
 	//ServiceLocater::GetSoundSystem().PlaySound("../Data/sounds/door1.wav", 50);//test
 	//ServiceLocater::GetSoundSystem().PlaySound("../Data/sounds/door1.wav", 50);
 	//ServiceLocater::GetSoundSystem().PlayMusic("../Data/music/highlands.wav", 100);
-	//// tell the resource manager where he can find the game data
-	///
-	//TestLoadGame();
-	//
 	//ResourceManager::GetInstance().Init("../Data/");
 	//ServiceLocater::RegisterSoundSystem(new SoundSystem());//makes sound
-	//CreateUI();
+
 	{
 		auto& renderer = Renderer::GetInstance();
 		auto& sceneManager = SceneManager::GetInstance();
 		auto& input = InputManager::GetInstance();
-		
-		//auto& subject = Subject::GetInstance();
 
 
 		bool doContinue = true;
 		auto lastTime = high_resolution_clock::now();
-		//float lag{ 0.0f };
 		const float msPerUpdate{ 40.f / 1000.f };//change this code under
 		while (doContinue)
 		{
@@ -294,12 +287,12 @@ void dae::Minigin::CreateDefaultCommandKeys()
 	//default controls
 	auto& input = InputManager::GetInstance();
 
-	input.AddDefaultCommandAndKey({ std::make_shared<Die>(), OperateKey::keyStrokeUp, BButton });
+	//input.AddDefaultCommandAndKey({ std::make_shared<Die>(), OperateKey::keyStrokeUp, BButton });
 	input.AddDefaultCommandAndKey({ std::make_shared<Quit>(), OperateKey::keyStrokeUp, YButton });
-	input.AddDefaultCommandAndKey({ std::make_shared<GainLife>(), OperateKey::keyStrokeDown, XButton });
-	input.AddDefaultCommandAndKey({ std::make_shared<LoseLife>(), OperateKey::keyStrokeDown, AButton });
-	input.AddDefaultCommandAndKey({ std::make_shared<IncreaseScore>(), OperateKey::keyStrokeDown, L1Button });
-	input.AddDefaultCommandAndKey({ std::make_shared<DecreaseScore>(), OperateKey::keyStrokeDown, R1Button });
+	//input.AddDefaultCommandAndKey({ std::make_shared<GainLife>(), OperateKey::keyStrokeDown, XButton });
+	//input.AddDefaultCommandAndKey({ std::make_shared<LoseLife>(), OperateKey::keyStrokeDown, AButton });
+	//input.AddDefaultCommandAndKey({ std::make_shared<IncreaseScore>(), OperateKey::keyStrokeDown, L1Button });
+	//input.AddDefaultCommandAndKey({ std::make_shared<DecreaseScore>(), OperateKey::keyStrokeDown, R1Button });
 
 }
 

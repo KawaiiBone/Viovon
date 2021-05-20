@@ -55,39 +55,30 @@ namespace dae
 		InputManager();
 		~InputManager();
 		std::vector<std::shared_ptr<Command>> ProcessInput(int index);
-		
+
+
+		void AddKeyboardCommandKeys(const std::pair<UINT, std::shared_ptr<Command>>& keyCommand);
 		void AddDefaultCommandAndKey(const OperateCommand& command);
-		
+		void SetPLayerUsesKeyboard(bool usesKeyboard);
 
 	private:
-
-		 
-
-
-
-		
+		bool Player1UsesKeyboard();
 		bool IsConnected();
 		bool IsPressed(OperateCommand oCommand) const;
 		bool IsKeyUsed(OperateCommand oCommand);
 		bool KeyStrokeUp(OperateCommand oCommand);
 		bool KeyStrokeDown(OperateCommand oCommand);
-
-	
-		
-		
 		std::vector<UINT>::iterator GetButtonStored(UINT button);
 		
 		UINT m_ControllerID;
 		XINPUT_STATE m_State;
-		//std::vector<OperateCommand>m_pCommandsVector;
-	//	std::vector<UINT> m_PressedDownButtonsVec;
 		std::vector<std::vector<UINT>> m_PressedDownButtonsVec{ {},{},{},{} };
 		std::vector<std::vector<OperateCommand>> m_pCommandsVector{ {},{},{},{} };
 		std::shared_ptr<Command> m_pQuitCommand;
-		std::shared_ptr<Command> m_pDieCommand;//temporary
 		int m_PlayedIndex;
-
-		//	XINPUT_STATE m_CurrentState{};
+		bool m_Player1UsesKeyboard;
+		std::vector<std::pair<UINT, std::shared_ptr<Command>>> m_KeyBoardKeysCommands;
+		
 	};
 
 

@@ -7,10 +7,9 @@
 
 dae::InputManager::InputManager(std::vector< std::pair<Command*, OperateKey>> pcommandsVec)
 	: m_ControllerID(0),
-	/*m_pCommandsVec(pcommandsVec),*/
 	m_pQuitCommand{ new Quit() },
-	m_pDieCommand(new Die()),
-	m_PlayedIndex{ 0 }
+	m_PlayedIndex{ 0 },
+	m_Player1UsesKeyboard{ false }
 
 {
 
@@ -26,8 +25,6 @@ dae::InputManager::InputManager(std::vector< std::pair<Command*, OperateKey>> pc
 dae::InputManager::InputManager()
 	:m_ControllerID(0),
 	m_pQuitCommand{ new Quit() },
-	//m_pCommandsVec{},
-	m_pDieCommand(new Die()),
 	m_PlayedIndex{ 0 }
 
 {
@@ -53,8 +50,7 @@ std::vector<std::shared_ptr<dae::Command>> dae::InputManager::ProcessInput(int i
 	m_ControllerID = index;
 	m_PlayedIndex = index;
 	std::vector<std::shared_ptr<dae::Command>> tmpCommandsVec{};
-
-
+	
 	SDL_Event e;
 	const Uint8* pStates = SDL_GetKeyboardState(nullptr);
 	while (SDL_PollEvent(&e)) {
@@ -62,14 +58,30 @@ std::vector<std::shared_ptr<dae::Command>> dae::InputManager::ProcessInput(int i
 		{
 			tmpCommandsVec.push_back(m_pQuitCommand);
 		}
-		/*if (e.type == SDL_SCANCODE_A) {
-			return m_pDieCommand;
-		}*/
-		if (pStates[SDL_SCANCODE_A])
+		if (pStates[SDL_SCANCODE_ESCAPE])
 		{
-			tmpCommandsVec.push_back(m_pDieCommand);
+			tmpCommandsVec.push_back(m_pQuitCommand);
 		}
+		if (Player1UsesKeyboard())
+		{
+			for (std::pair<UINT, std::shared_ptr<Command>>& element : m_KeyBoardKeysCommands)
+			{
+				if (pStates[element.first])
+				{
+					tmpCommandsVec.push_back(element.second);
+				}
+			}
+			return tmpCommandsVec;
+		}
+	}
 
+	if (m_Player1UsesKeyboard && index > 0)
+	{
+		m_ControllerID--;
+	}
+	else if(m_Player1UsesKeyboard)
+	{
+		return tmpCommandsVec;
 	}
 
 
@@ -89,8 +101,13 @@ std::vector<std::shared_ptr<dae::Command>> dae::InputManager::ProcessInput(int i
 	}
 
 
-		return tmpCommandsVec;
+	return tmpCommandsVec;
 
+}
+
+void dae::InputManager::AddKeyboardCommandKeys(const std::pair<UINT, std::shared_ptr<Command>>& keyCommand)
+{
+	m_KeyBoardKeysCommands.push_back(keyCommand);
 }
 
 
@@ -102,11 +119,15 @@ void dae::InputManager::AddDefaultCommandAndKey(const OperateCommand& command)
 	m_pCommandsVector[3].push_back(command);
 }
 
+void dae::InputManager::SetPLayerUsesKeyboard(bool usesKeyboard)
+{
+	m_Player1UsesKeyboard = usesKeyboard;
+}
 
-
-
-
-
+bool dae::InputManager::Player1UsesKeyboard()
+{
+	return m_Player1UsesKeyboard && m_PlayedIndex == 0;
+}
 
 
 bool dae::InputManager::IsKeyUsed(OperateCommand oCommand)
@@ -146,18 +167,16 @@ bool dae::InputManager::KeyStrokeUp(OperateCommand oCommand)
 
 		return false;
 	}
-	else
+
+	if (tmpIt != m_PressedDownButtonsVec[m_PlayedIndex].end())
 	{
-		if (tmpIt != m_PressedDownButtonsVec[m_PlayedIndex].end())
-		{
-			m_PressedDownButtonsVec[m_PlayedIndex].erase(tmpIt);
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		m_PressedDownButtonsVec[m_PlayedIndex].erase(tmpIt);
+		return true;
 	}
+
+	return false;
+
+
 }
 
 bool dae::InputManager::KeyStrokeDown(OperateCommand oCommand)

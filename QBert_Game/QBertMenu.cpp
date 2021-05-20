@@ -1,6 +1,8 @@
 ﻿#include "QBertMenu.h"
 #include <functional>
 
+
+#include "InputManager.h"
 #include "QBert.h"
 #include "Renderer.h"
 #include "Subject.h"
@@ -107,6 +109,8 @@ void dae::QBertMenu::CreateMenu(QBert& qbertP2)
 	};
 	controllerOption1.myFunctionWrapper = []()
 	{
+		auto& input = InputManager::GetInstance();
+		input.SetPLayerUsesKeyboard(true);
 		std::cout << "You choose Player 1 uses keyboard! " << std::endl;
 	};
 	
@@ -117,12 +121,14 @@ void dae::QBertMenu::CreateMenu(QBert& qbertP2)
 	};
 	controllerOption2.myFunctionWrapper = []()
 	{
+		auto& input = InputManager::GetInstance();
+		input.SetPLayerUsesKeyboard(false);
 		std::cout << "You choose Player 1 uses controller! " << std::endl;
 	};
 	
 	InterfacePart infoHowtoPlay{
 {"",ImVec2{0,0}},
-{"Let Charachter Die : B button\nQuit game : Y Button\nGain Hp : X Button\n Lose Hp : A Button\n Move left : Left Button\nMove Right : Right Button\nMove Up : Up Button\nMove down : down Button\nMore Score : L1 Button\nLose Score : R1 Button" },
+{"Quit game: Y/Escape \nMove left down: Left Button/A/Left Arrow\nMove Right up: Right Button/D/Right Arrow\nMove left Up: Up Button/W/Arrow Up\nMove right down: down Button/S/Arrow Down" },
 	{InterFaceNames::none }
 	};
 	
@@ -198,7 +204,6 @@ void dae::QBertMenu::CreateMenu(QBert& qbertP2)
 	startMenu.AddInterfacePart(goToHowToplayPart);
 
 	InterfaceWindow modesMenu{ "Modes menu",InterFaceNames::modes };
-
 	modesMenu.AddInterfacePart(singlePlayer);
 	modesMenu.AddInterfacePart(coop);
 	modesMenu.AddInterfacePart(versus);
@@ -216,7 +221,7 @@ void dae::QBertMenu::CreateMenu(QBert& qbertP2)
 	InterfaceWindow playMenu{ "controller options",InterFaceNames::play };
 	playMenu.AddInterfacePart(startPlayPart);
 	playMenu.AddInterfacePart(selectLevel);
-	playMenu.AddInterfacePart(BackToStartWindow);
+	//playMenu.AddInterfacePart(BackToStartWindow);
 	
 	InterfaceWindow selectLevelMenu{ "controller options",InterFaceNames::selectedLevel };
 	selectLevelMenu.AddInterfacePart(levelOne);

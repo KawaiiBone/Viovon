@@ -9,7 +9,7 @@ int main(int, char* []) {
 	
 	dae::QBertGame m_QBertGame{ engine.GetWindowSize().width, engine.GetWindowSize().height};
 	m_QBertGame.LoadQbertGame();
-	engine.CreateDefaultCommandKeys();
+//	engine.CreateDefaultCommandKeys();
 	engine.Run();
 	return 0;
 	

@@ -54,6 +54,18 @@ void dae::QBertGame::LoadQbertCommandKeys()
 	input.AddDefaultCommandAndKey({ std::make_shared<MoveRightUp>(), OperateKey::keyStrokeDown, RightButton });
 	input.AddDefaultCommandAndKey({ std::make_shared<MoveLeftUp>(), OperateKey::keyStrokeDown, UpButton });
 	input.AddDefaultCommandAndKey({ std::make_shared<MoveRightDown>(), OperateKey::keyStrokeDown, DownButton });
+	input.AddDefaultCommandAndKey({ std::make_shared<Quit>(), OperateKey::keyStrokeUp, YButton });
+
+	input.AddKeyboardCommandKeys({ SDL_SCANCODE_LEFT ,std::make_shared<MoveLeftDown>() });
+	input.AddKeyboardCommandKeys({ SDL_SCANCODE_UP ,std::make_shared<MoveLeftUp>() });
+	input.AddKeyboardCommandKeys({ SDL_SCANCODE_RIGHT ,std::make_shared<MoveRightUp>() });
+	input.AddKeyboardCommandKeys({ SDL_SCANCODE_DOWN ,std::make_shared<MoveRightDown>() });
+	input.AddKeyboardCommandKeys({ SDL_SCANCODE_A ,std::make_shared<MoveLeftDown>() });
+	input.AddKeyboardCommandKeys({ SDL_SCANCODE_W ,std::make_shared<MoveLeftUp>() });
+	input.AddKeyboardCommandKeys({ SDL_SCANCODE_D ,std::make_shared<MoveRightUp>() });
+	input.AddKeyboardCommandKeys({ SDL_SCANCODE_S ,std::make_shared<MoveRightDown>() });
+	input.AddKeyboardCommandKeys({ SDL_SCANCODE_ESCAPE ,std::make_shared<Quit>() });
+
 }
 
 dae::Level dae::QBertGame::ReadLevelFile(int index)
