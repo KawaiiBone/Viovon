@@ -8,8 +8,9 @@ namespace dae
 	public:
 		PlayerMovement();
 		void Update(float deltaTime, GameObject& object) override;
-		std::string GetTxt() override;
+		std::string GetTxt() const override;
 		void SubjectRender()const override;
+		void Reset(GameObject& object) override;
 		
 
 	private:

@@ -27,6 +27,7 @@ namespace dae
 
 		void CreateLevel();
 	private:
+		void CreateBackground(Scene& scene);
 		void CreateStartingCoordinatesPlayers();
 		void AddPlayers(Scene& scene);
 		void LoadCoily(const bool coilySpawn, Scene& scene)const;

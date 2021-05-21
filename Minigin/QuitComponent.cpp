@@ -13,7 +13,7 @@ void dae::QuitComponent::Update(float , GameObject& )
 
 }
 
-std::string dae::QuitComponent::GetTxt()
+std::string dae::QuitComponent::GetTxt() const
 {
 	return m_Text;
 }
@@ -29,5 +29,9 @@ bool dae::QuitComponent::ContinueGame() const
 }
 
 void dae::QuitComponent::SubjectRender() const
+{
+}
+
+void dae::QuitComponent::Reset(GameObject& /*object*/)
 {
 }

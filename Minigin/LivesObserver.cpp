@@ -3,6 +3,8 @@
 #include "GameObject.h"
 #include "TextComponent.h"
 #include "LivesComponent.h"
+#include "Scene.h"
+#include "SceneManager.h"
 
 
 
@@ -26,8 +28,9 @@ void dae::LivesObserver::OnNotify(std::shared_ptr<dae::GameObject> entity, Event
 {
 	switch (event) {
 	case EventObserver::died:
+		SceneManager::GetInstance().GetCurrentScene()->ResetScene();
 		//entity->IsDead();//update here
-		m_PlayerDied = true;
+	//	m_PlayerDied = true;
 		break;
 	case EventObserver::healthChanged:
 		m_pStationLivesRenderComp.renderComp->Update(entity->GetComponent<LivesComponent>()->GetTxt());

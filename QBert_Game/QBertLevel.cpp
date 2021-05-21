@@ -28,19 +28,13 @@ dae::QBertLevel::QBertLevel(TypeOfScene typeScene, int windowWidth, int windowHe
 void dae::QBertLevel::CreateLevel()
 {
 	CreateStartingCoordinatesPlayers();
-	
 	auto& scene = dae::SceneManager::GetInstance().CreateScene(m_TypeScene);
+	CreateBackground(scene);
 
-	auto backgroundObject = std::make_shared<dae::GameObject>(0.f, 0.f, std::make_shared<TextureComponent>("background.jpg"));
-	scene.AddBackground(backgroundObject/*, false*/);
-
-	auto logoObject = std::make_shared<dae::GameObject>(216.f, 180.f, std::make_shared<TextureComponent>("logo.png"));
-	scene.AddBackground(logoObject/*, false*/);
-	//scene.Add(logoObject/*, false*/);
 
 	SDL_Color colorTitle{ 255,255,255 };
 	auto fontTitle = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	auto daeTitleObject = std::make_shared<dae::GameObject>(80.f, 20.f, std::make_shared<TextComponent>("Programming 4 Assignment", fontTitle, colorTitle, true));
+	auto daeTitleObject = std::make_shared<dae::GameObject>(80.f, 20.f, std::make_shared<TextComponent>("Programming 4 Exam Assignment", fontTitle, colorTitle, true));
 	scene.Add(daeTitleObject/*, false*/);
 
 
@@ -66,6 +60,17 @@ void dae::QBertLevel::CreateLevel()
 
 
 
+}
+
+void dae::QBertLevel::CreateBackground(Scene& scene)
+{
+	;
+
+	auto backgroundObject = std::make_shared<dae::GameObject>(0.f, 0.f, std::make_shared<TextureComponent>("background.jpg"));
+	scene.AddBackground(backgroundObject/*, false*/);
+
+	auto logoObject = std::make_shared<dae::GameObject>(216.f, 180.f, std::make_shared<TextureComponent>("logo.png"));
+	scene.AddBackground(logoObject/*, false*/);
 }
 
 void dae::QBertLevel::CreateStartingCoordinatesPlayers()

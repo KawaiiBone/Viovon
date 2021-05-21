@@ -25,7 +25,7 @@ void dae::MapDiskComponent::Update(float, GameObject&)
 {
 }
 
-std::string dae::MapDiskComponent::GetTxt()
+std::string dae::MapDiskComponent::GetTxt() const
 {
 	return "0";
 }
@@ -50,8 +50,10 @@ dae::GameObject* dae::MapDiskComponent::HandleQbertMovement(GameObject* movQbert
 
 }
 
-
-
+void dae::MapDiskComponent::Reset(GameObject& object)
+{
+	MapPartComponent::Reset(object);
+}
 
 
 void dae::MapDiskComponent::ChangeMovementPosBlock(GameObject* )

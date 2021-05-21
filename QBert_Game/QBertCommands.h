@@ -58,12 +58,16 @@ namespace dae
 							tmpTypeScene = static_cast<TypeOfScene>(static_cast<int>(tmpTypeScene) + 1);
 							SceneManager::GetInstance().ChangeScene(tmpTypeScene);
 						}
+						else
+						{
+							SceneManager::GetInstance().ChangeScene(TypeOfScene::startMenu);
+							SceneManager::GetInstance().ResetScenes();
+						}
 					}
 
 				}
 				else if (playerObjectComp->GetPlatformStatus() == PlatformStatus::lostStatus)
 				{
-				//	tmpScoreComp->OnPlatform(object, false);
 					tmpScoreComp->InfluenceScore(-m_Score, object);
 
 				}
@@ -111,13 +115,9 @@ namespace dae
 			
 
 
-
-
-
 				auto tmpScoreComp = object->GetComponent<ScoreComponent>();
 				if (playerObjectComp->GetPlatformStatus() == PlatformStatus::gainedStatus)
 				{
-					//tmpScoreComp->OnPlatform(object, true);
 					tmpScoreComp->InfluenceScore(m_Score, object);
 					if (scene->HasFinishedLevel())
 					{
@@ -127,12 +127,16 @@ namespace dae
 							tmpTypeScene = static_cast<TypeOfScene>(static_cast<int>(tmpTypeScene) + 1);
 							SceneManager::GetInstance().ChangeScene(tmpTypeScene);
 						}
+						else
+						{
+							SceneManager::GetInstance().ChangeScene(TypeOfScene::startMenu);
+							SceneManager::GetInstance().ResetScenes();
+						}
 					}
 
 				}
 				else if (playerObjectComp->GetPlatformStatus() == PlatformStatus::lostStatus)
 				{
-					//tmpScoreComp->OnPlatform(object, false);
 					tmpScoreComp->InfluenceScore(-m_Score, object);
 
 				}
@@ -175,7 +179,6 @@ namespace dae
 				if (playerObjectComp->GetPlatformStatus() == PlatformStatus::gainedStatus)
 				{
 					
-					//tmpScoreComp->OnPlatform(object, true);//useless
 					tmpScoreComp->InfluenceScore(m_Score, object);
 					if (scene->HasFinishedLevel())
 					{
@@ -185,11 +188,15 @@ namespace dae
 							tmpTypeScene = static_cast<TypeOfScene>(static_cast<int>(tmpTypeScene) + 1);
 							SceneManager::GetInstance().ChangeScene(tmpTypeScene);
 						}
+						else
+						{
+							SceneManager::GetInstance().ChangeScene(TypeOfScene::startMenu);
+							SceneManager::GetInstance().ResetScenes();
+						}
 					}
 				}
 				else if (playerObjectComp->GetPlatformStatus() == PlatformStatus::lostStatus)
 				{
-					//tmpScoreComp->OnPlatform(object, false);//useless
 					tmpScoreComp->InfluenceScore(-m_Score, object);
 
 				}
@@ -228,7 +235,6 @@ namespace dae
 				auto tmpScoreComp = object->GetComponent<ScoreComponent>();
 				if (playerObjectComp->GetPlatformStatus() == PlatformStatus::gainedStatus)
 				{
-					//tmpScoreComp->OnPlatform(object, true);
 					tmpScoreComp->InfluenceScore(m_Score, object);
 					if (scene->HasFinishedLevel())
 					{
@@ -238,12 +244,16 @@ namespace dae
 							tmpTypeScene = static_cast<TypeOfScene>(static_cast<int>(tmpTypeScene) + 1);
 							SceneManager::GetInstance().ChangeScene(tmpTypeScene);
 						}
+						else
+						{
+							SceneManager::GetInstance().ChangeScene(TypeOfScene::startMenu);
+							SceneManager::GetInstance().ResetScenes();
+						}
 					}
 
 				}
 				else if (playerObjectComp->GetPlatformStatus() == PlatformStatus::lostStatus)
 				{
-					//tmpScoreComp->OnPlatform(object, false);
 					tmpScoreComp->InfluenceScore(-m_Score, object);
 
 				}

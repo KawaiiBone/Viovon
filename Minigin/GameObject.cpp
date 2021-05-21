@@ -4,26 +4,44 @@
 #include  "Observer.h"
 
 dae::GameObject::GameObject(float x, float y)
-	:m_pRenderComponent{ nullptr }, m_VectorpBComponents{  }, m_IsDead{ false }, m_VectorCombinedComponents{}, m_RenderReady{ true }
+	:m_pRenderComponent{ nullptr },
+	m_VectorpBComponents{  },
+	m_IsDead{ false },
+	m_VectorCombinedComponents{}, m_RenderReady{ true },
+	m_InvallidTxt{ "0" }
 {
 	m_Pos.SetPosition(x, y, 0.0f);
 }
 
 dae::GameObject::GameObject(float x, float y, std::shared_ptr<RenderComponent> pRender)
-	: m_pRenderComponent{ pRender }, m_VectorpBComponents{  }, m_IsDead{ false }, m_VectorCombinedComponents{}, m_RenderReady{ true }
+	: m_pRenderComponent{ pRender },
+	m_VectorpBComponents{  },
+	m_IsDead{ false },
+	m_VectorCombinedComponents{},
+	m_RenderReady{ true },
+	m_InvallidTxt{ "0" }
 {
 
 	m_Pos.SetPosition(x, y, 0.0f);
 }
 
 dae::GameObject::GameObject(float x, float y, std::vector<BaseComponent*> bvComp, std::shared_ptr<RenderComponent> pRender)
-	: m_pRenderComponent{ pRender }, m_VectorpBComponents{ bvComp }, m_IsDead{ false }, m_VectorCombinedComponents{}, m_RenderReady{ true }
+	: m_pRenderComponent{ pRender },
+	m_VectorpBComponents{ bvComp },
+	m_IsDead{ false },
+	m_VectorCombinedComponents{},
+	m_RenderReady{ true },
+	m_InvallidTxt{ "0" }
 {
 	m_Pos.SetPosition(x, y, 0.0f);
 }
 
 dae::GameObject::GameObject(float x, float y, BaseComponent* bvComp, std::shared_ptr<RenderComponent> pRender)
-	: m_pRenderComponent{ pRender }, m_VectorpBComponents{ bvComp }, m_IsDead{ false }, m_VectorCombinedComponents{}, m_RenderReady{ true }
+	: m_pRenderComponent{ pRender },
+	m_VectorpBComponents{ bvComp },
+	m_IsDead{ false },
+	m_VectorCombinedComponents{}, m_RenderReady{ true },
+	m_InvallidTxt{ "0" }
 {
 	m_Pos.SetPosition(x, y, 0.0f);
 }
@@ -33,14 +51,14 @@ dae::GameObject::GameObject(float x, float y, BaseComponent* bvComp, std::shared
 void dae::GameObject::Update(float deltaTime)
 {
 	//renders all the components
-	for (auto pBaseComp : m_VectorpBComponents)
+	for (auto& pBaseComp : m_VectorpBComponents)
 	{
 		pBaseComp->Update(deltaTime, *this);
 	}
 
 
 
-	for (auto pPairComp : m_VectorCombinedComponents)
+	for (auto& pPairComp : m_VectorCombinedComponents)
 	{
 		pPairComp.second->Update(deltaTime, *this);
 		pPairComp.first->Update(pPairComp.second->GetTxt());
@@ -50,7 +68,7 @@ void dae::GameObject::Update(float deltaTime)
 	if (m_pRenderComponent)
 	{
 
-		m_pRenderComponent->Update("0");
+		m_pRenderComponent->Update(m_InvallidTxt);
 	}
 
 }
@@ -60,7 +78,7 @@ void dae::GameObject::Render() const
 	if (m_RenderReady)
 	{
 
-		for (auto pPairComp : m_VectorCombinedComponents)
+		for (auto& pPairComp : m_VectorCombinedComponents)
 		{
 			pPairComp.first->Render(m_Pos.GetPosition().x, m_Pos.GetPosition().y);
 		}
@@ -70,7 +88,7 @@ void dae::GameObject::Render() const
 			m_pRenderComponent->Render(m_Pos.GetPosition().x, m_Pos.GetPosition().y);
 		}
 
-		for (auto pBaseComp : m_VectorpBComponents)
+		for (auto& pBaseComp : m_VectorpBComponents)
 		{
 			pBaseComp->SubjectRender();
 		}
@@ -117,9 +135,19 @@ void dae::GameObject::Die()
 
 }
 
+void dae::GameObject::ResetObject()
+{
 
+	for (BaseComponent* bc : m_VectorpBComponents)
+	{
+		bc->Reset(*this);
+	}
+	for (std::pair<RenderComponent*, BaseComponent*> bc : m_VectorCombinedComponents)
+	{
+		bc.second->Reset(*this);
+	}
 
-
+}
 
 
 void dae::GameObject::SetPosition(float x, float y)
@@ -149,7 +177,7 @@ dae::GameObject::~GameObject()
 	}
 	m_VectorpBComponents.clear();
 
-	for (auto pPairComp : m_VectorCombinedComponents)
+	for (auto& pPairComp : m_VectorCombinedComponents)
 	{
 		delete pPairComp.first;
 		delete pPairComp.second;

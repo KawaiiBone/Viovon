@@ -34,17 +34,18 @@ namespace dae
 		MapPartComponent(float x, float y, float width, float height, const std::vector<std::string>& textureBlockName, bool isblock, bool hasPenalty);
 		virtual ~MapPartComponent();
 		void Update(float deltaTime, GameObject& object) override;
-		std::string GetTxt() override;
+		std::string GetTxt() const override;
 		void SubjectRender()const override;
 		glm::vec2 GetPlatformPos() const;
 		virtual	GameObject* HandleQbertMovement(GameObject* movQbert);
 		void HandleAiMovement();
-		PlatformStatus GetPlatformStatus();
+		PlatformStatus GetPlatformStatus()const;
 		bool IsBlock();
 		glm::vec2 GetUggPlatformPos() const;
 		glm::vec2 GetWrongWayPlatformPos() const;
+		void Reset(GameObject& object) override;
 
-		bool PlatformDone() ;
+		bool PlatformDone() const;
 	protected:
 		bool PlusNamesVecIndex();
 		bool MinusNamesVecIndex();

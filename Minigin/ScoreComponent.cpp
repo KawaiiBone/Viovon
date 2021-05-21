@@ -14,7 +14,7 @@ void dae::ScoreComponent::Update(float , GameObject& )
 
 }
 
-std::string dae::ScoreComponent::GetTxt()
+std::string dae::ScoreComponent::GetTxt() const
 {
 	return m_Text;
 }
@@ -52,6 +52,11 @@ void dae::ScoreComponent::OnPlatform(std::shared_ptr<dae::GameObject> object, bo
 		m_Subject.Notify(object, EventObserver::lostPlatform);
 	}
 	
+}
+
+void dae::ScoreComponent::Reset(GameObject& /*object*/)
+{
+	m_Score = 0;
 }
 
 

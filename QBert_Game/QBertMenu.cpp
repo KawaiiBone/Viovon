@@ -1,22 +1,27 @@
 ﻿#include "QBertMenu.h"
 #include <functional>
 
-
+#include "FPSComponent.h"
+#include "TextureComponent.h"
+#include "GameObject.h"
 #include "InputManager.h"
 #include "QBert.h"
 #include "Renderer.h"
+#include "ResourceManager.h"
 #include "Subject.h"
+#include "TextComponent.h"
 
 dae::QBertMenu::QBertMenu(TypeOfScene typeScene) :
 	m_TypeScene(typeScene)
 {
 
-	
+
 }
 
 void dae::QBertMenu::CreateMenu(QBert& qbertP2)
 {
-	dae::SceneManager::GetInstance().CreateScene(m_TypeScene);
+	auto& scene = dae::SceneManager::GetInstance().CreateScene(m_TypeScene);
+	CreateMenuObjects(scene);
 	auto& renderer = Renderer::GetInstance();
 	InterfacePart playModes{
 	{"Play modes",ImVec2{0,0}},
@@ -237,4 +242,19 @@ void dae::QBertMenu::CreateMenu(QBert& qbertP2)
 	renderer.AddInterfaceWindow(controllerOptions);
 
 
+}
+
+void dae::QBertMenu::CreateMenuObjects(Scene& scene)
+{
+	auto backgroundObject = std::make_shared<dae::GameObject>(0.f, 0.f, std::make_shared<TextureComponent>("background.jpg"));
+	scene.AddBackground(backgroundObject/*, false*/);
+
+	auto logoObject = std::make_shared<dae::GameObject>(216.f, 80.f, std::make_shared<TextureComponent>("logo.png"));
+	scene.AddBackground(logoObject/*, false*/);
+
+	SDL_Color colorFps{ 255,0,0 };
+	auto fontFps = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
+	auto FpsObject = std::make_shared<dae::GameObject>(0.f, 10.f);
+	FpsObject->AddPairComponent(new dae::TextComponent("FPS", fontFps, colorFps, false), new dae::FPSComponent());
+	scene.Add(FpsObject/*, false*/);
 }

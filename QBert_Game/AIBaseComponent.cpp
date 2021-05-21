@@ -11,13 +11,16 @@ dae::AIBaseComponent::AIBaseComponent(int row, int collum, float cooldownDuratio
 	m_MovementCooldown{ cooldownDuration,0.f, true },
 	m_VecTextureNames(vecTextureNames),
 	m_IndexTexturesNames(0),
-	m_SpawnCooldown{ spawnTime,0.f,false }
+	m_SpawnCooldown{ spawnTime,0.f,false },
+	m_StartingRow{ row },
+	m_StartingCollum{ collum }
 
 {
 
 	m_QbertObject = SceneManager::GetInstance().GetPlayers()[0].get();
 	auto scene = SceneManager::GetInstance().GetCurrentScene();
 	m_pBlockObject = scene->GetMapPart(m_Row, m_Collum).second;
+	
 
 
 }
@@ -41,7 +44,7 @@ std::shared_ptr<dae::GameObject> dae::AIBaseComponent::DidHitQBert() const
 
 
 	
-	for (auto element : SceneManager::GetInstance().GetPlayers())
+	for (auto& element : SceneManager::GetInstance().GetPlayers())
 	{
 		if (element->GetComponent<QBertMovementComponent>()->GetCoordinates() == AxialCoordinates{ m_Row,m_Collum })
 		{
@@ -84,12 +87,34 @@ void dae::AIBaseComponent::NextTexture()
 	m_IndexTexturesNames++;
 }
 
+void dae::AIBaseComponent::Respawn( GameObject& object)
+{
+	auto scene = SceneManager::GetInstance().GetCurrentScene();
+	auto tmpBlock = scene->GetMapPart(m_StartingRow, m_StartingCollum).second->GetComponent<MapPartComponent>();
+	if (tmpBlock)
+	{
+		m_Row = m_StartingRow;
+		m_Collum = m_StartingCollum;
+		object.SetPosition(tmpBlock->GetPlatformPos().x, tmpBlock->GetPlatformPos().y);
+		object.SetRenderStatus(false);
+		m_SpawnCooldown.cooldownCounter = 0.f;
+		
+	}
+	
+	
+}
 
-std::string dae::AIBaseComponent::GetTxt()
+
+std::string dae::AIBaseComponent::GetTxt() const
 {
 	return m_VecTextureNames[m_IndexTexturesNames];
 }
 
+
+void dae::AIBaseComponent::Reset(GameObject& object)
+{
+	Respawn(object);
+}
 
 dae::AxialCoordinates dae::AIBaseComponent::GetCoordinates() const
 {

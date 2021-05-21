@@ -27,7 +27,7 @@ namespace dae
 
 		bool IsDead() const;
 		void Die();
-		
+		void ResetObject();
 
 
 	
@@ -68,14 +68,8 @@ namespace dae
 		std::vector<BaseComponent*> m_VectorpBComponents;
 		bool m_IsDead;
 		bool m_RenderReady;
-
-
-		
-		//Subject m_subject;//dont put here create a sepperate class, also dont put it then in component
-		// maybe add connected components: base compoenent + render component
-		// 	std::vector<std::pair<RenderComponent*,BaseComponent*>>
-		
 		std::vector<std::pair<RenderComponent*, BaseComponent*>>  m_VectorCombinedComponents;
+		const std::string m_InvallidTxt;
 	};
 
 

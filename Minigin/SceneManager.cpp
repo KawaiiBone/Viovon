@@ -43,8 +43,11 @@ void dae::SceneManager::ChangeScene(const TypeOfScene typeScene)
 	{
 		if (element.second == typeScene)
 		{
-			m_ScenesVecIndex = counter;
-			m_Scenes[m_ScenesVecIndex-1].first->FinishLevel(m_pPlayers);
+			if (m_ScenesVecIndex != counter)
+			{
+				m_ScenesVecIndex = counter;
+				m_Scenes[m_ScenesVecIndex-1].first->FinishLevel(m_pPlayers);
+			}
 			m_Scenes[m_ScenesVecIndex].first->PlayersToStartingPos(m_pPlayers);
 			
 			return;
@@ -61,6 +64,14 @@ void dae::SceneManager::SetGameMode(GameMode gameMode)
 dae::GameMode dae::SceneManager::GetGameMode()
 {
 	return m_GameMode;
+}
+
+void dae::SceneManager::ResetScenes()
+{
+	for (std::pair<std::shared_ptr<Scene>, TypeOfScene>& element : m_Scenes)
+	{
+		element.first->ResetScene();
+	}
 }
 
 dae::Scene& dae::SceneManager::CreateScene(const TypeOfScene typeScene)

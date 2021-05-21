@@ -31,7 +31,8 @@ void dae::SlickOrSlamAiComponent::Update(float delta, GameObject& object)
 		if (tmpPointer)
 		{
 			tmpPointer->GetComponent<ScoreComponent>()->InfluenceScore(m_DieScore, tmpPointer);
-			object.Die();
+			Respawn(object);
+			return;
 		}
 
 
@@ -45,13 +46,17 @@ void dae::SlickOrSlamAiComponent::Update(float delta, GameObject& object)
 
 }
 
-std::string dae::SlickOrSlamAiComponent::GetTxt()
+std::string dae::SlickOrSlamAiComponent::GetTxt() const
 {
 	return AIBaseComponent::GetTxt();
 }
 
 
 void dae::SlickOrSlamAiComponent::SubjectRender() const
+{
+}
+
+void dae::SlickOrSlamAiComponent::Reset(GameObject& /*object*/)
 {
 }
 
@@ -76,7 +81,8 @@ void dae::SlickOrSlamAiComponent::Movement(GameObject& object)
 	}
 	else
 	{
-		object.Die();
+
+		Respawn(object);
 	}
 
 

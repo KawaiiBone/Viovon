@@ -26,9 +26,10 @@ namespace dae
 		MapBlockComponent(float x, float y, float width, float height, const std::vector<std::string>& textureBlockNames, bool penalty);
 		~MapBlockComponent();
 		void Update(float deltaTime, GameObject& object) override;
-		std::string GetTxt() override;
+		std::string GetTxt() const override;
 		void SubjectRender()const override;
 		GameObject* HandleQbertMovement(GameObject* movQbert) override;
+		void Reset(GameObject& object) override;
 
 
 		void NextBlockTexture();

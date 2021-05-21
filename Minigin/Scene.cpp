@@ -42,7 +42,7 @@ void Scene::FinishLevel(std::vector<std::shared_ptr<GameObject>>& players)
 
 void Scene::PlayersToStartingPos(std::vector<std::shared_ptr<GameObject>>& players)
 {
-	for (auto element : m_PlayerStartingCoordinates)
+	for (auto& element : m_PlayerStartingCoordinates)
 	{
 		if (element.first == SceneManager::GetInstance().GetGameMode())
 		{
@@ -65,6 +65,23 @@ void Scene::PlayersToStartingPos(std::vector<std::shared_ptr<GameObject>>& playe
 void Scene::SetPlayerStartingCoordinates(const std::vector<std::pair<GameMode, std::vector<AxialCoordinates>>>& startCoordinates)
 {
 	m_PlayerStartingCoordinates = startCoordinates;
+}
+
+void Scene::ResetScene()
+{
+	for (auto& object : m_Objects)
+	{
+		object->ResetObject();
+	}
+	for (auto& element : m_UnMap)
+	{
+		element.second->ResetObject();
+	}
+	for (auto& object : m_BackgroundObjects)
+	{
+		object->ResetObject();
+	}
+	SceneManager::GetInstance().ChangeScene(GetSceneName());
 }
 
 size_t Scene::AmountOfRemainingDisks()
@@ -92,7 +109,7 @@ void Scene::Update(float deltaTime)
 	{
 		object->Update(deltaTime);
 	}
-	for (auto element : m_UnMap)
+	for (auto& element : m_UnMap)
 	{
 		element.second->Update(deltaTime);
 	}
@@ -107,11 +124,11 @@ void Scene::Update(float deltaTime)
 
 void Scene::Render() const
 {
-	for (auto element : m_BackgroundObjects)
+	for (auto& element : m_BackgroundObjects)
 	{
 		element->Render();
 	}
-	for (auto element : m_UnMap)
+	for (auto& element : m_UnMap)
 	{
 		element.second->Render();
 	}

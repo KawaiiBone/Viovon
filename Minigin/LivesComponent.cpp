@@ -15,7 +15,7 @@ void dae::LivesComponent::Update(float , GameObject& )
 	
 }
 
-std::string dae::LivesComponent::GetTxt()
+std::string dae::LivesComponent::GetTxt() const
 {
 	return m_Text;
 }
@@ -46,4 +46,9 @@ void dae::LivesComponent::AddObserver(Observer* pObs)
 void dae::LivesComponent::SubjectRender() const
 {
 	m_Subject.Render();
+}
+
+void dae::LivesComponent::Reset(GameObject& /*object*/)
+{
+	m_Lives = m_MaxLives;
 }

@@ -24,7 +24,7 @@ void dae::MapBlockComponent::Update(float, GameObject&)
 {
 }
 
-std::string dae::MapBlockComponent::GetTxt()
+std::string dae::MapBlockComponent::GetTxt() const
 {
 	return MapPartComponent::GetTxt();
 }
@@ -41,6 +41,10 @@ dae::GameObject* dae::MapBlockComponent::HandleQbertMovement(GameObject* movQber
 	return MapPartComponent::HandleQbertMovement(movQbert);
 }
 
+void dae::MapBlockComponent::Reset(GameObject& object)
+{
+	MapPartComponent::Reset(object);
+}
 
 
 void dae::MapBlockComponent::NextBlockTexture()

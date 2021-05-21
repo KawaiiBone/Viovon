@@ -44,6 +44,7 @@ namespace dae
 		void ChangeScene(const TypeOfScene typeScene);
 		void SetGameMode(GameMode gameMode);
 		GameMode GetGameMode();
+		void ResetScenes();
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;

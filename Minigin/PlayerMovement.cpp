@@ -15,12 +15,16 @@ void dae::PlayerMovement::Update(float , GameObject& )
 
 }
 
-std::string dae::PlayerMovement::GetTxt()
+std::string dae::PlayerMovement::GetTxt() const
 {
 	return m_Text;
 }
 
 void dae::PlayerMovement::SubjectRender() const
+{
+}
+
+void dae::PlayerMovement::Reset(GameObject& /*object*/)
 {
 }
 

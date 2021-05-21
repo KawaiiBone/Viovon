@@ -10,11 +10,12 @@ namespace dae
 	public:
 		ScoreComponent(int maxScore);
 		void Update(float deltaTime, GameObject& object) override;
-		std::string GetTxt() override;
+		std::string GetTxt() const override;
 		void InfluenceScore(int inf, std::shared_ptr<dae::GameObject> object);
 		void AddObserver(Observer* pObs);
 		void SubjectRender()const override;
 		void OnPlatform(std::shared_ptr<dae::GameObject> object, bool gainedPlatform);
+		void Reset(GameObject& object) override;
 	private:
 		int m_Score;
 		const int m_MaxScore;

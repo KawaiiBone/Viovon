@@ -35,8 +35,12 @@ void dae::QBertMovementComponent::SetBlockObject( GameObject* pBlockObject)
 	m_pBlockObject = pBlockObject;
 }
 
+void dae::QBertMovementComponent::Reset(GameObject& /*object*/)
+{
+}
 
-std::string dae::QBertMovementComponent::GetTxt()
+
+std::string dae::QBertMovementComponent::GetTxt() const
 {
 	return "0";
 }
@@ -51,7 +55,7 @@ dae::PlatformStatus dae::QBertMovementComponent::GetPlatformStatus()
 	//return m_pBlockObject->GetComponent<MapBlockComponent>()->GetPlatformStatus();
 }
 
-dae::AxialCoordinates dae::QBertMovementComponent::GetCoordinates()
+dae::AxialCoordinates dae::QBertMovementComponent::GetCoordinates() 
 {
 	return { m_Row,m_Collum };
 }
@@ -62,7 +66,7 @@ void dae::QBertMovementComponent::SetCoordinates(AxialCoordinates coordinates)
 	m_Collum = coordinates.collum;
 }
 
-bool dae::QBertMovementComponent::IsMovementCooldownOver()
+bool dae::QBertMovementComponent::IsMovementCooldownOver() 
 {
 	return m_MovementCooldown.cooldownOver;
 }
@@ -70,7 +74,7 @@ bool dae::QBertMovementComponent::IsMovementCooldownOver()
 
 
 
-glm::vec2 dae::QBertMovementComponent::GetNewPosition()
+glm::vec2 dae::QBertMovementComponent::GetNewPosition() 
 {
 	return m_pBlockObject->GetComponent<MapPartComponent>()->GetPlatformPos();
 	//return m_pBlockObject->GetComponent<MapBlockComponent>()->GetPlatformPos();

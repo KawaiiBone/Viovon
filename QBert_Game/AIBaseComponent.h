@@ -19,8 +19,9 @@ namespace dae
 		AIBaseComponent(int row, int collum, float cooldownDuration, const std::vector<std::string>& vecTextureNames, float spawnTime);
 		virtual ~AIBaseComponent();
 		void Update(float deltaTime, GameObject& object) override = 0;
-		std::string GetTxt() override;
+		std::string GetTxt() const override;
 		void SubjectRender()const override = 0;
+		void Reset(GameObject& object) override;
 
 	protected:
 		AxialCoordinates GetCoordinates() const;
@@ -33,6 +34,7 @@ namespace dae
 		bool IsInMovementCooldown(float deltaTime);
 		bool IsInSpawnCooldown(float deltaTime, GameObject& object);
 		void NextTexture();
+		void Respawn( GameObject& object);
 	private:
 		GameObject* m_pBlockObject;
 		GameObject* m_QbertObject;
@@ -42,6 +44,8 @@ namespace dae
 		std::vector<std::string> m_VecTextureNames;
 		int m_IndexTexturesNames;
 		Cooldown m_SpawnCooldown;
+		const int m_StartingRow;
+		const int m_StartingCollum;
 		
 	};
 

@@ -27,12 +27,16 @@ void dae::FPSComponent::Update(float deltaTime, GameObject& ) //<- VERY IMPORTAN
 	}
 }
 
-std::string dae::FPSComponent::GetTxt()
+std::string dae::FPSComponent::GetTxt() const
 {
 	return m_Text;
 }
 
 void dae::FPSComponent::SubjectRender() const
+{
+}
+
+void dae::FPSComponent::Reset(GameObject& /*object*/)
 {
 }
 

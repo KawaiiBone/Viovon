@@ -14,9 +14,10 @@ namespace dae
 		MapDiskComponent(float x, float y, float width, float height);
 		~MapDiskComponent();
 		void Update(float deltaTime, GameObject& object) override;
-		std::string GetTxt() override;
+		std::string GetTxt() const override;
 		void SubjectRender()const override;
 		GameObject* HandleQbertMovement(GameObject* movQbert) override;
+		void Reset(GameObject& object) override;
 
 
 

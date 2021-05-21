@@ -37,7 +37,8 @@ void dae::UggOrWrongwayAiComponent::Update(float delta, GameObject& object)
 		if (tmpPointer)
 		{
 			tmpPointer->GetComponent<LivesComponent>()->InfluenceLife(-1, tmpPointer);
-			object.Die();
+			Respawn(object);
+			return;
 		}
 
 
@@ -52,13 +53,17 @@ void dae::UggOrWrongwayAiComponent::Update(float delta, GameObject& object)
 
 }
 
-std::string dae::UggOrWrongwayAiComponent::GetTxt()
+std::string dae::UggOrWrongwayAiComponent::GetTxt() const
 {
 	return AIBaseComponent::GetTxt();
 }
 
 
 void dae::UggOrWrongwayAiComponent::SubjectRender() const
+{
+}
+
+void dae::UggOrWrongwayAiComponent::Reset(GameObject& /*object*/)
 {
 }
 
@@ -104,7 +109,7 @@ void dae::UggOrWrongwayAiComponent::Movement(GameObject& object)
 	}
 	else
 	{
-		object.Die();
+		Respawn(object);
 	}
 
 

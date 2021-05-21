@@ -10,10 +10,11 @@ namespace dae
 	public:
 		LivesComponent(int maxLives);
 		void Update(float deltaTime, GameObject& object) override;
-		std::string GetTxt() override;
+		std::string GetTxt()const override;
 		void InfluenceLife(int inf, std::shared_ptr<dae::GameObject> object);
 		void AddObserver(Observer* pObs);
 		void SubjectRender()const override;
+		void Reset(GameObject& object) override;
 	
 	private:
 		int m_Lives;

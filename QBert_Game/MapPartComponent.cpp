@@ -27,7 +27,7 @@ void dae::MapPartComponent::Update(float, GameObject&)
 {
 }
 
-std::string dae::MapPartComponent::GetTxt()
+std::string dae::MapPartComponent::GetTxt() const
 {
 	return m_TextureBlockNames[m_NamesVecIndex];
 }
@@ -74,7 +74,7 @@ void dae::MapPartComponent::HandleAiMovement()
 }
 
 
-dae::PlatformStatus dae::MapPartComponent::GetPlatformStatus()
+dae::PlatformStatus dae::MapPartComponent::GetPlatformStatus() const
 {
 	return m_PlatformStatus;
 }
@@ -109,7 +109,7 @@ bool dae::MapPartComponent::HasPenalty()
 	return m_Penalty;
 }
 
-bool dae::MapPartComponent::IsBlock()
+bool dae::MapPartComponent::IsBlock() 
 {
 	return m_IsBlock;
 }
@@ -124,7 +124,12 @@ glm::vec2 dae::MapPartComponent::GetWrongWayPlatformPos() const
 	return m_WrongwayPlatformPos;
 }
 
-bool dae::MapPartComponent::PlatformDone() 
+void dae::MapPartComponent::Reset(GameObject& /*object*/)
+{
+	m_NamesVecIndex = 0;
+}
+
+bool dae::MapPartComponent::PlatformDone() const
 {
 	return size_t(m_NamesVecIndex + 1) >= m_TextureBlockNames.size();
 }

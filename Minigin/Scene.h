@@ -31,7 +31,7 @@ namespace dae
 		void PlayersToStartingPos(std::vector < std::shared_ptr<GameObject>>& players);
 
 		void SetPlayerStartingCoordinates(const std::vector<std::pair<GameMode, std::vector<AxialCoordinates>>>& startCoordinates);
-
+		void ResetScene();
 		size_t AmountOfRemainingDisks();
 		
 		~Scene();

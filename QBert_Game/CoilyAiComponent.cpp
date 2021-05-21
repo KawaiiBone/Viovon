@@ -30,7 +30,8 @@ void dae::CoilyAiComponent::Update(float delta, GameObject& object)
 		if (tmpPointer)
 		{
 			tmpPointer->GetComponent<LivesComponent>()->InfluenceLife(-1, tmpPointer);
-			object.Die();
+			Respawn(object);
+			return;
 		}
 
 
@@ -51,13 +52,17 @@ void dae::CoilyAiComponent::Update(float delta, GameObject& object)
 	}
 }
 
-std::string dae::CoilyAiComponent::GetTxt()
+std::string dae::CoilyAiComponent::GetTxt() const
 {
 	return AIBaseComponent::GetTxt();
 }
 
 
 void dae::CoilyAiComponent::SubjectRender() const
+{
+}
+
+void dae::CoilyAiComponent::Reset(GameObject& /*object*/)
 {
 }
 
