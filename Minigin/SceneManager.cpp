@@ -43,11 +43,10 @@ void dae::SceneManager::ChangeScene(const TypeOfScene typeScene)
 	{
 		if (element.second == typeScene)
 		{
-			if (m_ScenesVecIndex != counter)
-			{
-				m_ScenesVecIndex = counter;
-				m_Scenes[m_ScenesVecIndex-1].first->FinishLevel(m_pPlayers);
-			}
+		
+			m_ScenesVecIndex = counter;
+			m_Scenes[m_ScenesVecIndex-1].first->FinishLevel(m_pPlayers);
+			
 			m_Scenes[m_ScenesVecIndex].first->PlayersToStartingPos(m_pPlayers);
 			
 			return;

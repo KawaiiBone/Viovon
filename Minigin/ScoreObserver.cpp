@@ -23,8 +23,8 @@ void dae::ScoreObserver::OnNotify(std::shared_ptr<dae::GameObject> entity, Event
 	case EventObserver::scoreChanged:
 		m_pScoreComp.renderComp->Update(entity->GetComponent<ScoreComponent>()->GetTxt());
 		break;
-	case EventObserver::defeatingCoily:
-		//gets through when coily is defeated
+	case EventObserver::ScoreReset:
+		m_pScoreComp.renderComp->Update(entity->GetComponent<ScoreComponent>()->GetTxt());
 		break;
 	case EventObserver::flyingDisc:
 		//gets through when usin a flyingDisc

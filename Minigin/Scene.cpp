@@ -42,6 +42,10 @@ void Scene::FinishLevel(std::vector<std::shared_ptr<GameObject>>& players)
 
 void Scene::PlayersToStartingPos(std::vector<std::shared_ptr<GameObject>>& players)
 {
+
+	
+
+	
 	for (auto& element : m_PlayerStartingCoordinates)
 	{
 		if (element.first == SceneManager::GetInstance().GetGameMode())
@@ -62,6 +66,8 @@ void Scene::PlayersToStartingPos(std::vector<std::shared_ptr<GameObject>>& playe
 
 }
 
+
+
 void Scene::SetPlayerStartingCoordinates(const std::vector<std::pair<GameMode, std::vector<AxialCoordinates>>>& startCoordinates)
 {
 	m_PlayerStartingCoordinates = startCoordinates;
@@ -81,7 +87,9 @@ void Scene::ResetScene()
 	{
 		object->ResetObject();
 	}
-	SceneManager::GetInstance().ChangeScene(GetSceneName());
+	
+	//PlayersToStartingPos2();
+	
 }
 
 size_t Scene::AmountOfRemainingDisks()

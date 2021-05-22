@@ -12,6 +12,7 @@ namespace dae
 		void Update(float deltaTime, GameObject& object) override;
 		std::string GetTxt() const override;
 		void InfluenceScore(int inf, std::shared_ptr<dae::GameObject> object);
+		void ResetScore(std::shared_ptr<dae::GameObject> object);
 		void AddObserver(Observer* pObs);
 		void SubjectRender()const override;
 		void OnPlatform(std::shared_ptr<dae::GameObject> object, bool gainedPlatform);

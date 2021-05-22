@@ -31,6 +31,12 @@ void dae::ScoreComponent::InfluenceScore(int inf, std::shared_ptr<dae::GameObjec
 
 }
 
+void dae::ScoreComponent::ResetScore(std::shared_ptr<dae::GameObject> object)
+{
+	m_Score = 0;
+	m_Subject.Notify(object, EventObserver::ScoreReset);
+}
+
 void dae::ScoreComponent::AddObserver(Observer* pObs)
 {
 	m_Subject.AddObserver(pObs);
@@ -54,9 +60,9 @@ void dae::ScoreComponent::OnPlatform(std::shared_ptr<dae::GameObject> object, bo
 	
 }
 
-void dae::ScoreComponent::Reset(GameObject& /*object*/)
+void dae::ScoreComponent::Reset(GameObject& )
 {
-	m_Score = 0;
+	
 }
 
 
