@@ -26,7 +26,8 @@ namespace dae
 		std::vector<QBertLevel> m_Levels;
 		const int m_AmountOfLevels;
 		const int m_Volume;
-		
+		const std::string m_LevelsAdress;
+		const std::string m_GameMusicAdress;
 	
 
 	};
