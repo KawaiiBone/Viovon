@@ -35,7 +35,7 @@ void dae::QBertGame::LoadQbertGame()
 	ServiceLocater::GetSoundSystem().PlayMusic("../Data/music/GameMusic.wav", m_Volume);
 	m_QBertPlayerOne.CreateQbert();
 	m_Menu.CreateMenu(m_QBertPlayerTwo, m_CoilyPlayerTwo);
-	for (auto element : m_Levels)
+	for (auto& element : m_Levels)
 	{
 		element.CreateLevel();
 	}
@@ -70,7 +70,7 @@ void dae::QBertGame::LoadQbertCommandKeys()
 
 dae::Level dae::QBertGame::ReadLevelFile(int index)
 {
-	std::ifstream file{ "Resources/LevelLayout/Levels.Json" };
+	std::ifstream file{ "../Data/LevelLayout/Levels.Json" };
 
 	std::string getText{};
 	std::string getTextCopy{};

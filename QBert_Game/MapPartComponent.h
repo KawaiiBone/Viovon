@@ -44,7 +44,6 @@ namespace dae
 		glm::vec2 GetUggPlatformPos() const;
 		glm::vec2 GetWrongWayPlatformPos() const;
 		void Reset(GameObject& object) override;
-
 		bool PlatformDone() const;
 	protected:
 		bool PlusNamesVecIndex();
