@@ -9,8 +9,6 @@
 #include "InterfaceWindow.h"
 #include "ResourceManager.h"
 #include "QBertComponentsHeaders.h"
-#include "ServiceLocater.h"
-#include "QBertObserver.h"
 dae::QBert::QBert(int playerIndex):
 	m_PlayerIndex{playerIndex}
 
@@ -54,10 +52,11 @@ void dae::QBert::CreateQbert()
 	}
 	auto QBertObject = std::make_shared<dae::GameObject>(posPlayer.x, posPlayer.y, std::make_shared<TextureComponent>(adressTexture, 0.03125f));
 	QBertObject->AddBaseComponent(new dae::QuitComponent());
-	QBertObject->AddBaseComponent(new dae::PlayerMovement());
+	//QBertObject->AddBaseComponent(new dae::PlayerMovement());
 	QBertObject->AddBaseComponent(hpComponent);
 	QBertObject->AddBaseComponent(scoreComponent);
-	QBertObject->AddBaseComponent(new dae::QBertMovementComponent(/*BlockObject*/nullptr, 6, 0));
+//	QBertObject->AddBaseComponent(new dae::QBertMovementComponent(/*BlockObject*/nullptr, 6, 0));
+	QBertObject->AddBaseComponent(new dae::PLayerComponent(/*BlockObject*/nullptr, 6, 0, "../Data/Sounds/QBertjump.wav"));
 	dae::SceneManager::GetInstance().AddPlayer(QBertObject);
 }
 

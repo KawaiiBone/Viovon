@@ -3,11 +3,11 @@
 #include "LivesComponent.h"
 #include "Scene.h"
 #include "MapPartComponent.h"
-#include "QBertMovementComponent.h"
+#include "PLayerComponent.h"
 
 
-dae::CoilyAiComponent::CoilyAiComponent(int Row, const std::vector<std::string>& vecTextureNames, float spawnTime):
-	AIBaseComponent(Row,1,0.85f, vecTextureNames, spawnTime),
+dae::CoilyAiComponent::CoilyAiComponent(int Row, const std::vector<std::string>& vecTextureNames, float spawnTime, const std::string& soundPath):
+	AIBaseComponent(Row,1,0.85f, vecTextureNames, spawnTime, soundPath),
 	m_IsInBallForm{ true }
 {
 
@@ -24,13 +24,18 @@ dae::CoilyAiComponent::~CoilyAiComponent()
 
 void dae::CoilyAiComponent::Update(float delta, GameObject& object)
 {
-	if (!IsInSpawnCooldown(delta, object))
+	if (SceneManager::GetInstance().GetGameMode() == GameMode::versus)
+	{
+		object.Die();
+	}
+	else if (!IsInSpawnCooldown(delta, object))
 	{
 		std::shared_ptr<dae::GameObject> tmpPointer = DidHitQBert();
 		if (tmpPointer)
 		{
 			tmpPointer->GetComponent<LivesComponent>()->InfluenceLife(-1, tmpPointer);
 			Respawn(object);
+			m_IsInBallForm = true;
 			return;
 		}
 
@@ -64,6 +69,7 @@ void dae::CoilyAiComponent::SubjectRender() const
 
 void dae::CoilyAiComponent::Reset(GameObject& /*object*/)
 {
+	m_IsInBallForm = true;
 }
 
 
@@ -137,7 +143,7 @@ void dae::CoilyAiComponent::CoilyMovement(GameObject& object)
 		auto mapPartObjectComp = mapPartObject.second->GetComponent<MapPartComponent>();
 		SetCoordinates(mapPartObject.first);
 		object.SetPosition(mapPartObjectComp->GetPlatformPos().x, mapPartObjectComp->GetPlatformPos().y);
-
+		PlaySound();
 
 
 	}

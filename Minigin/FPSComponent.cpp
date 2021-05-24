@@ -38,7 +38,6 @@ void dae::FPSComponent::SubjectRender() const
 
 void dae::FPSComponent::Reset(GameObject& /*object*/)
 {
-	
 }
 
 

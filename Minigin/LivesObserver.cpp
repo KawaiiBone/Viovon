@@ -29,6 +29,7 @@ void dae::LivesObserver::OnNotify(std::shared_ptr<dae::GameObject> entity, Event
 	switch (event) {
 	case EventObserver::died:
 		SceneManager::GetInstance().GetCurrentScene()->ResetScene();
+		m_pStationLivesRenderComp.renderComp->Update(entity->GetComponent<LivesComponent>()->GetTxt());
 		//entity->IsDead();//update here
 	//	m_PlayerDied = true;
 		break;

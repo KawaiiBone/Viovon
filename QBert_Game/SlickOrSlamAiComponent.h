@@ -13,7 +13,7 @@ namespace dae
 	class SlickOrSlamAiComponent final : public AIBaseComponent
 	{
 	public:
-		SlickOrSlamAiComponent(int maxRow, const std::vector<std::string>& vecTextureNames, float spawnTime);
+		SlickOrSlamAiComponent(int maxRow, const std::vector<std::string>& vecTextureNames, float spawnTime, const std::string& soundPath);
 		~SlickOrSlamAiComponent();
 		void Update(float deltaTime, GameObject& object) override;
 		std::string GetTxt() const override;

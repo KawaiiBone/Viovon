@@ -1,7 +1,7 @@
 ﻿#include "MapPartComponent.h"
 
 #include <functional>
-#include "QBertMovementComponent.h"
+#include "PLayerComponent.h"
 
 #include "GameObject.h"
 
@@ -109,7 +109,7 @@ bool dae::MapPartComponent::HasPenalty()
 	return m_Penalty;
 }
 
-bool dae::MapPartComponent::IsBlock() 
+bool dae::MapPartComponent::IsBlock() const
 {
 	return m_IsBlock;
 }

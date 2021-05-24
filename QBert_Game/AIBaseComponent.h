@@ -16,7 +16,7 @@ namespace dae
 	class AIBaseComponent  : public BaseComponent
 	{
 	public:
-		AIBaseComponent(int row, int collum, float cooldownDuration, const std::vector<std::string>& vecTextureNames, float spawnTime);
+		AIBaseComponent(int row, int collum, float cooldownDuration, const std::vector<std::string>& vecTextureNames, float spawnTime, const std::string& soundPath);
 		virtual ~AIBaseComponent();
 		void Update(float deltaTime, GameObject& object) override = 0;
 		std::string GetTxt() const override;
@@ -27,7 +27,6 @@ namespace dae
 		AxialCoordinates GetCoordinates() const;
 		GameObject* GetPQBertObject() const;
 		void SetCoordinates(AxialCoordinates coordinates);
-		bool CanHandleMovement(GameObject* movQbert);
 		void SetBlockObject(GameObject* pBlockObject);
 		std::shared_ptr<dae::GameObject> DidHitQBert() const;
 		void ResetCooldownCounter();
@@ -35,6 +34,7 @@ namespace dae
 		bool IsInSpawnCooldown(float deltaTime, GameObject& object);
 		void NextTexture();
 		void Respawn( GameObject& object);
+		void PlaySound()const;
 	private:
 		GameObject* m_pBlockObject;
 		GameObject* m_QbertObject;
@@ -46,7 +46,8 @@ namespace dae
 		Cooldown m_SpawnCooldown;
 		const int m_StartingRow;
 		const int m_StartingCollum;
-		
+		const std::string m_SoundPath;
+		const int m_Volume;
 	};
 
 }

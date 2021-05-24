@@ -60,13 +60,15 @@ void dae::SoundSystem::UpdateAudio()
 
 			if (m_HasPLayedMusic)
 			{
-				playSound(m_QueueMusic.front().filename.c_str(), SDL_MIX_MAXVOLUME - 1);
+				playMusic(m_QueueMusic.front().filename.c_str(), SDL_MIX_MAXVOLUME - 1);
+				//playSound(m_QueueMusic.front().filename.c_str(), SDL_MIX_MAXVOLUME - 1);
 			}
 			else
 			{
-
+				
 				m_HasPLayedMusic = true;
-				playSound(m_QueueMusic.front().filename.c_str(), m_QueueMusic.front().volume);
+				playMusic(m_QueueMusic.front().filename.c_str(), m_QueueMusic.front().volume);
+				//playSound(m_QueueMusic.front().filename.c_str(), m_QueueMusic.front().volume);
 			}
 			m_QueueMusic.pop();
 			m_Mutex.unlock();

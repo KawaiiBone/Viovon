@@ -1,7 +1,6 @@
 ﻿#include "MiniginPCH.h"
 #include "LivesComponent.h"
 #include "GameObject.h"
-#include "ScoreComponent.h"
 
 #include "Subject.h"
 
@@ -24,6 +23,7 @@ std::string dae::LivesComponent::GetTxt() const
 void dae::LivesComponent::InfluenceLife(int inf, std::shared_ptr<dae::GameObject> object)
 {
 
+	
 	if (m_Lives + inf <= m_MaxLives)
 	{
 		m_Lives += inf;
@@ -32,10 +32,10 @@ void dae::LivesComponent::InfluenceLife(int inf, std::shared_ptr<dae::GameObject
 	m_Subject.Notify(object, EventObserver::healthChanged);
 	if (m_Lives <= 0)
 	{
-		object->GetComponent<ScoreComponent>()->ResetScore(object);
 		m_Subject.Notify(object, EventObserver::died);
 	}
 	
+	//Subject::GetInstance().Notify(*object, EventObserver::healthChanged);
 }
 
 
@@ -51,5 +51,7 @@ void dae::LivesComponent::SubjectRender() const
 
 void dae::LivesComponent::Reset(GameObject& /*object*/)
 {
-	m_Lives = m_MaxLives+1;
+	m_Lives = m_MaxLives;
+	m_Text = "Lives: " + std::to_string(m_Lives);
+
 }

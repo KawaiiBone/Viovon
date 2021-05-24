@@ -13,7 +13,9 @@ dae::QBertGame::QBertGame(int windowWidth, int windowHeight) :
 	m_Menu(TypeOfScene::startMenu),
 	m_AmountOfLevels{3},
 	m_QBertPlayerOne(0),
-	m_QBertPlayerTwo(1)
+	m_QBertPlayerTwo(1),
+	m_CoilyPlayerTwo(1),
+	m_Volume{40}
 
 	
 {
@@ -30,15 +32,13 @@ dae::QBertGame::QBertGame(int windowWidth, int windowHeight) :
 
 void dae::QBertGame::LoadQbertGame()
 {
+	ServiceLocater::GetSoundSystem().PlayMusic("../Data/music/GameMusic.wav", m_Volume);
 	m_QBertPlayerOne.CreateQbert();
-	m_Menu.CreateMenu(m_QBertPlayerTwo);
+	m_Menu.CreateMenu(m_QBertPlayerTwo, m_CoilyPlayerTwo);
 	for (auto element : m_Levels)
 	{
 		element.CreateLevel();
 	}
-
-
-
 
 	LoadQbertCommandKeys();
 

@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "QBertMovementComponent.h"
+#include "PLayerComponent.h"
 #include "MapDiskComponent.h"
 #include "GameObject.h"
 

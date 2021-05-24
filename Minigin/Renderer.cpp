@@ -59,14 +59,11 @@ void dae::Renderer::Render()
 
 	if (SceneManager::GetInstance().GetCurrentScene()->GetSceneName() == TypeOfScene::startMenu)
 	{
-
-		for (auto interFacewindow : m_InterfaceWindowsVec)
+		for (auto& interFacewindow : m_InterfaceWindowsVec)
 		{
 			interFacewindow.Render(m_InterFaceWindowName);
 		}
 	}
-
-	//DifficultyInterface();
 
 
 	ImGui::Render();
@@ -93,7 +90,7 @@ void dae::Renderer::Destroy()
 
 void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y) const
 {
-	SDL_Rect dst;
+	SDL_Rect dst{};
 	dst.x = static_cast<int>(x);
 	dst.y = static_cast<int>(y);
 	SDL_QueryTexture(texture.GetSDLTexture(), nullptr, nullptr, &dst.w, &dst.h);
@@ -102,7 +99,7 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const
 
 void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height) const
 {
-	SDL_Rect dst;
+	SDL_Rect dst{};
 	dst.x = static_cast<int>(x);
 	dst.y = static_cast<int>(y);
 	dst.w = static_cast<int>(width);

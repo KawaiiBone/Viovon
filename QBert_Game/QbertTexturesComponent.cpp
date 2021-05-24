@@ -54,7 +54,7 @@ void dae::QbertTexturesComponent::Update(const std::string& string)
 	{
 		if (string == m_VecTextures[i].second)
 		{
-			m_VecIndex = i;
+			m_VecIndex = int(i);
 		}
 	}
 	

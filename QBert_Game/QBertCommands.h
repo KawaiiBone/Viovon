@@ -19,14 +19,15 @@ namespace dae
 
 
 			auto scene = SceneManager::GetInstance().GetCurrentScene();
-			auto playerObjectComp = object->GetComponent<QBertMovementComponent>();
+			auto playerObjectComp = object->GetComponent<PLayerComponent>();
+			//auto playerObjectComp = object->GetComponent<QBertMovementComponent>();
 			auto mapPartObject = scene->GetMapPart(playerObjectComp->GetCoordinates().row, playerObjectComp->GetCoordinates().collum - 1);
 
 			if (mapPartObject.second && playerObjectComp->IsMovementCooldownOver())
 			{
 				playerObjectComp->CanHandleMovement(mapPartObject.second);
 				
-				auto mapPartObjectComp = mapPartObject.second->GetComponent<MapPartComponent>();
+				 auto mapPartObjectComp = mapPartObject.second->GetComponent<MapPartComponent>();
 
 			
 
@@ -71,7 +72,7 @@ namespace dae
 					tmpScoreComp->InfluenceScore(-m_Score, object);
 
 				}
-
+				playerObjectComp->PLaySound();
 			}
 
 
@@ -90,7 +91,8 @@ namespace dae
 		{
 
 			auto scene = SceneManager::GetInstance().GetCurrentScene();
-			auto playerObjectComp = object->GetComponent<QBertMovementComponent>();
+			auto playerObjectComp = object->GetComponent<PLayerComponent>();
+			//auto playerObjectComp = object->GetComponent<QBertMovementComponent>();
 			auto mapPartObject = scene->GetMapPart(playerObjectComp->GetCoordinates().row + 1, playerObjectComp->GetCoordinates().collum - 1);
 
 			if (mapPartObject.second && playerObjectComp->IsMovementCooldownOver())
@@ -140,7 +142,7 @@ namespace dae
 					tmpScoreComp->InfluenceScore(-m_Score, object);
 
 				}
-				
+				playerObjectComp->PLaySound();
 			}
 		
 		}
@@ -158,7 +160,8 @@ namespace dae
 
 
 			auto scene = SceneManager::GetInstance().GetCurrentScene();
-			auto playerObjectComp = object->GetComponent<QBertMovementComponent>();
+			auto playerObjectComp = object->GetComponent<PLayerComponent>();
+			//auto playerObjectComp = object->GetComponent<QBertMovementComponent>();
 			auto mapPartObject = scene->GetMapPart(playerObjectComp->GetCoordinates().row, playerObjectComp->GetCoordinates().collum + 1);
 
 			if (mapPartObject.second && playerObjectComp->IsMovementCooldownOver())
@@ -200,9 +203,9 @@ namespace dae
 					tmpScoreComp->InfluenceScore(-m_Score, object);
 
 				}
+				playerObjectComp->PLaySound();
 			}
 	
-
 
 		}
 	};
@@ -216,8 +219,9 @@ namespace dae
 		{
 
 			auto scene = SceneManager::GetInstance().GetCurrentScene();
-			auto playerObjectComp = object->GetComponent<QBertMovementComponent>();
-			auto mapPartObject = scene->GetMapPart(playerObjectComp->GetCoordinates().row - 1, playerObjectComp->GetCoordinates().collum + 1);
+			auto playerObjectComp = object->GetComponent<PLayerComponent>();
+			//auto playerObjectComp = object->GetComponent<QBertMovementComponent>();
+			auto mapPartObject = scene->GetMapPart((playerObjectComp->GetCoordinates().row - 1), (playerObjectComp->GetCoordinates().collum + 1));
 
 			if (mapPartObject.second && playerObjectComp->IsMovementCooldownOver())
 			{
@@ -257,6 +261,7 @@ namespace dae
 					tmpScoreComp->InfluenceScore(-m_Score, object);
 
 				}
+				playerObjectComp->PLaySound();
 			}
 
 		}

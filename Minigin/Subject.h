@@ -9,7 +9,6 @@ namespace dae
 		died,
 		healthChanged,
 		scoreChanged,
-		ScoreReset,
 		defeatingCoily,
 		flyingDisc,
 		remainingDisc,

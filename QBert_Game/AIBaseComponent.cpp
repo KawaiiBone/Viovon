@@ -1,11 +1,14 @@
 ﻿#include "AIBaseComponent.h"
+
+#include "PLayerCoilyComponent.h"
 #include "GameObject.h"
 #include "Scene.h"
 #include "MapPartComponent.h"
-#include "QBertMovementComponent.h"
+#include "PLayerComponent.h"
+#include "ServiceLocater.h"
 
 
-dae::AIBaseComponent::AIBaseComponent(int row, int collum, float cooldownDuration,const std::vector<std::string>& vecTextureNames, float spawnTime)
+dae::AIBaseComponent::AIBaseComponent(int row, int collum, float cooldownDuration,const std::vector<std::string>& vecTextureNames, float spawnTime, const std::string& soundPath)
 	: m_Row(row),
 	m_Collum(collum),
 	m_MovementCooldown{ cooldownDuration,0.f, true },
@@ -13,7 +16,9 @@ dae::AIBaseComponent::AIBaseComponent(int row, int collum, float cooldownDuratio
 	m_IndexTexturesNames(0),
 	m_SpawnCooldown{ spawnTime,0.f,false },
 	m_StartingRow{ row },
-	m_StartingCollum{ collum }
+	m_StartingCollum{ collum },
+	m_SoundPath(soundPath),
+	m_Volume{10}
 
 {
 
@@ -46,9 +51,13 @@ std::shared_ptr<dae::GameObject> dae::AIBaseComponent::DidHitQBert() const
 	
 	for (auto& element : SceneManager::GetInstance().GetPlayers())
 	{
-		if (element->GetComponent<QBertMovementComponent>()->GetCoordinates() == AxialCoordinates{ m_Row,m_Collum })
+		if (element->GetComponent<PLayerComponent>()->GetCoordinates() == AxialCoordinates{ m_Row,m_Collum })
 		{
-			return element;
+			if (!element->GetComponent<PLayerCoilyComponent>())
+			{
+				return element;
+				
+			}
 		}
 	
 	}
@@ -82,9 +91,13 @@ bool dae::AIBaseComponent::IsInSpawnCooldown(float deltaTime, GameObject& object
 	return false;
 }
 
-void dae::AIBaseComponent::NextTexture()
+void dae::AIBaseComponent::NextTexture() 
 {
-	m_IndexTexturesNames++;
+	if (size_t(m_IndexTexturesNames)+1 < m_VecTextureNames.size())
+	{
+		
+		m_IndexTexturesNames++;
+	}
 }
 
 void dae::AIBaseComponent::Respawn( GameObject& object)
@@ -102,6 +115,11 @@ void dae::AIBaseComponent::Respawn( GameObject& object)
 	}
 	
 	
+}
+
+void dae::AIBaseComponent::PlaySound() const
+{
+	ServiceLocater::GetSoundSystem().PlaySound(m_SoundPath, m_Volume);
 }
 
 

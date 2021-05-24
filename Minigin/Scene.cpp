@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "../QBert_Game/MapPartComponent.h"
-#include "../QBert_Game/QBertMovementComponent.h"
+#include "../QBert_Game/PLayerComponent.h"
 #include "../QBert_Game/MapDiskComponent.h"
 #include <algorithm>
 
@@ -42,17 +42,14 @@ void Scene::FinishLevel(std::vector<std::shared_ptr<GameObject>>& players)
 
 void Scene::PlayersToStartingPos(std::vector<std::shared_ptr<GameObject>>& players)
 {
-
-	
-
-	
 	for (auto& element : m_PlayerStartingCoordinates)
 	{
 		if (element.first == SceneManager::GetInstance().GetGameMode())
 		{
 			for (size_t i = 0; i < players.size(); ++i)
 			{
-				auto tmpComp{ players[i]->GetComponent<QBertMovementComponent>() };
+				auto tmpComp{ players[i]->GetComponent<PLayerComponent>() };
+				//auto tmpComp{ players[i]->GetComponent<QBertMovementComponent>() };
 				tmpComp->SetCoordinates(element.second[i]);
 				tmpComp->SetBlockObject(m_UnMap[element.second[i]].get());
 				players[i]->SetPosition(m_UnMap[element.second[i]]->GetComponent<MapPartComponent>()->GetPlatformPos().x, m_UnMap[element.second[i]]->GetComponent<MapPartComponent>()->GetPlatformPos().y);
@@ -65,8 +62,6 @@ void Scene::PlayersToStartingPos(std::vector<std::shared_ptr<GameObject>>& playe
 	
 
 }
-
-
 
 void Scene::SetPlayerStartingCoordinates(const std::vector<std::pair<GameMode, std::vector<AxialCoordinates>>>& startCoordinates)
 {
@@ -87,9 +82,7 @@ void Scene::ResetScene()
 	{
 		object->ResetObject();
 	}
-	
-	//PlayersToStartingPos2();
-	
+	SceneManager::GetInstance().ChangeScene(GetSceneName());
 }
 
 size_t Scene::AmountOfRemainingDisks()

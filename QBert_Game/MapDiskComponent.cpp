@@ -1,5 +1,5 @@
 ﻿#include "MapDiskComponent.h"
-#include "QBertMovementComponent.h"
+#include "PLayerComponent.h"
 #include "MapBlockComponent.h"
 #include "GameObject.h"
 #include "Scene.h"

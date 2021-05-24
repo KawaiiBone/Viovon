@@ -11,7 +11,7 @@ namespace dae
 	class UggOrWrongwayAiComponent final : public AIBaseComponent
 	{
 	public:
-		UggOrWrongwayAiComponent(int maxRow, const std::vector<std::string>& vecTextureNames, float spawnTime);
+		UggOrWrongwayAiComponent(int maxRow, const std::vector<std::string>& vecTextureNames, float spawnTime, const std::string& soundPath);
 		~UggOrWrongwayAiComponent();
 		void Update(float deltaTime, GameObject& object) override;
 		std::string GetTxt() const override;

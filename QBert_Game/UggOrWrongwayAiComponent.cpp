@@ -3,12 +3,12 @@
 #include "LivesComponent.h"
 #include "Scene.h"
 #include "MapPartComponent.h"
-#include "QBertMovementComponent.h"
+#include "PLayerComponent.h"
 
 
 
-dae::UggOrWrongwayAiComponent::UggOrWrongwayAiComponent(int Row, const std::vector<std::string>& vecTextureNames, float spawnTime) :
-	AIBaseComponent(Row, 6, 0.85f, vecTextureNames, spawnTime)
+dae::UggOrWrongwayAiComponent::UggOrWrongwayAiComponent(int Row, const std::vector<std::string>& vecTextureNames, float spawnTime, const std::string& soundPath) :
+	AIBaseComponent(Row, 6, 0.85f, vecTextureNames, spawnTime, soundPath)
 
 {
 	if (Row > 0)
@@ -106,6 +106,7 @@ void dae::UggOrWrongwayAiComponent::Movement(GameObject& object)
 		{
 			object.SetPosition(mapPartObjectComp->GetWrongWayPlatformPos().x, mapPartObjectComp->GetWrongWayPlatformPos().y);
 		}
+		PlaySound();
 	}
 	else
 	{

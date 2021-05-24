@@ -27,22 +27,16 @@ dae::QBertLevel::QBertLevel(TypeOfScene typeScene, int windowWidth, int windowHe
 
 void dae::QBertLevel::CreateLevel()
 {
+	
+	
 	CreateStartingCoordinatesPlayers();
 	auto& scene = dae::SceneManager::GetInstance().CreateScene(m_TypeScene);
 	CreateBackground(scene);
 
-
-	SDL_Color colorTitle{ 255,255,255 };
-	auto fontTitle = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	auto daeTitleObject = std::make_shared<dae::GameObject>(80.f, 20.f, std::make_shared<TextComponent>("Programming 4 Exam Assignment", fontTitle, colorTitle, true));
-	scene.Add(daeTitleObject/*, false*/);
-
-
-
-	
 	SDL_Color colorFps{ 255,0,0 };
 	auto fontFps = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
 	auto FpsObject = std::make_shared<dae::GameObject>(0.f, 10.f);
+	
 	FpsObject->AddPairComponent(new dae::TextComponent("FPS", fontFps, colorFps, false), new dae::FPSComponent());
 	scene.Add(FpsObject/*, false*/);
 
@@ -103,7 +97,7 @@ void dae::QBertLevel::AddPlayers(Scene& scene)
 	for (auto& element: dae::SceneManager::GetInstance().GetPlayers())
 	{
 		scene.Add(element);
-		element->GetComponent<QBertMovementComponent>()->SetBlockObject(m_Map.GetFirstBlock());
+		element->GetComponent<PLayerComponent>()->SetBlockObject(m_Map.GetFirstBlock());
 		element->SetPosition(m_Map.GetFirstBlock()->GetComponent<MapBlockComponent>()->GetPlatformPos().x, m_Map.GetFirstBlock()->GetComponent<MapBlockComponent>()->GetPlatformPos().y);
 	}
 }
@@ -123,7 +117,7 @@ void dae::QBertLevel::LoadCoily(const bool coilySpawn, Scene& scene) const
 		auto CoilyObject = std::make_shared<dae::GameObject>(m_pBlockObject->GetComponent<MapPartComponent>()->GetPlatformPos().x, m_pBlockObject->GetComponent<MapPartComponent>()->GetPlatformPos().y);
 
 		std::vector<std::pair<std::string, std::string>> tmpNames{ {"QBert/CoilyBallForm.png","CoilyBall"},{"QBert/Coily.png","Coily"} };
-		CoilyObject->AddPairComponent(new QbertTexturesComponent(2.f, tmpNames), new CoilyAiComponent(row, { "CoilyBall","Coily" }, m_LevelInfo.coilySpawnTime));
+		CoilyObject->AddPairComponent(new QbertTexturesComponent(2.f, tmpNames), new CoilyAiComponent(row, { "CoilyBall","Coily" }, m_LevelInfo.coilySpawnTime, "../Data/Sounds/Coilyjump.wav"));
 		CoilyObject->SetRenderStatus(false);
 		scene.Add(CoilyObject);
 	}
@@ -150,14 +144,14 @@ void dae::QBertLevel::LoadUggAbdWrongway(Scene& scene) const
 		if (randomRow3 == 0)
 		{
 			auto uggObject = std::make_shared<dae::GameObject>(m_pBlockObject3->GetComponent<MapPartComponent>()->GetUggPlatformPos().x, m_pBlockObject3->GetComponent<MapPartComponent>()->GetUggPlatformPos().y);
-			uggObject->AddPairComponent(new QbertTexturesComponent(2.f, tmpNames3), new UggOrWrongwayAiComponent(row3, { tmpNames3[0].second,tmpNames3[0].second }, element));
+			uggObject->AddPairComponent(new QbertTexturesComponent(2.f, tmpNames3), new UggOrWrongwayAiComponent(row3, { tmpNames3[0].second,tmpNames3[0].second }, element, "../Data/Sounds/UggJump.wav"));
 			uggObject->SetRenderStatus(false);
 			scene.Add(uggObject);
 		}
 		else
 		{
 			auto uggObject = std::make_shared<dae::GameObject>(m_pBlockObject3->GetComponent<MapPartComponent>()->GetWrongWayPlatformPos().x, m_pBlockObject3->GetComponent<MapPartComponent>()->GetWrongWayPlatformPos().y);
-			uggObject->AddPairComponent(new QbertTexturesComponent(2.f, tmpNames3), new UggOrWrongwayAiComponent(row3, { tmpNames3[0].second,tmpNames3[0].second }, element));
+			uggObject->AddPairComponent(new QbertTexturesComponent(2.f, tmpNames3), new UggOrWrongwayAiComponent(row3, { tmpNames3[0].second,tmpNames3[0].second }, element, "../Data/Sounds/UggJump.wav"));
 			uggObject->SetRenderStatus(false);
 			scene.Add(uggObject);
 		}
@@ -179,7 +173,7 @@ void dae::QBertLevel::LoadSlickAndSam(Scene& scene) const
 
 
 		std::vector<std::pair<std::string, std::string>> tmpNames2{ {"QBert/Slick.png","Slick"} };
-		slickOrSamObject->AddPairComponent(new QbertTexturesComponent(2.f, tmpNames2), new SlickOrSlamAiComponent(row2, { "Slick","Slick" }, element));
+		slickOrSamObject->AddPairComponent(new QbertTexturesComponent(2.f, tmpNames2), new SlickOrSlamAiComponent(row2, { "Slick","Slick" }, element, "../Data/Sounds/Slickjump.wav"));
 		slickOrSamObject->SetRenderStatus(false);
 		scene.Add(slickOrSamObject);
 	}

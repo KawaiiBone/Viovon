@@ -40,7 +40,7 @@ namespace dae
 		virtual	GameObject* HandleQbertMovement(GameObject* movQbert);
 		void HandleAiMovement();
 		PlatformStatus GetPlatformStatus()const;
-		bool IsBlock();
+		bool IsBlock() const;
 		glm::vec2 GetUggPlatformPos() const;
 		glm::vec2 GetWrongWayPlatformPos() const;
 		void Reset(GameObject& object) override;

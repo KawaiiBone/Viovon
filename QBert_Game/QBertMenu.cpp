@@ -10,6 +10,7 @@
 #include "ResourceManager.h"
 #include "Subject.h"
 #include "TextComponent.h"
+#include "CoilyPlayer.h"
 
 dae::QBertMenu::QBertMenu(TypeOfScene typeScene) :
 	m_TypeScene(typeScene)
@@ -18,7 +19,7 @@ dae::QBertMenu::QBertMenu(TypeOfScene typeScene) :
 
 }
 
-void dae::QBertMenu::CreateMenu(QBert& qbertP2)
+void dae::QBertMenu::CreateMenu(QBert& qbertP2, CoilyPlayer& coilyP2)
 {
 	auto& scene = dae::SceneManager::GetInstance().CreateScene(m_TypeScene);
 	CreateMenuObjects(scene);
@@ -99,8 +100,9 @@ void dae::QBertMenu::CreateMenu(QBert& qbertP2)
 {"" },
 	{InterFaceNames::play }
 	};
-	versus.myFunctionWrapper = []() -> void
+	versus.myFunctionWrapper = [&]() -> void
 	{
+		coilyP2.CreateCoily();
 		SceneManager::GetInstance().SetGameMode(GameMode::versus);
 		std::cout << "You choose Versus! " << std::endl;
 

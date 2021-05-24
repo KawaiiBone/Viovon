@@ -286,13 +286,7 @@ void dae::Minigin::CreateDefaultCommandKeys()
 
 	//default controls
 	auto& input = InputManager::GetInstance();
-
-	//input.AddDefaultCommandAndKey({ std::make_shared<Die>(), OperateKey::keyStrokeUp, BButton });
 	input.AddDefaultCommandAndKey({ std::make_shared<Quit>(), OperateKey::keyStrokeUp, YButton });
-	//input.AddDefaultCommandAndKey({ std::make_shared<GainLife>(), OperateKey::keyStrokeDown, XButton });
-	//input.AddDefaultCommandAndKey({ std::make_shared<LoseLife>(), OperateKey::keyStrokeDown, AButton });
-	//input.AddDefaultCommandAndKey({ std::make_shared<IncreaseScore>(), OperateKey::keyStrokeDown, L1Button });
-	//input.AddDefaultCommandAndKey({ std::make_shared<DecreaseScore>(), OperateKey::keyStrokeDown, R1Button });
 
 }
 

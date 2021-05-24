@@ -48,17 +48,11 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="QBert.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="QBertGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="QBertMap.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="QBertMovementComponent.cpp">
-      <Filter>Source Files\Components\BaseComponents</Filter>
     </ClCompile>
     <ClCompile Include="MapBlockComponent.cpp">
       <Filter>Source Files\Components\BaseComponents</Filter>
@@ -71,9 +65,6 @@
     </ClCompile>
     <ClCompile Include="QbertTexturesComponent.cpp">
       <Filter>Source Files\Components\RenderComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="QBertObserver.cpp">
-      <Filter>Source Files\Observer</Filter>
     </ClCompile>
     <ClCompile Include="MapPartComponent.cpp">
       <Filter>Source Files\Components\BaseComponents</Filter>
@@ -102,6 +93,15 @@
     <ClCompile Include="CoilyPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QBert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PLayerComponent.cpp">
+      <Filter>Source Files\Components\BaseComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="PLayerCoilyComponent.cpp">
+      <Filter>Source Files\Components\BaseComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QBert.h">
@@ -113,9 +113,6 @@
     <ClInclude Include="QBertMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="QBertMovementComponent.h">
-      <Filter>Header Files\Components\BaseComponents</Filter>
-    </ClInclude>
     <ClInclude Include="MapBlockComponent.h">
       <Filter>Header Files\Components\BaseComponents</Filter>
     </ClInclude>
@@ -124,9 +121,6 @@
     </ClInclude>
     <ClInclude Include="QbertTexturesComponent.h">
       <Filter>Header Files\Components\RenderComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="QBertObserver.h">
-      <Filter>Header Files\Observers</Filter>
     </ClInclude>
     <ClInclude Include="MapPartComponent.h">
       <Filter>Header Files\Components\BaseComponents</Filter>
@@ -154,6 +148,12 @@
     </ClInclude>
     <ClInclude Include="CoilyPlayer.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PLayerComponent.h">
+      <Filter>Header Files\Components\BaseComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="PLayerCoilyComponent.h">
+      <Filter>Header Files\Components\BaseComponents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

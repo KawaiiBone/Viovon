@@ -3,11 +3,12 @@
 namespace dae
 {
 	class QBert;
+	class CoilyPlayer;
 	class QBertMenu
 	{
 	public:
 		QBertMenu(TypeOfScene typeScene);
-		void CreateMenu(QBert& qbertP2);
+		void CreateMenu(QBert& qbertP2, CoilyPlayer& coilyP2);
 	private:
 		void CreateMenuObjects(Scene& scene);
 		

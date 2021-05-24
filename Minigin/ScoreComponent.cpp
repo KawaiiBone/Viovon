@@ -22,6 +22,8 @@ std::string dae::ScoreComponent::GetTxt() const
 void dae::ScoreComponent::InfluenceScore(int inf, std::shared_ptr<dae::GameObject> object)
 {
 
+
+	
 	if (m_Score + inf <= m_MaxScore)
 	{
 		m_Score += inf;
@@ -29,12 +31,6 @@ void dae::ScoreComponent::InfluenceScore(int inf, std::shared_ptr<dae::GameObjec
 	}
 	m_Subject.Notify(object, EventObserver::scoreChanged);
 
-}
-
-void dae::ScoreComponent::ResetScore(std::shared_ptr<dae::GameObject> object)
-{
-	m_Score = 0;
-	m_Subject.Notify(object, EventObserver::ScoreReset);
 }
 
 void dae::ScoreComponent::AddObserver(Observer* pObs)
@@ -60,9 +56,9 @@ void dae::ScoreComponent::OnPlatform(std::shared_ptr<dae::GameObject> object, bo
 	
 }
 
-void dae::ScoreComponent::Reset(GameObject& )
+void dae::ScoreComponent::Reset(GameObject& /*object*/)
 {
-	
+	m_Score = 0;
 }
 
 

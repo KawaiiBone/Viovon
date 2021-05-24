@@ -2,12 +2,12 @@
 #include "GameObject.h"
 #include "Scene.h"
 #include "MapPartComponent.h"
-#include "QBertMovementComponent.h"
+#include "PLayerComponent.h"
 #include "ScoreComponent.h"
 
 
-dae::SlickOrSlamAiComponent::SlickOrSlamAiComponent(int Row, const std::vector<std::string>& vecTextureNames, float spawnTime) :
-	AIBaseComponent(Row, 1, 0.85f, vecTextureNames, spawnTime)
+dae::SlickOrSlamAiComponent::SlickOrSlamAiComponent(int Row, const std::vector<std::string>& vecTextureNames, float spawnTime, const std::string& soundPath) :
+	AIBaseComponent(Row, 1, 0.85f, vecTextureNames, spawnTime, soundPath)
 	, m_DieScore{300}
 
 {
@@ -78,6 +78,7 @@ void dae::SlickOrSlamAiComponent::Movement(GameObject& object)
 		auto mapPartObjectComp = mapPartObject.second->GetComponent<MapPartComponent>();
 		SetCoordinates(mapPartObject.first);
 		object.SetPosition(mapPartObjectComp->GetPlatformPos().x, mapPartObjectComp->GetPlatformPos().y);
+		PlaySound();
 	}
 	else
 	{
