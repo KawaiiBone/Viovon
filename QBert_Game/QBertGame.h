@@ -18,7 +18,7 @@ namespace dae
 	private:
 
 		void LoadQbertCommandKeys();
-		Level ReadLevelFile(int index);
+		Level ReadLevelFile(int index) const;
 		QBert m_QBertPlayerOne;
 		QBert m_QBertPlayerTwo;
 		CoilyPlayer m_CoilyPlayerTwo;

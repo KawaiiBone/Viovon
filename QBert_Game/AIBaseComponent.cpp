@@ -106,6 +106,7 @@ void dae::AIBaseComponent::Respawn( GameObject& object)
 	auto tmpBlock = scene->GetMapPart(m_StartingRow, m_StartingCollum).second->GetComponent<MapPartComponent>();
 	if (tmpBlock)
 	{
+		m_IndexTexturesNames = 0;
 		m_Row = m_StartingRow;
 		m_Collum = m_StartingCollum;
 		object.SetPosition(tmpBlock->GetPlatformPos().x, tmpBlock->GetPlatformPos().y);

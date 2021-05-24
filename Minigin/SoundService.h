@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <thread>
-
+#include <atomic>
 #include "queue"
 
 namespace dae

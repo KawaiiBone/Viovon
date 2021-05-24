@@ -82,7 +82,7 @@ void Scene::ResetScene()
 	{
 		object->ResetObject();
 	}
-	SceneManager::GetInstance().ChangeScene(GetSceneName());
+//SceneManager::GetInstance().ChangeScene(GetSceneName());
 }
 
 size_t Scene::AmountOfRemainingDisks()
