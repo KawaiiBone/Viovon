@@ -79,6 +79,10 @@ namespace dae
 		bool m_Player1UsesKeyboard;
 		std::vector<std::pair<UINT, std::shared_ptr<Command>>> m_KeyBoardKeysCommands;
 		bool m_SaidWarning;
+		std::string m_HasConnectedText;
+		std::string m_HasConnectedtext;
+		std::string m_HasNotConnectedtext;
+		std::string m_ChangeControlsText;
 		
 	};
 

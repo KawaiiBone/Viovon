@@ -9,8 +9,8 @@
       "DiskName": "FloatingDisk",
       "CoilySpawn": true,
       "CoilySpawnTime": 5.0,
-      "UggAbdWrongwaySpawnTimes": [ 5.0, 15.0, 10.0 ],
-      "SlickAndSamSpawnTimes": [ 5.0, 15.0, 10.0 ],
+      "UggAbdWrongwaySpawnTimes": [ 15.0 ],
+      "SlickAndSamSpawnTimes": [ 10.0 ],
       "PenaltyBlocks": false
     },
   "Level2": {
@@ -22,8 +22,8 @@
     "DiskName": "FloatingDisk",
     "CoilySpawn": true,
     "CoilySpawnTime": 3.0,
-    "UggAbdWrongwaySpawnTimes": [ 5.0, 15.0, 10.0 ],
-    "SlickAndSamSpawnTimes": [ 5.0, 15.0, 10.0 ],
+    "UggAbdWrongwaySpawnTimes": [ 4.0, 11.0 ],
+    "SlickAndSamSpawnTimes": [7.5 ],
     "PenaltyBlocks": false
   },
   "Level3": {
@@ -34,9 +34,9 @@
     "BlockTextureNickNames": [ "BeginBlock", "EndBlock" ],
     "DiskName": "FloatingDisk",
     "CoilySpawn": true,
-    "CoilySpawnTime": 5.0,
-    "UggAbdWrongwaySpawnTimes": [ 5.0, 15.0, 10.0 ],
-    "SlickAndSamSpawnTimes": [ 5.0, 15.0, 10.0 ],
+    "CoilySpawnTime": 3.0,
+    "UggAbdWrongwaySpawnTimes": [ 5.0, 15.0, 13.0 ],
+    "SlickAndSamSpawnTimes": [ 7.0, 15.0, 20.0 ],
     "PenaltyBlocks": true
   }
 }
