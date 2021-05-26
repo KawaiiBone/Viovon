@@ -254,7 +254,7 @@ void dae::Minigin::CreateUI() const
 void dae::Minigin::ProcessInput(bool& doContinue, SceneManager& sceneMan, InputManager& inputman)
 {
 	int index{ 0};
-	for (auto player : sceneMan.GetPlayers())//bad
+	for (auto& player : sceneMan.GetPlayers())//bad
 	{
 		std::vector<std::shared_ptr<Command>> commands{ inputman.ProcessInput(index) };// maybe change this
 
@@ -267,7 +267,7 @@ void dae::Minigin::ProcessInput(bool& doContinue, SceneManager& sceneMan, InputM
 
 	}
 
-	for (auto player : sceneMan.GetPlayers())
+	for (auto& player : sceneMan.GetPlayers())
 	{
 		if (!player->GetComponent<QuitComponent>()->ContinueGame())
 		{

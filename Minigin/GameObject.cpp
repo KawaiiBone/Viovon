@@ -25,16 +25,6 @@ dae::GameObject::GameObject(float x, float y, std::shared_ptr<RenderComponent> p
 	m_Pos.SetPosition(x, y, 0.0f);
 }
 
-dae::GameObject::GameObject(float x, float y, std::vector<BaseComponent*> bvComp, std::shared_ptr<RenderComponent> pRender)
-	: m_pRenderComponent{ pRender },
-	m_VectorpBComponents{ bvComp },
-	m_IsDead{ false },
-	m_VectorCombinedComponents{},
-	m_RenderReady{ true },
-	m_InvallidTxt{ "0" }
-{
-	m_Pos.SetPosition(x, y, 0.0f);
-}
 
 dae::GameObject::GameObject(float x, float y, BaseComponent* bvComp, std::shared_ptr<RenderComponent> pRender)
 	: m_pRenderComponent{ pRender },
@@ -170,7 +160,7 @@ dae::GameObject::~GameObject()
 {
 
 
-	for (auto pBaseComp : m_VectorpBComponents)
+	for (auto& pBaseComp : m_VectorpBComponents)
 	{
 		delete pBaseComp;
 		pBaseComp = nullptr;

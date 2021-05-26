@@ -73,7 +73,6 @@ void dae::QBertGame::LoadQbertCommandKeys()
 
 dae::Level dae::QBertGame::ReadLevelFile(int index) const
 {
-	//std::ifstream file{ "../Data/LevelLayout/Levels.Json" };
 	std::ifstream file{ m_LevelsAdress };
 
 

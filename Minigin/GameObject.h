@@ -16,7 +16,6 @@ namespace dae
 	public:
 		GameObject(float x, float y);
 		GameObject(float x, float y, std::shared_ptr<RenderComponent> pRender);
-		GameObject(float x, float y, std::vector<BaseComponent*> bvComp , std::shared_ptr<RenderComponent> pRender);
 		GameObject(float x, float y, BaseComponent* bvComp, std::shared_ptr<RenderComponent> pRender);
 		
 		void Update(float deltaTime) ;

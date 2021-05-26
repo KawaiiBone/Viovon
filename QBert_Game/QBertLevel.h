@@ -17,6 +17,35 @@ namespace dae
 		std::vector <float> uggAbdWrongwaySpawnTimes;
 		std::vector <float> slickAndSamSpawnTimes;
 		bool penaltyBlocks;
+		Level(int mapSize,const std::vector<int>& leftFloatDisc,const std::vector<int>& rightFloatDisc, const std::vector<std::string>& blockTextureAdres, 
+			const std::vector<std::string>& blockTextureNick,const std::string & discAdress, bool coilyspawn,float cSpawnTime ,
+			const std::vector <float>& uggSpawntimes, const std::vector <float>& SlickSpawntimes, bool penalty):
+			mapSizeColumns(mapSize),
+			leftFloatingDiscs(leftFloatDisc),
+			rightFloatingDiscs(rightFloatDisc),
+			blockTextureAdressNames(blockTextureAdres),
+			blockTextureNickNames(blockTextureNick),
+			diskAdress(discAdress),
+			coilySpawn(coilyspawn),
+			coilySpawnTime(cSpawnTime),
+			uggAbdWrongwaySpawnTimes(uggSpawntimes),
+			slickAndSamSpawnTimes(SlickSpawntimes),
+			penaltyBlocks(penalty)
+		{
+		}
+		Level():
+			mapSizeColumns(0),
+			leftFloatingDiscs({}),
+			rightFloatingDiscs({}),
+			blockTextureAdressNames({}),
+			blockTextureNickNames({}),
+			diskAdress(""),
+			coilySpawn(false),
+			coilySpawnTime(0),
+			uggAbdWrongwaySpawnTimes({}),
+			slickAndSamSpawnTimes({}),
+			penaltyBlocks(false)
+		{}
 	};
 	
 	class QBertLevel

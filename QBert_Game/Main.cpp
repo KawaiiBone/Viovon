@@ -1,7 +1,12 @@
 
-#include <Minigin.h>
+//#include <vld.h>
+#if _DEBUG
+// ReSharper disable once CppUnusedIncludeDirective
 //#include <vld.h>
 #include <../Visual_Leak_Detector/include/vld.h>
+#endif
+
+#include <Minigin.h>
 #include "QBertGame.h"
 
 

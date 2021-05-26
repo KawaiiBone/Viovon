@@ -78,6 +78,7 @@ namespace dae
 		int m_PlayedIndex;
 		bool m_Player1UsesKeyboard;
 		std::vector<std::pair<UINT, std::shared_ptr<Command>>> m_KeyBoardKeysCommands;
+		bool m_SaidWarning;
 		
 	};
 

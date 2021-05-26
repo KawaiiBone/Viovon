@@ -1,0 +1,5 @@
+Quit game: Y/Escape 
+Move left down: Left Button/A/Left Arrow
+Move Right up: Right Button/D/Right Arrow
+Move left Up: Up Button/W/Arrow Up
+Move right down: down Button/S/Arrow Down

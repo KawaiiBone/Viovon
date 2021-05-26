@@ -11,7 +11,8 @@ namespace dae
 		void CreateMenu(QBert& qbertP2, CoilyPlayer& coilyP2);
 	private:
 		void CreateMenuObjects(Scene& scene);
-		
+		void CreateHowToPlayString();
+		std::string m_HowToPlayString;
 		const TypeOfScene m_TypeScene;
 	};
 }

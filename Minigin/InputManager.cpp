@@ -9,7 +9,8 @@ dae::InputManager::InputManager(std::vector< std::pair<Command*, OperateKey>> pc
 	: m_ControllerID(0),
 	m_pQuitCommand{ new Quit() },
 	m_PlayedIndex{ 0 },
-	m_Player1UsesKeyboard{ false }
+	m_Player1UsesKeyboard{ false },
+	m_SaidWarning{false}
 
 {
 
@@ -20,12 +21,17 @@ dae::InputManager::InputManager(std::vector< std::pair<Command*, OperateKey>> pc
 	{
 		std::cout << "controller is not connected!\n";
 	}
+	else
+	{
+		std::cout << "controller is connected!\n";
+	}
 }
 
 dae::InputManager::InputManager()
 	:m_ControllerID(0),
 	m_pQuitCommand{ new Quit() },
-	m_PlayedIndex{ 0 }
+	m_PlayedIndex{ 0 },
+	m_SaidWarning{ false }
 
 {
 
@@ -35,6 +41,10 @@ dae::InputManager::InputManager()
 	{
 
 		std::cout << "controller is not connected!\n";
+	}
+	else
+	{
+		std::cout << "controller is connected!\n";
 	}
 }
 
@@ -87,7 +97,7 @@ std::vector<std::shared_ptr<dae::Command>> dae::InputManager::ProcessInput(int i
 
 	if (IsConnected())
 	{
-		for (auto pCommand : m_pCommandsVector[m_PlayedIndex])
+		for (auto& pCommand : m_pCommandsVector[m_PlayedIndex])
 		{
 			if (IsKeyUsed(pCommand))
 			{
@@ -95,9 +105,11 @@ std::vector<std::shared_ptr<dae::Command>> dae::InputManager::ProcessInput(int i
 			}
 		}
 	}
-	else
+	else if(!m_SaidWarning)
 	{
-		std::cout << "controller is not connected\n!";
+		std::cout << "controller is not connected!\nChanging player 1 controls to keyboard!\n To fix this issue restart the game.\n";
+		m_Player1UsesKeyboard = true;
+		m_SaidWarning = true;
 	}
 
 
