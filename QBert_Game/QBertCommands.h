@@ -74,6 +74,15 @@ namespace dae
 				}
 				playerObjectComp->PLaySound();
 			}
+			else
+			{
+				auto tmpLiveComp = object->GetComponent<LivesComponent>();
+				if (tmpLiveComp)
+				{
+					object->GetComponent<LivesComponent>()->InfluenceLife(-1, object);
+				}
+			
+			}
 
 
 
@@ -144,6 +153,15 @@ namespace dae
 				}
 				playerObjectComp->PLaySound();
 			}
+			else
+			{
+				auto tmpLiveComp = object->GetComponent<LivesComponent>();
+				if (tmpLiveComp)
+				{
+					object->GetComponent<LivesComponent>()->InfluenceLife(-1, object);
+				}
+
+			}
 		
 		}
 	};
@@ -205,6 +223,15 @@ namespace dae
 				}
 				playerObjectComp->PLaySound();
 			}
+			else
+			{
+				auto tmpLiveComp = object->GetComponent<LivesComponent>();
+				if (tmpLiveComp)
+				{
+					object->GetComponent<LivesComponent>()->InfluenceLife(-1, object);
+				}
+
+			}
 	
 
 		}
@@ -262,6 +289,15 @@ namespace dae
 
 				}
 				playerObjectComp->PLaySound();
+			}
+			else
+			{
+				auto tmpLiveComp = object->GetComponent<LivesComponent>();
+				if (tmpLiveComp)
+				{
+					object->GetComponent<LivesComponent>()->InfluenceLife(-1, object);
+				}
+
 			}
 
 		}
