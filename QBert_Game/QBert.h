@@ -5,7 +5,7 @@ namespace dae
 	{
 	public:
 		QBert(int playerIndex);
-		void CreateQbert();
+		void CreateQbert()const;
 	private:
 		const int m_PlayerIndex;
 	};

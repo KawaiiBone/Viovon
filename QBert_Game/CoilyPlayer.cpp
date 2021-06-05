@@ -10,7 +10,7 @@ dae::CoilyPlayer::CoilyPlayer(int playerIndex):
 {
 }
 
-void dae::CoilyPlayer::CreateCoily()
+void dae::CoilyPlayer::CreateCoily() const
 {
 
 
@@ -19,7 +19,7 @@ void dae::CoilyPlayer::CreateCoily()
 
 
 	int randomRow = rand() % (1 + 1) - 1;
-	int row{ 6 + randomRow };
+	const int row{ 6 + randomRow };
 
 	std::string adressTexture;
 

@@ -48,7 +48,7 @@ void dae::QBertGame::LoadQbertGame()
 
 
 
-void dae::QBertGame::LoadQbertCommandKeys()
+void dae::QBertGame::LoadQbertCommandKeys() const
 {
 	auto& input = InputManager::GetInstance();
 

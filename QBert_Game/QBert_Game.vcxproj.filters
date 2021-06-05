@@ -43,15 +43,21 @@
     <Filter Include="Source Files\Observer">
       <UniqueIdentifier>{bfad2e23-1170-4d05-a464-7da3db04a8fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Player">
+      <UniqueIdentifier>{a6846c99-c34d-4bc4-aa8a-b29db19192b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{da068956-f338-4917-a248-098b7deea9d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Player">
+      <UniqueIdentifier>{6cfc8b0c-5cc7-483d-ad04-3df531a3ef80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{eca01ff3-2d77-49e8-bcde-c82aafdb7104}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="QBertGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="QBertMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MapBlockComponent.cpp">
@@ -84,35 +90,32 @@
     <ClCompile Include="UggOrWrongwayAiComponent.cpp">
       <Filter>Source Files\Components\BaseComponents</Filter>
     </ClCompile>
-    <ClCompile Include="QBertLevel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="QBertMenu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CoilyPlayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="QBert.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PLayerComponent.cpp">
       <Filter>Source Files\Components\BaseComponents</Filter>
     </ClCompile>
     <ClCompile Include="PLayerCoilyComponent.cpp">
       <Filter>Source Files\Components\BaseComponents</Filter>
     </ClCompile>
+    <ClCompile Include="CoilyPlayer.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="QBert.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="QBertGame.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="QBertLevel.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="QBertMap.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="QBertMenu.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="QBert.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="QBertGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="QBertMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MapBlockComponent.h">
       <Filter>Header Files\Components\BaseComponents</Filter>
     </ClInclude>
@@ -140,20 +143,29 @@
     <ClInclude Include="UggOrWrongwayAiComponent.h">
       <Filter>Header Files\Components\BaseComponents</Filter>
     </ClInclude>
-    <ClInclude Include="QBertLevel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="QBertMenu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CoilyPlayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PLayerComponent.h">
       <Filter>Header Files\Components\BaseComponents</Filter>
     </ClInclude>
     <ClInclude Include="PLayerCoilyComponent.h">
       <Filter>Header Files\Components\BaseComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="CoilyPlayer.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="QBert.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="QBertGame.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="QBertLevel.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="QBertMap.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="QBertMenu.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

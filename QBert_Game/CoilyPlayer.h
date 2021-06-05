@@ -6,7 +6,7 @@ namespace dae
 	{
 	public:
 		CoilyPlayer(int playerIndex);
-		void CreateCoily();
+		void CreateCoily() const;
 	private:
 		const int m_PlayerIndex;
 

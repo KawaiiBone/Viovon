@@ -122,7 +122,7 @@ glm::vec2 dae::PLayerComponent::GetNewPosition()
 bool dae::PLayerComponent::CanHandleMovement(GameObject* movQber)
 {
 	//auto tmpP = m_pBlockObject->GetComponent<MapBlockComponent>()->HandleQbertMovement(movQbert);
-	auto tmpP = m_pBlockObject->GetComponent<MapPartComponent>()->HandleQbertMovement(movQber);
+	const auto tmpP = m_pBlockObject->GetComponent<MapPartComponent>()->HandleQbertMovement(movQber);
 	if (tmpP)
 	{
 		m_MovementCooldown.cooldownOver = false;

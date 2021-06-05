@@ -52,8 +52,6 @@ namespace dae
 		QBertMap(int windowWidth,int windowHeight, const Level& levelInfo);
 		void LoadMap(Scene& sceneMan);
 		GameObject* GetFirstBlock();
-		Transform GetQbertSpawnPos();
-		std::pair<GameObject*, GameObject*> GetVersusBlocks();
 	private:
 		void CreateGameBlocks();
 		void CreateGameDisks(int row, int collum, int currentRow, int maxRow, float posx, float posy,float width, float height);

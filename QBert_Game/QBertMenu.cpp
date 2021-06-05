@@ -114,17 +114,17 @@ void dae::QBertMenu::CreateMenu(QBert& qbertP2, CoilyPlayer& coilyP2)
 
 }
 
-void dae::QBertMenu::CreateMenuObjects(Scene& scene)
+void dae::QBertMenu::CreateMenuObjects(Scene& scene) const
 {
-	auto backgroundObject = std::make_shared<dae::GameObject>(0.f, 0.f, std::make_shared<TextureComponent>("background.jpg"));
+	const auto backgroundObject = std::make_shared<dae::GameObject>(0.f, 0.f, std::make_shared<TextureComponent>("background.jpg"));
 	scene.AddBackground(backgroundObject/*, false*/);
 
-	auto logoObject = std::make_shared<dae::GameObject>(216.f, 80.f, std::make_shared<TextureComponent>("logo.png"));
+	const auto logoObject = std::make_shared<dae::GameObject>(216.f, 80.f, std::make_shared<TextureComponent>("logo.png"));
 	scene.AddBackground(logoObject/*, false*/);
 
 	SDL_Color colorFps{ 255,0,0 };
-	auto fontFps = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
-	auto FpsObject = std::make_shared<dae::GameObject>(0.f, 10.f);
+	const	auto fontFps = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
+	const auto FpsObject = std::make_shared<dae::GameObject>(0.f, 10.f);
 	FpsObject->AddPairComponent(new dae::TextComponent("FPS", fontFps, colorFps, false), new dae::FPSComponent());
 	scene.Add(FpsObject/*, false*/);
 }

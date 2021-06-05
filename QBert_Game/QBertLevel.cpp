@@ -34,15 +34,13 @@ void dae::QBertLevel::CreateLevel()
 	CreateBackground(scene);
 
 	const SDL_Color colorFps{ 255,0,0 };
-	auto fontFps = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
-	auto FpsObject = std::make_shared<dae::GameObject>(0.f, 10.f);
+	const auto fontFps = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
+	const auto FpsObject = std::make_shared<dae::GameObject>(0.f, 10.f);
 	
 	FpsObject->AddPairComponent(new dae::TextComponent("FPS", fontFps, colorFps, false), new dae::FPSComponent());
 	scene.Add(FpsObject/*, false*/);
 
 	m_Map.LoadMap(scene);
-	//AddPlayers(scene);
-
 	LoadCoily(m_LevelInfo.coilySpawn, scene);
 	LoadUggAbdWrongway(scene);
 	LoadSlickAndSam(scene);
@@ -58,12 +56,11 @@ void dae::QBertLevel::CreateLevel()
 
 void dae::QBertLevel::CreateBackground(Scene& scene) const
 {
-	;
 
-	auto backgroundObject = std::make_shared<dae::GameObject>(0.f, 0.f, std::make_shared<TextureComponent>("background.jpg"));
+	const auto backgroundObject = std::make_shared<dae::GameObject>(0.f, 0.f, std::make_shared<TextureComponent>("background.jpg"));
 	scene.AddBackground(backgroundObject/*, false*/);
 
-	auto logoObject = std::make_shared<dae::GameObject>(216.f, 180.f, std::make_shared<TextureComponent>("logo.png"));
+	const auto logoObject = std::make_shared<dae::GameObject>(216.f, 180.f, std::make_shared<TextureComponent>("logo.png"));
 	scene.AddBackground(logoObject/*, false*/);
 }
 
@@ -78,7 +75,7 @@ void dae::QBertLevel::CreateStartingCoordinatesPlayers()
 	m_PlayerStartingCoordinates.push_back({ GameMode::singleplayer,tmpVec });
 
 	int randomRow = rand() % (1 + 1) - 1;
-	int row{ (rows + randomRow) };
+	const	int row{ (rows + randomRow) };
 
 	tmpVec.push_back({ row,1 });
 
@@ -111,10 +108,10 @@ void dae::QBertLevel::LoadCoily(const bool coilySpawn, Scene& scene) const
 		int row{ (m_LevelInfo.mapSizeColumns-1) + randomRow };
 
 
-		auto m_pBlockObject = scene.GetMapPart(row, 1).second;
+		const auto m_pBlockObject = scene.GetMapPart(row, 1).second;
 
 
-		auto CoilyObject = std::make_shared<dae::GameObject>(m_pBlockObject->GetComponent<MapPartComponent>()->GetPlatformPos().x, m_pBlockObject->GetComponent<MapPartComponent>()->GetPlatformPos().y);
+		const auto CoilyObject = std::make_shared<dae::GameObject>(m_pBlockObject->GetComponent<MapPartComponent>()->GetPlatformPos().x, m_pBlockObject->GetComponent<MapPartComponent>()->GetPlatformPos().y);
 
 		std::vector<std::pair<std::string, std::string>> tmpNames{ {"QBert/CoilyBallForm.png","CoilyBall"},{"QBert/Coily.png","Coily"} };
 		CoilyObject->AddPairComponent(new QbertTexturesComponent(2.f, tmpNames), new CoilyAiComponent(row, { "CoilyBall","Coily" }, m_LevelInfo.coilySpawnTime, "../Data/Sounds/Coilyjump.wav"));
@@ -140,17 +137,17 @@ void dae::QBertLevel::LoadUggAbdWrongway(Scene& scene) const
 			tmpNames3.push_back({ "QBert/Ugg.png","Ugg" });
 		}
 
-		auto m_pBlockObject3 = scene.GetMapPart(row3, 6).second;
+		const auto m_pBlockObject3 = scene.GetMapPart(row3, 6).second;
 		if (randomRow3 == 0)
 		{
-			auto uggObject = std::make_shared<dae::GameObject>(m_pBlockObject3->GetComponent<MapPartComponent>()->GetUggPlatformPos().x, m_pBlockObject3->GetComponent<MapPartComponent>()->GetUggPlatformPos().y);
+			const auto uggObject = std::make_shared<dae::GameObject>(m_pBlockObject3->GetComponent<MapPartComponent>()->GetUggPlatformPos().x, m_pBlockObject3->GetComponent<MapPartComponent>()->GetUggPlatformPos().y);
 			uggObject->AddPairComponent(new QbertTexturesComponent(2.f, tmpNames3), new UggOrWrongwayAiComponent(row3, { tmpNames3[0].second,tmpNames3[0].second }, element, "../Data/Sounds/UggJump.wav"));
 			uggObject->SetRenderStatus(false);
 			scene.Add(uggObject);
 		}
 		else
 		{
-			auto uggObject = std::make_shared<dae::GameObject>(m_pBlockObject3->GetComponent<MapPartComponent>()->GetWrongWayPlatformPos().x, m_pBlockObject3->GetComponent<MapPartComponent>()->GetWrongWayPlatformPos().y);
+			const auto uggObject = std::make_shared<dae::GameObject>(m_pBlockObject3->GetComponent<MapPartComponent>()->GetWrongWayPlatformPos().x, m_pBlockObject3->GetComponent<MapPartComponent>()->GetWrongWayPlatformPos().y);
 			uggObject->AddPairComponent(new QbertTexturesComponent(2.f, tmpNames3), new UggOrWrongwayAiComponent(row3, { tmpNames3[0].second,tmpNames3[0].second }, element, "../Data/Sounds/UggJump.wav"));
 			uggObject->SetRenderStatus(false);
 			scene.Add(uggObject);
@@ -164,7 +161,7 @@ void dae::QBertLevel::LoadSlickAndSam(Scene& scene) const
 	{
 		element;
 		int randomRow2 = rand() % (1 + 1) - 1;
-		int row2{ (m_LevelInfo.mapSizeColumns - 1) + randomRow2 };
+		const int row2{ (m_LevelInfo.mapSizeColumns - 1) + randomRow2 };
 
 
 		auto m_pBlockObject2 = scene.GetMapPart(row2, 1).second;
