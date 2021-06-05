@@ -61,7 +61,7 @@ void dae::SceneManager::SetGameMode(GameMode gameMode)
 	m_GameMode = gameMode;
 }
 
-dae::GameMode dae::SceneManager::GetGameMode()
+dae::GameMode dae::SceneManager::GetGameMode() const
 {
 	return m_GameMode;
 }
