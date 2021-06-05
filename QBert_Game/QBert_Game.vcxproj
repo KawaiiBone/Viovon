@@ -166,7 +166,11 @@
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget)\SDL2.dll" "$(OutputPath)" /R /Y
 xcopy "$(SolutionDir)3rdParty\SDL2_image\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
-xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y</Command>
+xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
+
+xcopy "$(SolutionDir)3rdParty\Visual_Leak_Detector\bin\Win32\*.dll" "$(OutputPath)" /R /Y
+xcopy "$(SolutionDir)3rdParty\Visual_Leak_Detector\bin\Win32\*.manifest" "$(OutputPath)" /R /Y
+xcopy "$(SolutionDir)3rdParty\Visual_Leak_Detector\vld.ini" "$(OutputPath)" /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|Win32'">
@@ -259,7 +263,10 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPat
       <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget)\SDL2.dll" "$(OutputPath)" /R /Y
 xcopy "$(SolutionDir)3rdParty\SDL2_image\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
 xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPath)" /R /Y
-</Command>
+
+xcopy "$(SolutionDir)3rdParty\Visual_Leak_Detector\bin\Win64\*.dll" "$(OutputPath)" /R /Y
+xcopy "$(SolutionDir)3rdParty\Visual_Leak_Detector\bin\Win64\*.manifest" "$(OutputPath)" /R /Y
+xcopy "$(SolutionDir)3rdParty\Visual_Leak_Detector\vld.ini" "$(OutputPath)" /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'">

@@ -74,8 +74,9 @@ namespace dae
 				}
 				playerObjectComp->PLaySound();
 			}
-			else
+			else if (playerObjectComp->IsMovementCooldownOver())
 			{
+				playerObjectComp->ResetCooldown();
 				auto tmpLiveComp = object->GetComponent<LivesComponent>();
 				if (tmpLiveComp)
 				{
@@ -153,8 +154,9 @@ namespace dae
 				}
 				playerObjectComp->PLaySound();
 			}
-			else
+			else if (playerObjectComp->IsMovementCooldownOver())
 			{
+				playerObjectComp->ResetCooldown();
 				auto tmpLiveComp = object->GetComponent<LivesComponent>();
 				if (tmpLiveComp)
 				{
@@ -223,8 +225,9 @@ namespace dae
 				}
 				playerObjectComp->PLaySound();
 			}
-			else
+			else if(playerObjectComp->IsMovementCooldownOver())
 			{
+				playerObjectComp->ResetCooldown();
 				auto tmpLiveComp = object->GetComponent<LivesComponent>();
 				if (tmpLiveComp)
 				{
@@ -290,8 +293,9 @@ namespace dae
 				}
 				playerObjectComp->PLaySound();
 			}
-			else
+			else if (playerObjectComp->IsMovementCooldownOver())
 			{
+				playerObjectComp->ResetCooldown();
 				auto tmpLiveComp = object->GetComponent<LivesComponent>();
 				if (tmpLiveComp)
 				{

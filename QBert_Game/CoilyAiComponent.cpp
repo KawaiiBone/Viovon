@@ -194,37 +194,6 @@ void dae::CoilyAiComponent::CoilyMovement(GameObject& object)
 	auto scene = SceneManager::GetInstance().GetCurrentScene();
 	auto mapPartObject = scene->GetMapPart(tmpRow, tmpCollum);
 
-	/*int tmpRow{ GetCoordinates().row };
-	int tmpCollum{ GetCoordinates().collum };
-	if (object.GetPosition().GetPosition().y >= GetPQBertObject()->GetPosition().GetPosition().y)
-	{
-		tmpCollum--;
-	}
-	else
-	{
-		tmpCollum++;
-	}
-	if (object.GetPosition().GetPosition().x >= GetPQBertObject()->GetPosition().GetPosition().x)
-	{
-		if (tmpCollum > GetCoordinates().collum)
-		{
-			tmpRow--;
-		}
-
-	}
-	else
-	{
-		if (tmpCollum < GetCoordinates().collum)
-		{
-			tmpRow++;
-		}
-
-	}
-
-
-	auto scene = SceneManager::GetInstance().GetCurrentScene();
-	auto mapPartObject = scene->GetMapPart(tmpRow, tmpCollum);*/
-
 	if (mapPartObject.second)
 	{
 		auto mapPartObjectComp = mapPartObject.second->GetComponent<MapPartComponent>();

@@ -25,7 +25,6 @@ namespace dae
 		void SetBlockObject(GameObject* pBlockObject);
 		void Reset(GameObject& object) override;
 		void PLaySound() const;
-	protected:
 		void ResetCooldown();
 	private:
 	

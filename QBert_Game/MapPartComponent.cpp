@@ -44,6 +44,7 @@ glm::vec2 dae::MapPartComponent::GetPlatformPos() const
 dae::GameObject* dae::MapPartComponent::HandleQbertMovement(GameObject* movQbert)
 {
 
+
 	if (movQbert->GetComponent<MapPartComponent>()->IsBlock())
 	{
 		ChangeMovementPosBlock(movQbert);
