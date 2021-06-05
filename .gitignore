@@ -340,7 +340,7 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /Data/music/GameMusic.wav
-/Data/sounds/UggJump.wav
-/Data/sounds/Slickjump.wav
-/Data/sounds/QBertjump.wav
-/Data/sounds/Coilyjump.wav
+#/Data/sounds/UggJump.wav
+#/Data/sounds/Slickjump.wav
+#/Data/sounds/QBertjump.wav
+#/Data/sounds/Coilyjump.wav
