@@ -33,7 +33,7 @@ void dae::QBertLevel::CreateLevel()
 	auto& scene = dae::SceneManager::GetInstance().CreateScene(m_TypeScene);
 	CreateBackground(scene);
 
-	SDL_Color colorFps{ 255,0,0 };
+	const SDL_Color colorFps{ 255,0,0 };
 	auto fontFps = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
 	auto FpsObject = std::make_shared<dae::GameObject>(0.f, 10.f);
 	
@@ -56,7 +56,7 @@ void dae::QBertLevel::CreateLevel()
 
 }
 
-void dae::QBertLevel::CreateBackground(Scene& scene)
+void dae::QBertLevel::CreateBackground(Scene& scene) const
 {
 	;
 

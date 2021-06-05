@@ -13,7 +13,9 @@ dae::PLayerComponent::PLayerComponent(GameObject* pBlockObject, int row, int col
 	m_StartingRow(row),
 	m_StartingCollum(collum),
 	m_SoundPath(soundPath),
-	m_Volume(10)
+	m_Volume(10),
+	m_OldRow(row),
+	m_OldCollum(collum)
 {
 
 }
@@ -67,6 +69,8 @@ void dae::PLayerComponent::ResetCooldown()
 }
 
 
+
+
 std::string dae::PLayerComponent::GetTxt() const
 {
 	return m_Text;
@@ -86,8 +90,15 @@ dae::AxialCoordinates dae::PLayerComponent::GetCoordinates() const
 	return { m_Row,m_Collum };
 }
 
+dae::AxialCoordinates dae::PLayerComponent::GetOldCoordinates() const
+{
+	return { m_OldRow,m_OldCollum };
+}
+
 void dae::PLayerComponent::SetCoordinates(AxialCoordinates coordinates)
 {
+	m_OldRow = m_Row;
+	m_OldCollum = m_Collum;
 	m_Row = coordinates.row;
 	m_Collum = coordinates.collum;
 }

@@ -23,11 +23,11 @@ namespace dae
 		void Reset(GameObject& object) override;
 	private:
 
-
+		bool HasQbertJumpedOnDisk()const;
 		bool CanHandleMovement(GameObject* movQbert);
 		void BallMovement(GameObject& object);
 		void CoilyMovement(GameObject& object);
-
+		const int m_Score;
 		bool m_IsInBallForm;
 
 

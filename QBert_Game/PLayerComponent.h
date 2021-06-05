@@ -17,6 +17,7 @@ namespace dae
 		void SubjectRender()const override;
 		virtual  PlatformStatus GetPlatformStatus();
 		AxialCoordinates GetCoordinates() const;
+		AxialCoordinates GetOldCoordinates() const;
 		void SetCoordinates(AxialCoordinates coordinates);
 		bool IsMovementCooldownOver();
 		glm::vec2 GetNewPosition();
@@ -27,9 +28,12 @@ namespace dae
 	protected:
 		void ResetCooldown();
 	private:
+	
 		GameObject* m_pBlockObject;
 		int m_Row;
 		int m_Collum;
+		int m_OldRow;
+		int m_OldCollum;
 		Cooldown m_MovementCooldown;
 		const std::string m_Text;
 		const int m_StartingRow;

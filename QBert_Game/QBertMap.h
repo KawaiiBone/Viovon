@@ -25,6 +25,12 @@ namespace dae
 			return (row == other.row
 				&& collum == other.collum);
 		}
+
+		bool operator!=(const AxialCoordinates& other) const
+		{
+			return (row != other.row
+				|| collum != other.collum);
+		}
 	};
 	struct MyHash
 	{

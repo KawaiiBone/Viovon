@@ -4,11 +4,13 @@
 #include "Scene.h"
 #include "MapPartComponent.h"
 #include "PLayerComponent.h"
+#include "ScoreComponent.h"
 
 
 dae::CoilyAiComponent::CoilyAiComponent(int Row, const std::vector<std::string>& vecTextureNames, float spawnTime, const std::string& soundPath):
 	AIBaseComponent(Row,1,0.85f, vecTextureNames, spawnTime, soundPath),
-	m_IsInBallForm{ true }
+	m_IsInBallForm{ true },
+	m_Score(500)
 {
 
 
@@ -38,6 +40,8 @@ void dae::CoilyAiComponent::Update(float delta, GameObject& object)
 			m_IsInBallForm = true;
 			return;
 		}
+	
+		
 
 
 		if (IsInMovementCooldown(delta))
@@ -72,6 +76,29 @@ void dae::CoilyAiComponent::Reset(GameObject& /*object*/)
 	m_IsInBallForm = true;
 }
 
+bool dae::CoilyAiComponent::HasQbertJumpedOnDisk() const
+{
+	const auto& playComp = GetPQBertObject()->GetComponent<PLayerComponent>();
+	if (playComp->GetOldCoordinates().row == playComp->GetCoordinates().row)
+	{
+		if (playComp->GetOldCoordinates().collum +1 == playComp->GetCoordinates().collum || playComp->GetOldCoordinates().collum - 1 == playComp->GetCoordinates().collum)
+		{
+			return false;
+		}
+		return true;
+		
+	}
+	if(playComp->GetOldCoordinates().row-1 == playComp->GetCoordinates().row && playComp->GetOldCoordinates().collum + 1 == playComp->GetCoordinates().collum)
+	{
+		return false;
+	}
+	if (playComp->GetOldCoordinates().row + 1 == playComp->GetCoordinates().row && playComp->GetOldCoordinates().collum - 1 == playComp->GetCoordinates().collum)
+	{
+		return false;
+	}
+	return true;
+}
+
 
 void dae::CoilyAiComponent::BallMovement(GameObject& object)
 {
@@ -104,10 +131,70 @@ void dae::CoilyAiComponent::BallMovement(GameObject& object)
 void dae::CoilyAiComponent::CoilyMovement(GameObject& object)
 {
 
-
 	ResetCooldownCounter();
 
+	const auto& playComp = GetPQBertObject()->GetComponent<PLayerComponent>();
+
+	float qBertPosX{ 0.f };
+	float qBertPosY{ 0.f };
 	int tmpRow{ GetCoordinates().row };
+	int tmpCollum{ GetCoordinates().collum };
+	
+	if (playComp->GetOldCoordinates()!= GetCoordinates())
+	{
+		auto tmpBlock = SceneManager::GetInstance().GetCurrentScene()->GetMapPart( playComp->GetOldCoordinates().row, playComp->GetOldCoordinates().collum).second;
+		qBertPosX = tmpBlock->GetPosition().GetPosition().x;
+		qBertPosY = tmpBlock->GetPosition().GetPosition().y;
+	}
+	else
+	{
+		if (!HasQbertJumpedOnDisk())
+		{
+			qBertPosX = GetPQBertObject()->GetPosition().GetPosition().x;
+			qBertPosY = GetPQBertObject()->GetPosition().GetPosition().y;
+		}
+		else
+		{
+			GetPQBertObject()->GetComponent<ScoreComponent>()->InfluenceScore(m_Score,SceneManager::GetInstance().GetPlayers()[0] );
+			PlaySound();
+			Respawn(object);
+			return;
+
+		}
+	
+	}
+
+
+	if (object.GetPosition().GetPosition().y >= qBertPosY)
+	{
+		tmpCollum--;
+	}
+	else
+	{
+		tmpCollum++;
+	}
+	if (object.GetPosition().GetPosition().x >= qBertPosX)
+	{
+		if (tmpCollum > GetCoordinates().collum)
+		{
+			tmpRow--;
+		}
+
+	}
+	else
+	{
+		if (tmpCollum < GetCoordinates().collum)
+		{
+			tmpRow++;
+		}
+
+	}
+
+
+	auto scene = SceneManager::GetInstance().GetCurrentScene();
+	auto mapPartObject = scene->GetMapPart(tmpRow, tmpCollum);
+
+	/*int tmpRow{ GetCoordinates().row };
 	int tmpCollum{ GetCoordinates().collum };
 	if (object.GetPosition().GetPosition().y >= GetPQBertObject()->GetPosition().GetPosition().y)
 	{
@@ -136,7 +223,7 @@ void dae::CoilyAiComponent::CoilyMovement(GameObject& object)
 
 
 	auto scene = SceneManager::GetInstance().GetCurrentScene();
-	auto mapPartObject = scene->GetMapPart(tmpRow, tmpCollum);
+	auto mapPartObject = scene->GetMapPart(tmpRow, tmpCollum);*/
 
 	if (mapPartObject.second)
 	{
