@@ -158,6 +158,7 @@ void dae::CoilyAiComponent::CoilyMovement(GameObject& object)
 			GetPQBertObject()->GetComponent<ScoreComponent>()->InfluenceScore(m_Score,SceneManager::GetInstance().GetPlayers()[0] );
 			PlaySound();
 			Respawn(object);
+			m_IsInBallForm = true;
 			return;
 
 		}

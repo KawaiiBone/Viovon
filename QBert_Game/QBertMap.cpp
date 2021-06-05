@@ -119,7 +119,7 @@ void dae::QBertMap::CreateGameBlocks()
 		{
 
 			CreateGameDisks(j, i, tmpRow, maxBlocksRow, posBlockX, posBlockY, width, height);
-			auto tmpBlockObject = std::make_shared<dae::GameObject>(posBlockX, posBlockY);
+			const auto tmpBlockObject = std::make_shared<dae::GameObject>(posBlockX, posBlockY);
 			m_UnMapBackgroundParts[{tmpRow, collum}] = tmpBlockObject;
 
 			posBlockX += width;
@@ -145,13 +145,13 @@ void dae::QBertMap::CreateGameBlocks()
 	}
 
 
-	for (auto element : m_UnMapBackgroundParts)
+	for (auto& element : m_UnMapBackgroundParts)
 	{
 		if (element.second->GetComponent<MapDiskComponent>())
 		{
 			continue;
 		}
-		auto tmpPos = element.second->GetPosition().GetPosition();
+		auto& tmpPos = element.second->GetPosition().GetPosition();
 		element.second->AddPairComponent(new QbertTexturesComponent(2.f, m_BlockFileNamesWithNickNames), new MapBlockComponent(tmpPos.x, tmpPos.y, width, height, tmpVectorNames, m_PenaltyBlock));
 	}
 

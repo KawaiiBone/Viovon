@@ -84,20 +84,20 @@ void dae::Minigin::TestLoadGame(const int amountOfPLayers) const
 
 	auto& scene = SceneManager::GetInstance().CreateScene(TypeOfScene::demo);
 
-	auto backgroundObject = std::make_shared<GameObject>(0.f, 0.f, std::make_shared<TextureComponent>("background.jpg"));
+	const auto backgroundObject = std::make_shared<GameObject>(0.f, 0.f, std::make_shared<TextureComponent>("background.jpg"));
 	scene.Add(backgroundObject/*, false*/);
 
 	auto logoObject = std::make_shared<GameObject>(216.f, 180.f, std::make_shared<TextureComponent>("logo.png"));
 	scene.Add(logoObject/*, false*/);
 
 	SDL_Color colorTitle{ 255,255,255 };
-	auto fontTitle = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	const auto fontTitle = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 	auto daeTitleObject = std::make_shared<GameObject>(80.f, 20.f, std::make_shared<TextComponent>("Programming 4 Assignment", fontTitle, colorTitle, true));
 	scene.Add(daeTitleObject/*, false*/);
 
 
 	SDL_Color colorFps{ 255,0,0 };
-	auto fontFps = ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
+	const auto fontFps = ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
 	auto FpsObject = std::make_shared<GameObject>(0.f, 10.f);
 	FpsObject->AddPairComponent(new TextComponent("FPS", fontFps, colorFps, false), new FPSComponent());
 	scene.Add(FpsObject/*, false*/);
@@ -122,14 +122,6 @@ void dae::Minigin::Cleanup()
 
 void dae::Minigin::Run()
 {
-
-	//Initialize();
-	//ServiceLocater::RegisterSoundSystem(new SoundSystem());//makes sound
-	//ServiceLocater::GetSoundSystem().PlaySound("../Data/sounds/door1.wav", 50);//test
-	//ServiceLocater::GetSoundSystem().PlaySound("../Data/sounds/door1.wav", 50);
-	//ServiceLocater::GetSoundSystem().PlayMusic("../Data/music/highlands.wav", 100);
-	//ResourceManager::GetInstance().Init("../Data/");
-	//ServiceLocater::RegisterSoundSystem(new SoundSystem());//makes sound
 
 	{
 		auto& renderer = Renderer::GetInstance();
@@ -322,8 +314,8 @@ void dae::Minigin::AddPlayers(Scene& sceneMan, int totalPlayers) const
 		auto scoreObserver{ new ScoreObserver({posScoreObserver.x,posScoreObserver.y,new TextComponent("Score: 0", fontHP, colorHP, false)}) };
 
 		
-		auto hpComponent{ new LivesComponent(20) };
-		auto scoreComponent{ new ScoreComponent(2000) };
+		 auto hpComponent{ new LivesComponent(20) };
+		 auto scoreComponent{ new ScoreComponent(2000) };
 
 		hpComponent->AddObserver(livesObserver);
 		scoreComponent->AddObserver(scoreObserver);
