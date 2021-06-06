@@ -34,7 +34,7 @@ void dae::SceneManager::AddPlayer(std::shared_ptr<GameObject>& object)
 	m_pPlayers.push_back(object);
 }
 
-void dae::SceneManager::ChangeScene(const TypeOfScene typeScene)
+void dae::SceneManager::ChangeScene(const TypeOfScene typeScene, bool fromSelectLevel)
 {
 
 	int counter{ 0 };
@@ -43,13 +43,12 @@ void dae::SceneManager::ChangeScene(const TypeOfScene typeScene)
 	{
 		if (element.second == typeScene)
 		{
-			if (m_ScenesVecIndex != counter)
+			if (m_ScenesVecIndex != counter && !fromSelectLevel)
 			{
 				m_ScenesVecIndex = counter;
 				m_Scenes[m_ScenesVecIndex-1].first->FinishLevel(m_pPlayers);
 			}
 			m_Scenes[m_ScenesVecIndex].first->PlayersToStartingPos(m_pPlayers);
-			
 			return;
 		}
 		counter++;

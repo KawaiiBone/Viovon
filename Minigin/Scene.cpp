@@ -20,24 +20,33 @@ void Scene::AddMap(const std::unordered_map<AxialCoordinates, std::shared_ptr<Ga
 	m_UnMap = Unmap;
 }
 
-bool Scene::HasFinishedLevel() 
+bool Scene::HasFinishedLevel()
 {
 
 	return std::all_of(m_UnMap.begin(), m_UnMap.end(), [](auto& a) {return a.second->GetComponent<MapPartComponent>()->PlatformDone(); });
 
-	
+
 }
 
 void Scene::FinishLevel(std::vector<std::shared_ptr<GameObject>>& players)
 {
-	const int score{25};
-	for (size_t i = 0; i <AmountOfRemainingDisks(); ++i)
+	const int score{ 25 };
+	const int totalDisks{ int(AmountOfRemainingDisks()) };
+
+	if (totalDisks > 0)
 	{
-		for (std::shared_ptr<GameObject> element : players)
+
+		for (std::shared_ptr<GameObject>& element : players)
 		{
-			element->GetComponent<ScoreComponent>()->InfluenceScore(score, element);
+			auto tmpComp = element->GetComponent<ScoreComponent>();
+			if (tmpComp)
+			{
+				tmpComp->InfluenceScore(score * totalDisks, element);
+			}
 		}
 	}
+
+
 }
 
 void Scene::PlayersToStartingPos(std::vector<std::shared_ptr<GameObject>>& players)
@@ -59,7 +68,7 @@ void Scene::PlayersToStartingPos(std::vector<std::shared_ptr<GameObject>>& playe
 		}
 	}
 
-	
+
 
 }
 

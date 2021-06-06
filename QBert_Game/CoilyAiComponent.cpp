@@ -48,7 +48,7 @@ void dae::CoilyAiComponent::Update(float delta, GameObject& object)
 		{
 			return;
 		}
-		else if (m_IsInBallForm)
+		if (m_IsInBallForm)
 		{
 
 			BallMovement(object);

@@ -57,12 +57,7 @@ namespace dae
 						if (tmpTypeScene != TypeOfScene::level3)
 						{
 							tmpTypeScene = static_cast<TypeOfScene>(static_cast<int>(tmpTypeScene) + 1);
-							SceneManager::GetInstance().ChangeScene(tmpTypeScene);
-						}
-						else
-						{
-							SceneManager::GetInstance().ChangeScene(TypeOfScene::startMenu);
-							SceneManager::GetInstance().ResetScenes();
+							SceneManager::GetInstance().ChangeScene(tmpTypeScene, true);
 						}
 					}
 
@@ -137,12 +132,7 @@ namespace dae
 						if (tmpTypeScene != TypeOfScene::level3)
 						{
 							tmpTypeScene = static_cast<TypeOfScene>(static_cast<int>(tmpTypeScene) + 1);
-							SceneManager::GetInstance().ChangeScene(tmpTypeScene);
-						}
-						else
-						{
-							SceneManager::GetInstance().ChangeScene(TypeOfScene::startMenu);
-							SceneManager::GetInstance().ResetScenes();
+							SceneManager::GetInstance().ChangeScene(tmpTypeScene, true);
 						}
 					}
 
@@ -209,12 +199,7 @@ namespace dae
 						if (tmpTypeScene != TypeOfScene::level3)
 						{
 							tmpTypeScene = static_cast<TypeOfScene>(static_cast<int>(tmpTypeScene) + 1);
-							SceneManager::GetInstance().ChangeScene(tmpTypeScene);
-						}
-						else
-						{
-							SceneManager::GetInstance().ChangeScene(TypeOfScene::startMenu);
-							SceneManager::GetInstance().ResetScenes();
+							SceneManager::GetInstance().ChangeScene(tmpTypeScene, true);
 						}
 					}
 				}
@@ -276,12 +261,7 @@ namespace dae
 						if (tmpTypeScene != TypeOfScene::level3)
 						{
 							tmpTypeScene = static_cast<TypeOfScene>(static_cast<int>(tmpTypeScene) + 1);
-							SceneManager::GetInstance().ChangeScene(tmpTypeScene);
-						}
-						else
-						{
-							SceneManager::GetInstance().ChangeScene(TypeOfScene::startMenu);
-							SceneManager::GetInstance().ResetScenes();
+							SceneManager::GetInstance().ChangeScene(tmpTypeScene, true);
 						}
 					}
 

@@ -58,22 +58,22 @@ void dae::QBertMenu::CreateMenu(QBert& qbertP2, CoilyPlayer& coilyP2)
 	InterfacePart infoHowtoPlay{{"",ImVec2{0,0}},		{m_HowToPlayString },	{InterFaceNames::none }	};
 	
 	InterfacePart demo{{"Demo",ImVec2{0,0}},{"" },	{InterFaceNames::play }	};
-	demo.myFunctionWrapper = [](){		SceneManager::GetInstance().ChangeScene(TypeOfScene::demo);	};
+	demo.myFunctionWrapper = [](){		SceneManager::GetInstance().ChangeScene(TypeOfScene::demo, false);	};
 	
 	InterfacePart startPlayPart{{"Play",ImVec2{0,0}},{"" },	{InterFaceNames::start }	};
-	startPlayPart.myFunctionWrapper = []()	{		SceneManager::GetInstance().ChangeScene(TypeOfScene::level1);	};
+	startPlayPart.myFunctionWrapper = []()	{		SceneManager::GetInstance().ChangeScene(TypeOfScene::level1,false);	};
 
 	InterfacePart selectLevel{{"Select Level",ImVec2{0,0}},{"" },	{InterFaceNames::selectedLevel }	};
 	selectLevel.myFunctionWrapper = []()	{	};
 
 	InterfacePart levelOne{{"Level 1",ImVec2{0,0}},{"" },	{InterFaceNames::selectedLevel }	};
-	levelOne.myFunctionWrapper = []()	{		SceneManager::GetInstance().ChangeScene(TypeOfScene::level1);	};
+	levelOne.myFunctionWrapper = []()	{		SceneManager::GetInstance().ChangeScene(TypeOfScene::level1, false);	};
 
 	InterfacePart levelTwo{{"Level 2",ImVec2{0,0}},{"" },	{InterFaceNames::selectedLevel }	};
-	levelTwo.myFunctionWrapper = []()	{		SceneManager::GetInstance().ChangeScene(TypeOfScene::level2);	};
+	levelTwo.myFunctionWrapper = []()	{		SceneManager::GetInstance().ChangeScene(TypeOfScene::level2, false);	};
 
 	InterfacePart levelThree{{"Level 3",ImVec2{0,0}},{"" },	{InterFaceNames::selectedLevel }	};
-	levelThree.myFunctionWrapper = []()	{		SceneManager::GetInstance().ChangeScene(TypeOfScene::level3);	};
+	levelThree.myFunctionWrapper = []()	{		SceneManager::GetInstance().ChangeScene(TypeOfScene::level3, false);	};
 	
 	InterfaceWindow startMenu{ "Start menu",InterFaceNames::start };
 	startMenu.AddInterfacePart(playModes);

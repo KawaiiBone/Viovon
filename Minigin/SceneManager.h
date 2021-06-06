@@ -41,7 +41,7 @@ namespace dae
 		std::vector < std::shared_ptr<GameObject>> GetPlayers();
 		void AddPlayer(std::shared_ptr<GameObject>& object);
 		
-		void ChangeScene(const TypeOfScene typeScene);
+		void ChangeScene(const TypeOfScene typeScene, bool fromSelectLevel);
 		void SetGameMode(GameMode gameMode);
 		GameMode GetGameMode()const ;
 		void ResetScenes();
