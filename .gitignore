@@ -27,7 +27,7 @@ bld/
 [Oo]bj/
 [Ll]og/
 
-!/3rdParty/../bin
+!/3rdParty/
 
 
 # Visual Studio 2015/2017 cache/options directory
