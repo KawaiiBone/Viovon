@@ -13,6 +13,8 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+!/3rdParty/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -27,7 +29,7 @@ bld/
 [Oo]bj/
 [Ll]og/
 
-!3rdParty/SDL2
+
 
 
 # Visual Studio 2015/2017 cache/options directory
