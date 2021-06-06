@@ -24,12 +24,10 @@ x86/
 [Aa][Rr][Mm]64/
 bld/
 #[Bb]in/
-[Oo]bj/
-[Ll]og/
+#[Oo]bj/
+#[Ll]og/
 
-!/3rdParty/SDL2/lib
-!/3rdParty/SDL2_image/lib
-!/3rdParty/SDL2_ttf/lib
+
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
