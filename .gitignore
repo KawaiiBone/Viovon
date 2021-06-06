@@ -27,7 +27,7 @@ bld/
 [Oo]bj/
 [Ll]og/
 
-!/3rdParty/
+!/3rdParty/SDL2
 
 
 # Visual Studio 2015/2017 cache/options directory
