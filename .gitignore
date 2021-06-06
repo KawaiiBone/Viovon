@@ -13,7 +13,7 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
-!/3rdParty/SDL2/lib/x64/SDL2.lib
+#!/3rdParty/SDL2/lib/x64/SDL2.lib
 
 # Build results
 [Dd]ebug/
