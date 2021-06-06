@@ -14,7 +14,7 @@
 *.userprefs
 
 
-
+\3rdParty
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -28,8 +28,7 @@ bld/
 #[Bb]in/
 [Oo]bj/
 [Ll]og/
-!.lib
-!.dll
+
 
 
 
